@@ -1,19 +1,20 @@
 import * as React from 'react'
-import SearchPanel from '../search'
+import QRCodeScanPanel from '../QRCodeScanPanel'
+import SearchPanel from '../SearchPanel'
 import ItemList from './ItemList'
 import MapComponent from './map/MapComponent'
 
 interface IDashboardProps {
 }
 
-type IDashboardScreen = "" | "list" | "search" | "scan"
+type IDashboardScreen = "" | "list" | "search" | "scan" | "quick-scan"
 
 const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     // props 
 
     // states
-    let [screen, setScreen] = React.useState<IDashboardScreen>("search")
+    let [screen, setScreen] = React.useState<IDashboardScreen>("")
     let [itemType, setItemType] = React.useState<"lost" | "found">("lost")
 
     function renderDashboardContent() {
@@ -50,7 +51,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                                     </div>
                                 </div>
                                 <div className="actions">
-                                    <button className="btn scan">scan qr</button>
+                                    <button className="btn scan" onClick={() => { setScreen("quick-scan") }}>scan qr</button>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +141,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     return (<>
         {screen == "" && renderDashboardContent()}
-        
+
         <ItemList show={screen == "list"} onClose={() => setScreen("")}
             onChangeType={setItemType} type={itemType}
             onSelect={(s: any) => setScreen(s)}
@@ -148,6 +149,12 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
         <SearchPanel show={screen == "search"} onClose={() => setScreen('list')}
             type={itemType}
+        />
+
+        <QRCodeScanPanel show={screen == "scan" || screen == "quick-scan"}
+            onClose={() => {
+                (screen == 'scan') ? setScreen('list') : setScreen("")
+            }}
         />
 
     </>)
