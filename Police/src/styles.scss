@@ -1,0 +1,573 @@
+@import "./images";
+
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap");
+$font-1: "Comfortaa";
+
+@import url("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css");
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: $font-1;
+    background-color: white;
+    color: #424242;
+
+    * {
+        // position: relative;
+        box-sizing: border-box;
+
+        /* width */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Track */
+        // &::-webkit-scrollbar-track {
+        //     background: #ffffff;
+        // }
+
+        /* Handle */
+        // &::-webkit-scrollbar-thumb {
+        //     background: #424242;
+        // }
+    }
+}
+
+.btn {
+    width: auto;
+    height: auto;
+    border-radius: 60px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.45);
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+    font-size: 11px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: white;
+        color: #424242;
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.mda-police-dashboard-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+
+    & > .mda-login-page {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        background-image: url($loginBg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 0;
+
+        & > .frosted-backdrop {
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background-color: transparent;
+            backdrop-filter: blur(15px);
+            z-index: -1;
+        }
+
+        & > .content {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+
+            & > .header {
+                width: 100%;
+                height: 35%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+
+                & > .title {
+                    width: 100%;
+                    height: auto;
+                    text-align: center;
+                    padding: 20px 10px;
+                    text-transform: uppercase;
+                    font-size: 16px;
+                    margin-top: 20px;
+
+                    & > .dark {
+                        font-weight: 900;
+                    }
+                }
+
+                & > .logo-cont {
+                    width: 100%;
+                    height: 150px;
+                    margin-top: 40px;
+
+                    & > .logo {
+                        width: 100%;
+                        height: 80%;
+                        background-image: url($policeBadge);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                    }
+
+                    & > .text {
+                        width: 100%;
+                        height: auto;
+                        display: flex;
+                        align-items: flex-end;
+                        justify-content: center;
+                        color: white;
+                        text-transform: uppercase;
+                        font-size: 26px;
+                        margin-top: 20px;
+                    }
+                }
+            }
+
+            & > .form {
+                width: 100%;
+                height: 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                & > .section {
+                    width: 100%;
+                    height: auto;
+                    padding: 15px;
+                    background-color: transparent;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    & > input {
+                        width: 80%;
+                        height: auto;
+                        padding: 15px;
+                        border-radius: 10px;
+                        outline: none;
+                        border: none;
+                        background-color: white;
+                    }
+
+                    & > .btn {
+                        width: auto;
+                        height: auto;
+                        border-radius: 60px;
+                        color: white;
+                        background-color: rgba(0, 0, 0, 0.45);
+                        padding: 10px 20px;
+                        border: none;
+                        outline: none;
+                        text-transform: capitalize;
+                        font-size: 11px;
+                        cursor: pointer;
+
+                        &.login {
+                            background-color: black;
+                            font-size: 12px;
+                            text-transform: uppercase;
+                            padding: 15px 30px;
+                        }
+                    }
+                }
+            }
+
+            & > .footer {
+                width: 100%;
+                height: 10%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & > a {
+                    text-decoration: none;
+                    color: white;
+                    text-transform: uppercase;
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+
+    & > .mda-police-dashboard {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: white;
+        position: relative;
+        padding: 80px 0;
+
+        & > .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 1;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 15px;
+            padding-right: 70px;
+
+            & > .greeting,
+            & > .user {
+                text-transform: capitalize;
+            }
+
+            & > .user {
+                font-size: 16px;
+                font-weight: 900;
+                margin-top: 6px;
+            }
+
+            & > .menu-toggle-btn {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                width: 60px;
+                height: 80px;
+                background-color: white;
+                z-index: 1;
+
+                & > .icon-cont {
+                    width: 100%;
+                    height: 100%;
+                    background-color: transparent;
+
+                    & > .icon {
+                        width: 100%;
+                        height: 100%;
+                        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNCIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDM0IDEzIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojNzA3MDcwO308L3N0eWxlPjwvZGVmcz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzExLjUgLTY5KSI+PGxpbmUgY2xhc3M9ImEiIHgyPSIzNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzExLjUgNjkuNSkiLz48bGluZSBjbGFzcz0iYSIgeDI9IjM0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuNSA4MS41KSIvPjwvZz48L3N2Zz4=");
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 50%;
+                    }
+                }
+            }
+        }
+
+        & > .content {
+            margin: 20px 0;
+            width: 100%;
+            height: auto;
+            min-height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            & > .title {
+                width: 100%;
+                height: auto;
+                padding: 10px 15px;
+                text-transform: uppercase;
+                font-size: 10px;
+                font-weight: 900;
+                position: sticky;
+                top: 0;
+                left: 0;
+            }
+
+            & > .quick-actions {
+                width: 100%;
+                height: 350px;
+                padding: 15px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                overflow-x: auto;
+
+                & > .quick-action-thumbnail-cont {
+                    width: 90%;
+                    height: 100%;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    position: relative;
+
+                    & > .quick-action-thumbnail {
+                        width: 85%;
+                        height: 90%;
+                        border-radius: 20px;
+                        box-shadow: 3px 3px 20px 4px rgba(0, 0, 0, 0.12);
+                        margin: 5%;
+                        overflow: hidden;
+
+                        &.tag-item {
+                            & > .top {
+                                width: 100%;
+                                height: 60%;
+                                background-image: url($tagItemBg);
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-size: 120%;
+                                position: relative;
+
+                                &:before {
+                                    content: "";
+                                    width: 100%;
+                                    height: 100%;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    backdrop-filter: blur(10px);
+                                }
+
+                                &::after {
+                                    content: "";
+                                    width: 50%;
+                                    height: 50%;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    background-image: url($policeBadge);
+                                    background-position: center;
+                                    background-repeat: no-repeat;
+                                    background-size: 40%;
+                                }
+                            }
+
+                            & > .bottom {
+                                width: 100%;
+                                height: 40%;
+                                background-color: white;
+                                position: relative;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                padding: 15px 20px;
+
+                                & > .label {
+                                    width: auto;
+                                    height: auto;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: flex-start;
+
+                                    & > .icon-cont {
+                                        width: 30px;
+                                        height: 40px;
+                                        background-color: transparent;
+                                        margin-right: 10px;
+
+                                        & > .icon {
+                                            width: 100%;
+                                            height: 100%;
+                                            background-image: url($tagIcon);
+                                            background-position: center;
+                                            background-repeat: no-repeat;
+                                            background-size: 80%;
+                                        }
+                                    }
+
+                                    & > .title {
+                                        width: auto;
+                                        height: auto;
+
+                                        & > .small {
+                                            font-size: 11px;
+                                        }
+                                        & > .large {
+                                            font-size: 14px;
+                                            font-weight: 900;
+                                        }
+                                    }
+                                }
+
+                                & > .actions {
+                                    width: auto;
+                                    height: auto;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    & > button {
+                                        background-color: #eaeaea;
+                                        color: #424242;
+                                        text-transform: uppercase;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.covid-violation {
+                            padding: 20px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            justify-content: space-between;
+
+                            & > .header {
+                                width: 100%;
+                                height: auto;
+
+                                & > .icon-cont {
+                                    width: 50px;
+                                    height: 50px;
+                                    background-color: transparent;
+
+                                    & > .icon {
+                                        width: 100%;
+                                        height: 100%;
+                                        background-image: url($carIcon);
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        background-size: 80%;
+                                        filter: invert(68%) sepia(96%) saturate(1390%) hue-rotate(306deg)
+                                            brightness(98%) contrast(111%);
+                                    }
+                                }
+                            }
+
+                            & > .content {
+                                width: 100%;
+                                height: auto;
+                                text-transform: uppercase;
+                                font-size: 16px;
+                                line-height: 1.25;
+
+                                & > .large {
+                                    font-size: 28px;
+                                    margin: 10px 0;
+                                }
+                            }
+
+                            & > .actions {
+                                width: 100%;
+                                height: auto;
+                                padding: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
+                                button {
+                                    text-transform: capitalize;
+                                    background-color: #fff3f3;
+                                    color: #424242;
+                                    font-size: 14px;
+                                    padding: 10px 25px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            & > .last-reported-item {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                padding-top: 220px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 20px;
+                overflow: hidden;
+                position: relative;
+
+                & > .map-preview {
+                    position: absolute;
+                    top: 15px;
+                    left: 15px;
+                    right: 15px;
+                    height: 220px;
+                    border-radius: 20px 20px 0 0;
+                    overflow: hidden;
+                    z-index: 0;
+                }
+
+                & > .ino-panel {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 20px;
+                    background-color: #f8fbfc;
+                    padding: 20px;
+                    z-index: 1;
+                    box-shadow: 0px -5px 20px 0px rgba(0, 0, 0, 0.12);
+
+                    & > .header {
+                        width: 100%;
+                        height: auto;
+                        margin-bottom: 10px;
+                        & > .icon-cont {
+                            width: 80px;
+                            height: 80px;
+                            background-color: transparent;
+                            & > .icon {
+                                width: 100%;
+                                height: 100%;
+                                background-image: url($mapMarkerIcon);
+                                background-position: left;
+                                background-repeat: no-repeat;
+                                background-size: 50%;
+                                filter: invert(41%) sepia(53%) saturate(3333%) hue-rotate(226deg) brightness(104%)
+                                    contrast(88%);
+                            }
+                        }
+                    }
+
+                    & > .content {
+                        width: 100%;
+                        height: auto;
+                        text-transform: uppercase;
+                        font-size: 16px;
+                        line-height: 1.25;
+                        margin-bottom: 30px;
+
+                        & > .large {
+                            font-size: 28px;
+                            margin: 10px 0;
+                        }
+                    }
+
+                    & > .actions {
+                        width: 100%;
+                        height: auto;
+
+                        button {
+                            text-transform: capitalize;
+                            background-color: #ffc465;
+                            color: #424242;
+                            font-size: 14px;
+                            padding: 10px 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
