@@ -1,6 +1,6 @@
 import * as React from 'react'
-import QRCodeScanPanel from '../QRCodeScanPanel'
-import SearchPanel from '../SearchPanel'
+import QRCodeScanPanel from './QRCodeScanPanel'
+import SearchPanel from './SearchPanel'
 import ItemList from './ItemList'
 import MapComponent from './map/MapComponent'
 
