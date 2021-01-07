@@ -1,4 +1,5 @@
 import * as React from 'react'
+import SearchPanel from '../search'
 import ItemList from './ItemList'
 import MapComponent from './map/MapComponent'
 
@@ -12,8 +13,8 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     // props 
 
     // states
-    let [screen, setScreen] = React.useState<IDashboardScreen>("list")
-
+    let [screen, setScreen] = React.useState<IDashboardScreen>("search")
+    let [itemType, setItemType] = React.useState<"lost" | "found">("lost")
 
     function renderDashboardContent() {
         return (<div className="mda-police-dashboard">
@@ -139,7 +140,16 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     return (<>
         {screen == "" && renderDashboardContent()}
-        <ItemList show={screen == "list"} onClose={() => setScreen("")} />
+        
+        <ItemList show={screen == "list"} onClose={() => setScreen("")}
+            onChangeType={setItemType} type={itemType}
+            onSelect={(s: any) => setScreen(s)}
+        />
+
+        <SearchPanel show={screen == "search"} onClose={() => setScreen('list')}
+            type={itemType}
+        />
+
     </>)
 }
 

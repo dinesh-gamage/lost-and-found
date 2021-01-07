@@ -4,15 +4,15 @@ import * as React from 'react'
 interface IItemListProps {
     show: boolean,
     onClose: () => void
+    type: "lost" | "found"
+    onChangeType: (type: "lost" | "found") => void
+    onSelect: (s: string) => void
 }
 
 const ItemList: React.FunctionComponent<IItemListProps> = (props) => {
 
     //props
-    let { show, onClose } = props
-
-    // state
-    let [itemType, setItemType] = React.useState<"lost" | "found">("found")
+    let { show, onClose, type, onChangeType, onSelect } = props
 
     return (<div className={classNames("mda-popup-screen", { "show": show })}>
         <div className="mda-items-list-cont">
@@ -35,12 +35,12 @@ const ItemList: React.FunctionComponent<IItemListProps> = (props) => {
 
             <div className="toolbar">
                 <div className="toggle-btn">
-                    <button className={classNames("btn", { "active": itemType == "lost" })}
-                        onClick={() => setItemType("lost")}
+                    <button className={classNames("btn", { "active": type == "lost" })}
+                        onClick={() => onChangeType("lost")}
                     >Lost</button>
 
-                    <button className={classNames("btn", { "active": itemType == "found" })}
-                        onClick={() => setItemType("found")}
+                    <button className={classNames("btn", { "active": type == "found" })}
+                        onClick={() => onChangeType("found")}
                     >Found</button>
                 </div>
             </div>
@@ -83,13 +83,13 @@ const ItemList: React.FunctionComponent<IItemListProps> = (props) => {
 
 
             <div className="footer">
-                <div className="scan-btn">
+                <div className="scan-btn" onClick={() => onSelect("scan")}>
                     <div className="icon-cont">
                         <div className="icon"> </div>
                     </div>
                 </div>
 
-                <div className="search-btn">
+                <div className="search-btn" onClick={() => {onSelect("search")}}>
                     <div className="icon-cont">
                         <div className="icon"></div>
                     </div>
