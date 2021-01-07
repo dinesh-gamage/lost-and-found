@@ -25,7 +25,11 @@
     <script src="./dist/main.js"></script>
 
     <script>
-        renderDashboard("root")
+        renderDashboard({
+            root: "root",
+            baseUrl: "__url__",
+            apiKey: "__api_key__"
+        })
     </script>
 
 </body>
