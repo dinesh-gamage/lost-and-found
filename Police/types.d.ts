@@ -8,15 +8,18 @@ interface IContextProvider extends IPartialContextProvider {
 
 }
 
-interface ILostItem {
-    Created: string
-    Description: string
+interface ILostAndFoundItem {
+    _id: string
+    Name: string
+    Phone: string
     Email: string
+    Description: string
     Features: string
     ImageUrl: string
     LastLocation: string
-    Name: string
-    Phone: string
     Status: string
-    _id: string
+    Created: string
+    PoliceStationID?:string
+    LockerID?:string
+    Data?: string
 }
