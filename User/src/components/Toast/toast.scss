@@ -1,0 +1,353 @@
+// variables
+$closeIcon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNS41NjYiIGhlaWdodD0iMjUuNTY2IiB2aWV3Qm94PSIwIDAgMjUuNTY2IDI1LjU2NiI+PGRlZnM+PHN0eWxlPi5he2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHBhdGggY2xhc3M9ImEiIGQ9Ik0xNi4xNTgsMy4zNzVBMTIuNzgzLDEyLjc4MywwLDEsMCwyOC45NDEsMTYuMTU4LDEyLjc4MSwxMi43ODEsMCwwLDAsMTYuMTU4LDMuMzc1Wk0xOS40LDIwLjc4NWwtMy4yMzktMy4yMzktMy4yMzksMy4yMzlBLjk4Mi45ODIsMCwxLDEsMTEuNTMsMTkuNGwzLjIzOS0zLjIzOUwxMS41MywxMi45MTlhLjk4Mi45ODIsMCwwLDEsMS4zODktMS4zODlsMy4yMzksMy4yMzlMMTkuNCwxMS41M2EuOTgyLjk4MiwwLDAsMSwxLjM4OSwxLjM4OWwtMy4yMzksMy4yMzlMMjAuNzg1LDE5LjRhLjk4Ny45ODcsMCwwLDEsMCwxLjM4OUEuOTc2Ljk3NiwwLDAsMSwxOS40LDIwLjc4NVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zLjM3NSAtMy4zNzUpIi8+PC9zdmc+";
+$errorIcon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNS41NjYiIGhlaWdodD0iMjUuNTY2IiB2aWV3Qm94PSIwIDAgMjUuNTY2IDI1LjU2NiI+PGRlZnM+PHN0eWxlPi5he2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHBhdGggY2xhc3M9ImEiIGQ9Ik0xNi4xNTgsMy4zNzVBMTIuNzgzLDEyLjc4MywwLDEsMCwyOC45NDEsMTYuMTU4LDEyLjc4MSwxMi43ODEsMCwwLDAsMTYuMTU4LDMuMzc1Wk0xOS40LDIwLjc4NWwtMy4yMzktMy4yMzktMy4yMzksMy4yMzlBLjk4Mi45ODIsMCwxLDEsMTEuNTMsMTkuNGwzLjIzOS0zLjIzOUwxMS41MywxMi45MTlhLjk4Mi45ODIsMCwwLDEsMS4zODktMS4zODlsMy4yMzksMy4yMzlMMTkuNCwxMS41M2EuOTgyLjk4MiwwLDAsMSwxLjM4OSwxLjM4OWwtMy4yMzksMy4yMzlMMjAuNzg1LDE5LjRhLjk4Ny45ODcsMCwwLDEsMCwxLjM4OUEuOTc2Ljk3NiwwLDAsMSwxOS40LDIwLjc4NVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zLjM3NSAtMy4zNzUpIi8+PC9zdmc+";
+$checkIcon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMy4wNjMiIGhlaWdodD0iMzMuMDYzIiB2aWV3Qm94PSIwIDAgMzMuMDYzIDMzLjA2MyI+PGRlZnM+PHN0eWxlPi5he2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHBhdGggY2xhc3M9ImEiIGQ9Ik0zMy42MjUsMTcuMDk0QTE2LjUzMSwxNi41MzEsMCwxLDEsMTcuMDk0LjU2MywxNi41MzEsMTYuNTMxLDAsMCwxLDMzLjYyNSwxNy4wOTRaTTE1LjE4MiwyNS44NDcsMjcuNDQ3LDEzLjU4MmExLjA2NywxLjA2NywwLDAsMCwwLTEuNTA4bC0xLjUwOC0xLjUwOGExLjA2NywxLjA2NywwLDAsMC0xLjUwOCwwbC0xMCwxMEw5Ljc1OCwxNS45YTEuMDY3LDEuMDY3LDAsMCwwLTEuNTA4LDBMNi43NDEsMTcuNDA2YTEuMDY3LDEuMDY3LDAsMCwwLDAsMS41MDhsNi45MzMsNi45MzNhMS4wNjcsMS4wNjcsMCwwLDAsMS41MDgsMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjU2MyAtMC41NjMpIi8+PC9zdmc+";
+$warningIcon: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPgogIDxwYXRoIGQ9Ik05NTUuNyA4NTZsLTQxNi03MjBjLTYuMi0xMC43LTE2LjktMTYtMjcuNy0xNnMtMjEuNiA1LjMtMjcuNyAxNmwtNDE2IDcyMEM1NiA4NzcuNCA3MS40IDkwNCA5NiA5MDRoODMyYzI0LjYgMCA0MC0yNi42IDI3LjctNDh6TTQ4MCA0MTZjMC00LjQgMy42LTggOC04aDQ4YzQuNCAwIDggMy42IDggOHYxODRjMCA0LjQtMy42IDgtOCA4aC00OGMtNC40IDAtOC0zLjYtOC04VjQxNnptMzIgMzUyYTQ4LjAxIDQ4LjAxIDAgMCAxIDAtOTYgNDguMDEgNDguMDEgMCAwIDEgMCA5NnoiLz4KPC9zdmc+Cg==";
+$infoIcon: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPgogIDxwYXRoIGQ9Ik01MTIgNjRDMjY0LjYgNjQgNjQgMjY0LjYgNjQgNTEyczIwMC42IDQ0OCA0NDggNDQ4IDQ0OC0yMDAuNiA0NDgtNDQ4Uzc1OS40IDY0IDUxMiA2NHptMzIgNjY0YzAgNC40LTMuNiA4LTggOGgtNDhjLTQuNCAwLTgtMy42LTgtOFY0NTZjMC00LjQgMy42LTggOC04aDQ4YzQuNCAwIDggMy42IDggOHYyNzJ6bS0zMi0zNDRhNDguMDEgNDguMDEgMCAwIDEgMC05NiA0OC4wMSA0OC4wMSAwIDAgMSAwIDk2eiIvPgo8L3N2Zz4K";
+
+$toastBg: #ffffff;
+$successColor: #52c9a9;
+$errorColor: #f03535;
+$warningColor: #f58220;
+$infoColor: #5752c9;
+
+@mixin OrangeFilterForSvg {
+    filter: saturate(100%) brightness(0%) invert(74%) sepia(39%) saturate(5567%) hue-rotate(342deg) brightness(95%)
+        contrast(102%);
+}
+
+@mixin GreenFilterForSVG {
+    filter: saturate(100%) brightness(0%) invert(79%) sepia(8%) saturate(2573%) hue-rotate(111deg) brightness(92%)
+        contrast(77%);
+}
+
+@mixin WhiteFilterForSVG {
+    filter: saturate(100%) brightness(0%) invert(100%);
+}
+
+@mixin redFilterForSVG {
+    filter: brightness(0) saturate(100%) invert(26%) sepia(51%) saturate(3968%) hue-rotate(345deg) brightness(97%)
+        contrast(93%);
+}
+@mixin blueFilterForSVG {
+    filter: saturate(100%) brightness(0%) invert(28%) sepia(84%) saturate(1606%) hue-rotate(228deg) brightness(87%)
+        contrast(83%);
+}
+
+.toast-container {
+    position: fixed;
+    background: transparent;
+    // width: auto;
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 9999;
+    padding: 0px;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    .toast {
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        padding: 20px;
+        border-radius: 0;
+        background: rgb(0, 102, 255);
+        background: linear-gradient(135deg, rgba(0, 102, 255, 1) 0%, rgba(112, 0, 203, 1) 90%);
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        box-shadow: -1px 5px 7px -3px rgba(0, 0, 0, 0.12);
+        position: relative;
+
+        .icon-container {
+            width: auto;
+            height: auto;
+            max-width: 40px;
+            max-height: 40px;
+
+            img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
+            .icon {
+                flex-grow: 0;
+                flex-shrink: 0;
+                width: 28px;
+                height: 28px;
+                background-color: transparent;
+                display: none;
+                border: none;
+            }
+        }
+
+        .toast-content {
+            width: auto;
+            min-width: 200px;
+            // max-width: 230px;
+            height: auto;
+            background-color: transparent;
+            padding: 10px;
+
+            &.no-mr {
+                margin-right: 0;
+            }
+
+            .title {
+                width: auto;
+                height: auto;
+                display: block;
+                font-weight: 900;
+                text-transform: capitalize;
+                padding: 4px 10px;
+                font-size: 14px;
+                color: white;
+            }
+
+            .content {
+                width: auto;
+                height: auto;
+                display: block;
+                padding: 4px 10px;
+                font-size: 12px;
+                text-align: left;
+                color: white;
+            }
+        }
+
+        .close {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: transparent;
+            background-image: url($closeIcon);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+
+            &:hover {
+                box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.12);
+            }
+        }
+
+        &.success {
+            .icon {
+                display: block;
+                background-image: url($checkIcon);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                @include WhiteFilterForSVG();
+            }
+
+            .toast-content {
+                .title {
+                    // color: $successColor;
+                }
+
+                .content {
+                    // color: $successColor;
+                }
+            }
+        }
+
+        &.error {
+            background: rgb(245, 129, 129);
+            background: linear-gradient(153deg, rgba(245, 129, 129, 1) 40%, rgba(112, 0, 203, 1) 100%);
+            .icon {
+                display: block;
+                background-image: url($errorIcon);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                @include WhiteFilterForSVG();
+            }
+
+            .toast-content {
+                .title {
+                    // color: $errorColor;
+                }
+
+                .content {
+                    // color: $errorColor;
+                }
+            }
+        }
+
+        &.warning {
+            background: rgb(245, 129, 129);
+            background: linear-gradient(153deg, rgba(245, 129, 129, 1) 40%, rgba(112, 0, 203, 1) 100%);
+            .icon {
+                display: block;
+                background-image: url($warningIcon);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                @include WhiteFilterForSVG();
+            }
+
+            .toast-content {
+                .title {
+                    // color: $warningColor;
+                }
+
+                .content {
+                    // color: $warningColor;
+                }
+            }
+        }
+
+        &.info {
+            .icon {
+                display: block;
+                background-image: url($infoIcon);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                @include WhiteFilterForSVG();
+            }
+
+            .toast-content {
+                .title {
+                    // color: $infoColor;
+                }
+
+                .content {
+                    // color: $infoColor;
+                }
+            }
+        }
+
+        &.custom {
+            .toast-content {
+                color: white;
+
+                .content {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    &.bottom-right {
+        bottom: 20px;
+        right: 0;
+
+        .toast {
+            &.show {
+                animation: slide-to-left-from-right 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+            &.hide {
+                animation: slide-to-right 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+    &.bottom-left {
+        bottom: 20px;
+        left: 20px;
+
+        .toast {
+            &.show {
+                animation: slide-to-right-from-left 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+            &.hide {
+                animation: slide-to-left 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+    &.top-right {
+        top: 20px;
+        right: 20px;
+
+        .toast {
+            &.show {
+                animation: slide-to-left-from-right 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+            &.hide {
+                animation: slide-to-right 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+    &.top-left {
+        top: 20px;
+        left: 20px;
+
+        .toast {
+            &.show {
+                animation: slide-to-right-from-left 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+            &.hide {
+                animation: slide-to-left 300ms cubic-bezier(0.72, 0.87, 0.25, 1);
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+}
+
+@keyframes slide-to-left-from-right {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slide-to-right-from-left {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slide-to-right {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes slide-to-left {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100%;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

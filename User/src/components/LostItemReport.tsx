@@ -6,6 +6,7 @@ import { config } from 'react-transition-group'
 import { DashboardContext } from './DashboardContext'
 import ImageUploader from './image-uploader/ImageUploader'
 import PopupScreen from './PopUpScreen'
+import { useToast } from './Toast'
 
 interface ILostItemReportProps {
     show: boolean,
@@ -33,6 +34,8 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     })
     let [saving, setSaving] = React.useState<boolean>(false)
     let [newFeature, setNewFeature] = React.useState<string>("")
+
+    let Toast = useToast();
 
     function updateObj(key: string, value: string) {
         setLostItem(prev => ({ ...prev, ...{ [key]: value } }))
@@ -65,38 +68,41 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     }
 
     function saveLostItem() {
-        setSaving(true)
-        let _url = Context.baseUrl + "Lucy/LostItem/create"
+        if (!saving) {
+            setSaving(true)
 
-        let config: AxiosRequestConfig = {
-            headers: {
-                "Authorization": `APIKEY ${Context.apiKey}`
+            let _url = Context.baseUrl + "Lucy/LostItem/create"
+
+            let config: AxiosRequestConfig = {
+                headers: {
+                    "Authorization": `APIKEY ${Context.apiKey}`
+                }
             }
+
+            let data = {
+                Title: lostItem.Title,
+                Name: lostItem.Name,
+                Email: lostItem.Email,
+                Phone: lostItem.Phone,
+                Description: lostItem.Description,
+                Status: lostItem.Status,
+                ImageUrl: lostItem.ImageUrl,
+                Features: lostItem.Features.split(","),
+                LastLocation: lostItem.LastLocation
+            }
+
+            axios.post(_url, data, config)
+                .then((res) => {
+                    onClose()
+                    Toast.success("Record created")
+                    setSaving(false)
+                })
+                .catch((e) => {
+                    console.log("Exception : ", e)
+                    setSaving(false)
+                    Toast.error("Something went wrong")
+                })
         }
-
-        let data = {
-            Title: lostItem.Title,
-            Name: lostItem.Name,
-            Email: lostItem.Email,
-            Phone: lostItem.Phone,
-            Description: lostItem.Description,
-            Status: lostItem.Status,
-            ImageUrl: lostItem.ImageUrl,
-            Features: lostItem.Features.split(","),
-            LastLocation: lostItem.LastLocation
-        }
-
-        axios.post(_url, data, config)
-            .then((res) => {
-                console.log("res ", res)
-
-                onClose()
-                setSaving(false)
-            })
-            .catch((e) => {
-                console.log("Exception : ", e)
-                setSaving(false)
-            })
     }
 
     return (<PopupScreen show={show}>

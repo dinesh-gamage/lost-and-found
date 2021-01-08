@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDom from 'react-dom'
 import Dashboard from './components/Dashboard'
 import { DashboardContext } from './components/DashboardContext'
+import { ToastProvider } from './components/Toast'
 
 
 import './styles.scss'
@@ -18,9 +19,11 @@ const PoliceDashboard: React.FunctionComponent<IDashboardContainerProps> = (prop
     let [screen, setScreen] = React.useState<IScreen>("dashboard")
 
     return (<DashboardContext.Provider value={props.context} >
-        <div className="mda-user-dashboard-container">
-            {screen == "dashboard" && <Dashboard />}
-        </div>
+        <ToastProvider autoClose={false}>
+            <div className="mda-user-dashboard-container">
+                {screen == "dashboard" && <Dashboard />}
+            </div>
+        </ToastProvider>
     </DashboardContext.Provider>)
 }
 

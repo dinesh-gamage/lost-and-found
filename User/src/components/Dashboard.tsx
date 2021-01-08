@@ -11,7 +11,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     // props 
 
     // states
-    let [screen, setScreen] = React.useState<IDashboardScreen>("search")
+    let [screen, setScreen] = React.useState<IDashboardScreen>("")
 
     function renderDashboardContent() {
         return (<div className="mda-user-dashboard">

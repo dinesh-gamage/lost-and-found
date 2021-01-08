@@ -2,6 +2,7 @@ import Axios, { AxiosRequestConfig } from 'axios';
 import classNames = require('classnames');
 import * as React from 'react';
 import { DashboardContext } from '../DashboardContext';
+import { useToast } from '../Toast';
 
 import './image_uploader.scss'
 
@@ -22,7 +23,7 @@ const ImageUploader: React.FunctionComponent<IImageUploaderProps> = (props) => {
     let [processing, setProcessing] = React.useState<boolean>(false)
     let [closePanel, setClosePanel] = React.useState<boolean>(false)
 
-    // let Toast = useToast();
+    let Toast = useToast();
 
     let fileInputRef = React.useRef(null)
 
@@ -44,37 +45,40 @@ const ImageUploader: React.FunctionComponent<IImageUploaderProps> = (props) => {
     }
 
     const onClickUpload = () => {
+        
+        if (!processing) {
+            if (data.file) {
+                setProcessing(true)
 
-        if (data.file) {
-            setProcessing(true)
+                let url: string = Context.baseUrl + "Lucy/LostItem/uploadimage"
 
-            let url: string = Context.baseUrl + "Lucy/LostItem/uploadimage"
+                let uploadContent: FormData = new FormData()
+                uploadContent.append("File", data.file)
 
-            let uploadContent: FormData = new FormData()
-            uploadContent.append("File", data.file)
-
-            let config: AxiosRequestConfig = {
-                headers: {
-                    "Authorization": `APIKEY ${Context.apiKey}`
+                let config: AxiosRequestConfig = {
+                    headers: {
+                        "Authorization": `APIKEY ${Context.apiKey}`
+                    }
                 }
+
+                Axios.post(url, uploadContent, config)
+                    .then(res => {
+                        console.log("upload response ", res)
+                        setProcessing(false)
+                        afterUpload(res.data);
+                        Toast.success("Image Uploaded!")
+                    })
+                    .catch(e => {
+                        console.log("Except : ", e)
+                        setProcessing(false)
+                        Toast.error("Something Went wrong")
+                    })
+
             }
-
-            Axios.post(url, uploadContent, config)
-                .then(res => {
-                    console.log("upload response ", res)
-                    setProcessing(false)
-                    afterUpload(res.data);
-                    // Toast.success("Uploaded! Save your changes")
-                })
-                .catch(e => {
-                    console.log("Except : ", e)
-                    setProcessing(false)
-                    // Toast.error("Something Went wrong")
-                })
-
-        }
-        else {
-            // Toast.error("Please select a file or enter a url")
+            else {
+                setProcessing(false)
+                Toast.error("Please select an image to upload")
+            }
         }
     }
 
