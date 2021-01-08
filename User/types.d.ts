@@ -24,3 +24,14 @@ interface ILostAndFoundItem {
     LockerID?:string
     Data?: string
 }
+interface IColor {
+    hex: string,
+    color: string
+}
+interface UploadResponse{
+    ImageUrl: string
+    Features: {
+        colors: IColor[],
+        labels: string[]
+    }
+}

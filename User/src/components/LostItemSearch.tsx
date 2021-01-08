@@ -24,6 +24,12 @@ const LostItemSearch: React.FunctionComponent<ILostItemSearchProps> = (props) =>
     let [showList, setShowList] = React.useState<boolean>(false)
     let [showReport, setShowReport] = React.useState<boolean>(false)
 
+    React.useEffect(() => {
+        setTimeout(() => {
+            setShowReport(true)
+        }, 500);
+    }, [])
+
     function onSearch() {
         setLoading(true)
         setShowList(true)
