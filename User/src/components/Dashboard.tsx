@@ -50,18 +50,10 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                         <div className="quick-action-thumbnail hijab">
                             <div className="top"></div>
                             <div className="bottom">
-                                <div className="label">
-                                    <div className="icon-cont">
-                                        <div className="icon"></div>
-                                    </div>
-
-                                    <div className="title">
-                                        <span className="small">Islamic traditions</span> <br />
-                                        <span className="large">Learn more</span>
-                                    </div>
-                                </div>
-                                <div className="actions">
-                                    <button className="btn scan" >PLAY</button>
+                            <div className="content">
+                                    <span> Hijab Offers</span>
+                                    <div className="large">40% off</div>
+                                    <span>  Al Khalidiya Mall</span>
                                 </div>
                             </div>
                         </div>
