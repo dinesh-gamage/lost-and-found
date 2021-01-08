@@ -1,10 +1,12 @@
 import * as React from 'react'
 import MapComponent from './map/MapComponent'
+import PopupScreen from './PopUpScreen'
+import Modal from './portal/modal/Modal'
 
 interface IDashboardProps {
 }
 
-type IDashboardScreen = "" | "report" | "search" | "scan" | "quick-scan"
+type IDashboardScreen = "" | "search"
 
 const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
@@ -39,7 +41,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                                     </div>
                                 </div>
                                 <div className="actions">
-                                    <button className="btn scan" onClick={() => { setScreen("report") }}>search</button>
+                                    <button className="btn scan" onClick={() => { setScreen("search") }}>search</button>
                                 </div>
                             </div>
                         </div>
@@ -53,8 +55,6 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     return (<>
         {screen == "" && renderDashboardContent()}
-
-
 
     </>)
 }

@@ -256,3 +256,37 @@ body,
     }
 
 }
+
+
+// slide up from bottom
+.slide-upb-enter {
+    transform-origin: bottom;
+    transform: translateY(110%)
+}
+
+.slide-upb-enter-active {
+    transform: translateY(0);
+    transition: all 300ms ease-in;
+}
+
+.slide-upb-exit {
+    transform: translateY(0);
+    transform-origin: bottom;
+}
+
+.slide-upb-exit-active {
+    transform: translateY(110%);
+    transition: all 300ms ease-in;
+}
+
+.mda-popup-screen-container{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    z-index: 1000;
+}
