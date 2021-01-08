@@ -30,8 +30,8 @@ const LostItemSearch: React.FunctionComponent<ILostItemSearchProps> = (props) =>
         setShowList(true)
         setItems([])
 
-        // let _url = Context.baseUrl + "Lucy/FoundItem/find"
-        let _url = Context.baseUrl + "Lucy/LostItem/find"
+        let _url = Context.baseUrl + "Lucy/FoundItem/find"
+        // let _url = Context.baseUrl + "Lucy/LostItem/find"
 
         let config: AxiosRequestConfig = {
             headers: {
