@@ -247,21 +247,17 @@ body,
                                 }
                             }
                         }
-
                     }
                 }
             }
-
         }
     }
-
 }
-
 
 // slide up from bottom
 .slide-upb-enter {
     transform-origin: bottom;
-    transform: translateY(110%)
+    transform: translateY(110%);
 }
 
 .slide-upb-enter-active {
@@ -279,7 +275,7 @@ body,
     transition: all 300ms ease-in;
 }
 
-.mda-popup-screen-container{
+.mda-popup-screen-container {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -289,4 +285,315 @@ body,
     margin: 0;
     padding: 0;
     z-index: 1000;
+
+    & > .mda-search-panel-cont {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        padding: 10px;
+        padding-top: 80px;
+        position: relative;
+
+        & > .header {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: absolute;
+            padding: 15px;
+            top: 0;
+            left: 0;
+
+            & > .back-btn {
+                width: 40px;
+                height: 40px;
+
+                & > .icon-cont {
+                    width: 100%;
+                    height: 100%;
+                    background-color: transparent;
+
+                    & > .icon {
+                        width: 100%;
+                        height: 100%;
+                        background-image: url($arrowLeft);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 50%;
+                    }
+                }
+            }
+
+            & > .title {
+                text-transform: uppercase;
+            }
+
+            & > .close-btn {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCA3MCA3MCI+PGRlZnM+PHN0eWxlPi5he2ZpbGw6I2M5NTI3Yjt9LmJ7ZmlsbDojZmZmO30uY3tmaWx0ZXI6dXJsKCNhKTt9PC9zdHlsZT48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIiB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGZlT2Zmc2V0IGR5PSIzIiBpbnB1dD0iU291cmNlQWxwaGEiLz48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIzIiByZXN1bHQ9ImIiLz48ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwLjE2MSIvPjxmZUNvbXBvc2l0ZSBvcGVyYXRvcj0iaW4iIGluMj0iYiIvPjxmZUNvbXBvc2l0ZSBpbj0iU291cmNlR3JhcGhpYyIvPjwvZmlsdGVyPjwvZGVmcz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjkzLjc3IC0zNCkiPjxnIGNsYXNzPSJjIiB0cmFuc2Zvcm09Im1hdHJpeCgxLCAwLCAwLCAxLCAyOTMuNzcsIDM0KSI+PGNpcmNsZSBjbGFzcz0iYSIgY3g9IjI2IiBjeT0iMjYiIHI9IjI2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5IDYpIi8+PC9nPjxwYXRoIGNsYXNzPSJiIiBkPSJNMjUuOTEsMTYuODc1SDE5LjEyNVYxMC4wOWExLjEyNSwxLjEyNSwwLDAsMC0yLjI1LDB2Ni43ODVIMTAuMDlhMS4xMjUsMS4xMjUsMCwwLDAsMCwyLjI1aDYuNzg1VjI1LjkxYTEuMTI1LDEuMTI1LDAsMCwwLDIuMjUsMFYxOS4xMjVIMjUuOTFhMS4xMjUsMS4xMjUsMCwwLDAsMC0yLjI1WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzI5IDQwLjU5NCkgcm90YXRlKDQ1KSIvPjwvZz48L3N2Zz4=");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 120%;
+            }
+        }
+        & > .content {
+            width: 100%;
+            height: 100%;
+
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            & > .search-box-cont {
+                width: 90%;
+                height: auto;
+                padding: 0;
+                border-radius: 10px;
+                position: relative;
+                background-color: transparent;
+
+                &>.lost-items-cont {
+                    position: absolute;
+                    bottom: 100%;
+                    width: 200px;
+                    height:200px;
+                    background-color: transparent;
+
+                    &>.icon {
+                        width: 100%;
+                        height: 100%;
+                        background-image: url($lostItemIconGrey);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 90%;
+                    }
+                }
+
+                & > .title {
+                    padding: 15px 0;
+                }
+
+                & > input {
+                    width: 100%;
+                    height: auto;
+                    padding: 20px;
+                    padding-right: 50px;
+                    border-radius: 10px;
+                    background-color: #f7f7f7;
+                    border: 0.5px solid transparent;
+                    outline: none;
+                    font-size: 14px;
+
+                    &:hover,
+                    &:active,
+                    &:focus,
+                    &.active {
+                        background-color: white;
+                        border: 0.5px solid #7a6ff0;
+                    }
+                }
+
+                & > .search-icon-cont {
+                    width: 40px;
+                    height: 40px;
+                    background-color: transparent;
+                    position: absolute;
+                    right: 5px;
+                    top: 50%;
+
+                    & > .search-icon {
+                        width: 100%;
+                        height: 100%;
+                        background-image: url($searchIcon);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 50%;
+                    }
+                }
+            }
+
+            & > .item-list {
+                width: 100%;
+                height: 0;
+                margin-top: 30px;
+                padding: 0 20px;
+                transform-origin: bottom;
+                transform: scaleY(0);
+                transition: all 300ms ease-in-out;
+
+                &.show {
+                    height: 80%;
+                    transform: scaleY(1);
+                    transition: all 300ms ease-in-out;
+                }
+            }
+        }
+
+        &>.floating-btn {
+            width: 100%;
+            height: auto;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &>button {
+                background-color: #424242;
+
+                &:hover, &:active {
+                    color: white;
+                }
+            }
+
+        }
+    }
 }
+
+.mda-lost-found-items-list {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin: 0;
+    background-color: white;
+    border-radius: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    & > .item {
+        width: 100%;
+        height: auto;
+        background-color: white;
+        color: #424242;
+        padding: 10px;
+        border-radius: 10px;
+
+        &:nth-child(odd) {
+            background-color: #f5f4fe;
+        }
+
+        & > .header {
+            width: 100%;
+            height: auto;
+            padding: 10px 0;
+
+            & > .time {
+                width: auto;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                & > .icon-cont {
+                    width: 15px;
+                    height: 15px;
+                    background-color: transparent;
+
+                    & > .icon {
+                        width: 100%;
+                        height: 100%;
+                        background-image: url($clock);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 100%;
+                        @include GreyFilter();
+                    }
+                }
+
+                & > .text {
+                    margin-left: 10px;
+                    font-size: 11px;
+                }
+            }
+        }
+
+        & > .content {
+            width: 100%;
+            height: auto;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            & > .image-cont {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                overflow: hidden;
+                flex-shrink: 0;
+                flex-grow: 0;
+
+                & > img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            & > .desc {
+                margin-left: 20px;
+                width: auto;
+            }
+        }
+
+        & > .footer {
+            width: 100%;
+            height: auto;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            & > .location {
+                width: auto;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                & > .icon-cont {
+                    width: 15px;
+                    height: 15px;
+                    background-color: transparent;
+
+                    & > .icon {
+                        width: 100%;
+                        height: 100%;
+                        background-image: url($mapMarkerIcon);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 100%;
+                        @include GreyFilter();
+                    }
+                }
+
+                & > .text {
+                    margin-left: 20px;
+                    font-size: 11px;
+                }
+            }
+
+            & > .btn {
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    & > .loading,
+    & > .no-items {
+        width: 100%;
+        height: auto;
+        padding: 40px 0;
+        text-align: center;
+        text-transform: capitalize;
+    }
+}
+

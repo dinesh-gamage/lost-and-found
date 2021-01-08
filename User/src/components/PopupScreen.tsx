@@ -9,6 +9,10 @@ interface IPopupScreenProps {
 
 const PopupScreen: React.FunctionComponent<IPopupScreenProps> = (props) => {
 
+    React.useEffect(() => {
+        console.log("props ", props)
+    }, [props])
+
     return (<CSSTransition
         in={props.show}
         timeout={300}

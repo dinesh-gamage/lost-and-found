@@ -1,7 +1,5 @@
 import * as React from 'react'
-import MapComponent from './map/MapComponent'
-import PopupScreen from './PopUpScreen'
-import Modal from './portal/modal/Modal'
+import LostItemSearch from './LostItemSearch'
 
 interface IDashboardProps {
 }
@@ -13,7 +11,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     // props 
 
     // states
-    let [screen, setScreen] = React.useState<IDashboardScreen>("")
+    let [screen, setScreen] = React.useState<IDashboardScreen>("search")
 
     function renderDashboardContent() {
         return (<div className="mda-user-dashboard">
@@ -55,6 +53,8 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     return (<>
         {screen == "" && renderDashboardContent()}
+
+        <LostItemSearch show={screen == "search"} onClose={() => setScreen("")} />
 
     </>)
 }
