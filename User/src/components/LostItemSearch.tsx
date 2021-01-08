@@ -4,6 +4,7 @@ import classNames = require('classnames')
 import * as React from 'react'
 import { DashboardContext } from './DashboardContext'
 import ItemList from './ItemList'
+import LostItemReport from './LostItemReport'
 import PopupScreen from './PopUpScreen'
 
 interface ILostItemSearchProps {
@@ -21,6 +22,7 @@ const LostItemSearch: React.FunctionComponent<ILostItemSearchProps> = (props) =>
     let [items, setItems] = React.useState<ILostAndFoundItem[]>([])
     let [loading, setLoading] = React.useState<boolean>(false)
     let [showList, setShowList] = React.useState<boolean>(false)
+    let [showReport, setShowReport] = React.useState<boolean>(false)
 
     function onSearch() {
         setLoading(true)
@@ -98,9 +100,10 @@ const LostItemSearch: React.FunctionComponent<ILostItemSearchProps> = (props) =>
             </div>
 
             <div className="floating-btn">
-                <button className="btn">No, Create a report</button>
+                <button className="btn" onClick={() => {setShowReport(true)}} >No, Create a report</button>
             </div>
             
+            <LostItemReport show={showReport} onClose={() => setShowReport(false)} />
         </div>
     </PopupScreen>)
 }

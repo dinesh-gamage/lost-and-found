@@ -13,6 +13,7 @@ interface ILostAndFoundItem {
     Name: string
     Phone: string
     Email: string
+    Title: string
     Description: string
     Features: string
     ImageUrl: string
