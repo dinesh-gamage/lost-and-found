@@ -19,7 +19,7 @@ const PoliceDashboard: React.FunctionComponent<IDashboardContainerProps> = (prop
     let [screen, setScreen] = React.useState<IScreen>("dashboard")
 
     return (<DashboardContext.Provider value={props.context} >
-        <ToastProvider autoClose={false}>
+        <ToastProvider closeAfter={3000}>
             <div className="mda-user-dashboard-container">
                 {screen == "dashboard" && <Dashboard />}
             </div>
