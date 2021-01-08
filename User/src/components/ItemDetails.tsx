@@ -14,6 +14,7 @@ const noImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJb
 const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
     let { item, show, onClose } = props
 
+    let [showHelp, setShowHelp] = React.useState<boolean>(false)
 
     function getImageUrl(image: string): string {
         if (image && image.trim().length > 0) {
@@ -36,7 +37,15 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
     return (<PopupScreen show={show} >
         <div className="mda-item-details-cont">
             <div className="header">
-                <div className="close-btn" onClick={onClose}>
+                <div className="back-btn" onClick={onClose} >
+                    <div className="icon-cont">
+                        <div className="icon"></div>
+                    </div>
+                </div>
+
+                <div className="title">{item?.Title || "Found Item"}</div>
+
+                <div className="close-btn" onClick={onClose} >
                     <div className="icon-cont">
                         <div className="icon"></div>
                     </div>
@@ -89,10 +98,37 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                     </div>
                 </div>
 
-
+                <div className="claim-btn">
+                    <button className="btn" onClick={() => setShowHelp(true)} >Claim</button>
+                </div>
 
             </div>
         </div>
+
+        <PopupScreen show={showHelp}>
+            <div className="mda-search-panel-cont claim">
+                <div className="header">
+                    <div className="back-btn" onClick={() => setShowHelp(false)} >
+                        <div className="icon-cont">
+                            <div className="icon"></div>
+                        </div>
+                    </div>
+
+                    <div className="title">Claim Item</div>
+
+                    <div className="close-btn" onClick={() => setShowHelp(false)} >
+                        <div className="icon-cont">
+                            <div className="icon"></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="claim-item">
+                    <div className="title">Please Visit</div>
+                    <div className="text"> Al Khalidiya police station with your ID proof and our officers will help you further </div>
+                </div>
+            </div>
+        </PopupScreen>
+
     </PopupScreen>)
 }
 
