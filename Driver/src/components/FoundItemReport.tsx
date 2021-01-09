@@ -4,6 +4,7 @@ import classNames = require('classnames')
 import * as React from 'react'
 import { DashboardContext } from './DashboardContext'
 import PopupScreen from './PopUpScreen'
+import TakePhoto from './TakePhoto'
 
 interface IFoundItemReportProps {
     show: boolean,
@@ -41,61 +42,63 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                 </div>
             </div>
 
-            <div className="content">
-                <div className="user-details">
-                    <div className="current">
-                        <div className="profile-image"></div>
-                        <div className="det">
-                            <div className="label">current user</div>
-                            <div className="name">Mr. Monsoor Bilal</div>
-                        </div>
-                    </div>
-
-
-
-                    <div className="details">
-                        <div className="map">
-                            <div className="btn floating-btn">last location</div>
-                        </div>
-                        <div className="bus">
-                            <div className="logo"></div>
-
-                            <div className="text">Thank you for using</div>
-                            <div className="large">Soudi public transport company</div>
-                        </div>
-
-                        <div className="section driver">
-                            <div className="icon"></div>
+            <div className="body">
+                <div className="content">
+                    <div className="user-details">
+                        <div className="current">
+                            <div className="profile-image"></div>
                             <div className="det">
-                                <div className="label">Your Chauffeur</div>
+                                <div className="label">current user</div>
                                 <div className="name">Mr. Monsoor Bilal</div>
                             </div>
                         </div>
 
-                        <div className="section bus">
-                            <div className="icon"></div>
-                            <div className="det">
-                                <div className="label">Bus number</div>
-                                <div className="name">4212 KAA</div>
-                            </div>
-                        </div>
 
-                        <div className="section phone">
-                            <div className="icon"></div>
-                            <div className="det">
-                                <div className="label">mobile number</div>
-                                <div className="name">+961423212234</div>
+
+                        <div className="details">
+                            <div className="map">
+                                <div className="btn floating-btn">last location</div>
                             </div>
+                            <div className="bus">
+                                <div className="logo"></div>
+
+                                <div className="text">Thank you for using</div>
+                                <div className="large">Soudi public transport company</div>
+                            </div>
+
+                            <div className="section driver">
+                                <div className="icon"></div>
+                                <div className="det">
+                                    <div className="label">Your Chauffeur</div>
+                                    <div className="name">Mr. Monsoor Bilal</div>
+                                </div>
+                            </div>
+
+                            <div className="section bus">
+                                <div className="icon"></div>
+                                <div className="det">
+                                    <div className="label">Bus number</div>
+                                    <div className="name">4212 KAA</div>
+                                </div>
+                            </div>
+
+                            <div className="section phone">
+                                <div className="icon"></div>
+                                <div className="det">
+                                    <div className="label">mobile number</div>
+                                    <div className="name">+961423212234</div>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
+                    <div className="image-upload-cont">
+                        <TakePhoto image="" />
+                    </div>
+                    <div className="scan-qr"></div>
 
                 </div>
-                <div className="image-upload-cont">
-
-                </div>
-                <div className="scan-qr"></div>
-
             </div>
         </div>
     </PopupScreen>)

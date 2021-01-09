@@ -708,134 +708,51 @@ body,
                 background-size: 90%;
             }
         }
-        & > .content {
+        & > .body {
             width: 100%;
             height: 100%;
-            position: relative;
-            display: flex;
-            align-items: stretch;
-            justify-content: space-between;
-            overflow-x: hidden;
-            overflow-y: auto;
+
             background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTE0NS40MjQiIGhlaWdodD0iMTcyLjM5OCIgdmlld0JveD0iMCAwIDExNDUuNDI0IDE3Mi4zOTgiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOnVybCgjYSk7fTwvc3R5bGU+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iMC4xNTIiIHkxPSIwLjU2MyIgeDI9IjAuNzkyIiB5Mj0iMC45MDYiIGdyYWRpZW50VW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmM0NjUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZjgxODEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBjbGFzcz0iYSIgZD0iTTAtMTM4LjIwNlMzMy40NDUtMjEuNjU5LDI0MC41Mi0zOC45MTVzNDMyLjQ0OCw1OC42NTUsNjA4LjMsNDEuNjgxLDI2My42NDgtNjkuOTMyLDI2My42NDgtNjkuOTMyVjcuMjQ4cy43NDUsMTMuMjU0LTUuMzk0LDE4LjYtMTkuMTYyLDIuNzc0LTE5LjE2MiwyLjc3NEgxOC41MzhTOS44MzMsMjcuNjQsNS4yLDIzLjc1MSwwLDEzLjA2NCwwLDEzLjA2NFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5LjM4OSAxNDEuMTI0KSIvPjwvc3ZnPg==");
             background-repeat: no-repeat;
             background-position: bottom;
             background-size: 110%;
 
-            & > .user-details {
-                width: 33%;
-                flex-grow: 0;
-                flex-shrink: 0;
+            & > .content {
+                width: 100%;
+                height: 96%;
+                position: relative;
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 20px;
+                align-items: stretch;
+                justify-content: space-between;
+                overflow-x: hidden;
+                overflow-y: auto;
 
-                & > .current {
-                    width: 100%;
-                    height: auto;
-                    padding: 15px;
-                    box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.12);
-                    border-radius: 10px;
-                    margin-bottom: 20px;
+                & > .user-details {
+                    width: 33%;
+                    flex-grow: 0;
+                    flex-shrink: 0;
                     display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
+                    flex-direction: column;
+                    align-items: stretch;
+                    justify-content: stretch;
+                    padding: 20px;
 
-                    & > .profile-image {
-                        width: 50px;
-                        height: 50px;
-                        border-radius: 50%;
-                        background-image: url($profile);
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        background-size: contain;
-                    }
-
-                    & > .det {
-                        margin-left: 15px;
-
-                        & > .label {
-                            text-transform: capitalize;
-                            font-size: 12px;
-                        }
-                        & > .name {
-                            font-size: 16px;
-                            padding: 5px 0;
-                        }
-                    }
-                }
-
-                & > .details {
-                    width: 100%;
-                    height: auto;
-                    box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.12);
-                    border-radius: 10px;
-                    background-color: white;
-
-                    & > .map {
-                        width: 100%;
-                        height: 150px;
-                        background-image: url($mapLastLocation);
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        background-size: 110%;
-                        border-radius: 10px 10px 0 0;
-                        position: relative;
-
-                        & > .floating-btn {
-                            width: auto;
-                            display: inline;
-                            position: absolute;
-                            top: 10px;
-                            left: 10px;
-                            background-color: black;
-                        }
-                    }
-
-                    & > .bus {
+                    & > .current {
                         width: 100%;
                         height: auto;
-                        padding: 10px;
-                        margin: 10px 0;
-
-                        & > .logo {
-                            width: 100%;
-                            height: 40px;
-                            // background-image: url("");
-                            background-position: left;
-                            background-repeat: no-repeat;
-                            background-size: contain;
-                        }
-
-                        & > .text {
-                            width: 100%;
-                            height: auto;
-                            padding: 5px 0;
-                            text-transform: capitalize;
-                            font-weight: 900;
-                        }
-
-                        & > .large {
-                            text-transform: capitalize;
-                            font-size: 18px;
-                        }
-                    }
-
-                    & > .section {
-                        width: 100%;
-                        height: auto;
-                        padding: 10px;
+                        padding: 15px;
+                        box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.12);
+                        border-radius: 10px;
+                        margin-bottom: 20px;
                         display: flex;
                         align-items: center;
                         justify-content: flex-start;
 
-                        & > .icon {
-                            width: 40px;
-                            height: 40px;
+                        & > .profile-image {
+                            width: 50px;
+                            height: 50px;
                             border-radius: 50%;
-                            background-color: #f9f9f9;
+                            background-image: url($profile);
                             background-position: center;
                             background-repeat: no-repeat;
                             background-size: contain;
@@ -843,51 +760,203 @@ body,
 
                         & > .det {
                             margin-left: 15px;
+
                             & > .label {
-                                padding: 5px 0;
-                                font-size: 12px;
                                 text-transform: capitalize;
+                                font-size: 12px;
                             }
                             & > .name {
+                                font-size: 16px;
                                 padding: 5px 0;
-                                font-size: 14px;
-                                text-transform: capitalize;
+                            }
+                        }
+                    }
+
+                    & > .details {
+                        width: 100%;
+                        height: auto;
+                        box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.12);
+                        border-radius: 10px;
+                        background-color: white;
+
+                        & > .map {
+                            width: 100%;
+                            height: 150px;
+                            background-image: url($mapLastLocation);
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: 110%;
+                            border-radius: 10px 10px 0 0;
+                            position: relative;
+
+                            & > .floating-btn {
+                                width: auto;
+                                display: inline;
+                                position: absolute;
+                                top: 10px;
+                                left: 10px;
+                                background-color: black;
                             }
                         }
 
-                        &.driver {
-                            & > .icon {
-                                background-image: url($profile);
+                        & > .bus {
+                            width: 100%;
+                            height: auto;
+                            padding: 10px;
+                            margin: 10px 0;
+
+                            & > .logo {
+                                width: 100%;
+                                height: 40px;
+                                // background-image: url("");
+                                background-position: left;
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                            }
+
+                            & > .text {
+                                width: 100%;
+                                height: auto;
+                                padding: 5px 0;
+                                text-transform: capitalize;
+                                font-weight: 900;
+                            }
+
+                            & > .large {
+                                text-transform: capitalize;
+                                font-size: 18px;
                             }
                         }
-                        &.bus {
+
+                        & > .section {
+                            width: 100%;
+                            height: auto;
+                            padding: 10px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+
                             & > .icon {
-                                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHRpdGxlPmlvbmljb25zLXY1LWg8L3RpdGxlPjxwYXRoIGQ9Ik00MDAsNjRIMTEyYTE2LDE2LDAsMCwwLDAsMzJINDAwYTE2LDE2LDAsMCwwLDAtMzJaIiBzdHlsZT0iZmlsbDpub25lIi8+PHBhdGggZD0iTTQyNCwzMkg4OEEyNCwyNCwwLDAsMCw2NCw1NlY0MTZhMzIsMzIsMCwwLDAsMTYsMjcuNzFWNDgwaDcyVjQ0OEgzNjB2MzJoNzJWNDQzLjcxQTMyLDMyLDAsMCwwLDQ0OCw0MTZWNTZBMjQsMjQsMCwwLDAsNDI0LDMyWk0xNzUuODIsMzcxLjQ3YTMyLDMyLDAsMSwxLTM1LjMtMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMTc1LjgyLDM3MS40N1pNMjQwLDI4OEg5NlYxMjhIMjQwWk0yNTYsOTZIOTYuNDZMOTYsNjRINDE2bC0uNDYsMzJIMjU2Wm0xNiwzMkg0MTZWMjg4SDI3MlptNjQuMTgsMjM2LjUzYTMyLDMyLDAsMSwxLDM1LjMsMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMzM2LjE4LDM2NC41M1oiLz48L3N2Zz4=");
-                                background-size: 70%;
+                                width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                                background-color: #f9f9f9;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-size: contain;
                             }
-                        }
-                        &.phone {
-                            & > .icon {
-                                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItcGhvbmUiPjxwYXRoIGQ9Ik0yMiAxNi45MnYzYTIgMiAwIDAgMS0yLjE4IDIgMTkuNzkgMTkuNzkgMCAwIDEtOC42My0zLjA3IDE5LjUgMTkuNSAwIDAgMS02LTYgMTkuNzkgMTkuNzkgMCAwIDEtMy4wNy04LjY3QTIgMiAwIDAgMSA0LjExIDJoM2EyIDIgMCAwIDEgMiAxLjcyIDEyLjg0IDEyLjg0IDAgMCAwIC43IDIuODEgMiAyIDAgMCAxLS40NSAyLjExTDguMDkgOS45MWExNiAxNiAwIDAgMCA2IDZsMS4yNy0xLjI3YTIgMiAwIDAgMSAyLjExLS40NSAxMi44NCAxMi44NCAwIDAgMCAyLjgxLjdBMiAyIDAgMCAxIDIyIDE2LjkyeiI+PC9wYXRoPjwvc3ZnPg==");
-                                background-size: 70%;
+
+                            & > .det {
+                                margin-left: 15px;
+                                & > .label {
+                                    padding: 5px 0;
+                                    font-size: 12px;
+                                    text-transform: capitalize;
+                                }
+                                & > .name {
+                                    padding: 5px 0;
+                                    font-size: 14px;
+                                    text-transform: capitalize;
+                                }
+                            }
+
+                            &.driver {
+                                & > .icon {
+                                    background-image: url($profile);
+                                }
+                            }
+                            &.bus {
+                                & > .icon {
+                                    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHRpdGxlPmlvbmljb25zLXY1LWg8L3RpdGxlPjxwYXRoIGQ9Ik00MDAsNjRIMTEyYTE2LDE2LDAsMCwwLDAsMzJINDAwYTE2LDE2LDAsMCwwLDAtMzJaIiBzdHlsZT0iZmlsbDpub25lIi8+PHBhdGggZD0iTTQyNCwzMkg4OEEyNCwyNCwwLDAsMCw2NCw1NlY0MTZhMzIsMzIsMCwwLDAsMTYsMjcuNzFWNDgwaDcyVjQ0OEgzNjB2MzJoNzJWNDQzLjcxQTMyLDMyLDAsMCwwLDQ0OCw0MTZWNTZBMjQsMjQsMCwwLDAsNDI0LDMyWk0xNzUuODIsMzcxLjQ3YTMyLDMyLDAsMSwxLTM1LjMtMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMTc1LjgyLDM3MS40N1pNMjQwLDI4OEg5NlYxMjhIMjQwWk0yNTYsOTZIOTYuNDZMOTYsNjRINDE2bC0uNDYsMzJIMjU2Wm0xNiwzMkg0MTZWMjg4SDI3MlptNjQuMTgsMjM2LjUzYTMyLDMyLDAsMSwxLDM1LjMsMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMzM2LjE4LDM2NC41M1oiLz48L3N2Zz4=");
+                                    background-size: 70%;
+                                }
+                            }
+                            &.phone {
+                                & > .icon {
+                                    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItcGhvbmUiPjxwYXRoIGQ9Ik0yMiAxNi45MnYzYTIgMiAwIDAgMS0yLjE4IDIgMTkuNzkgMTkuNzkgMCAwIDEtOC42My0zLjA3IDE5LjUgMTkuNSAwIDAgMS02LTYgMTkuNzkgMTkuNzkgMCAwIDEtMy4wNy04LjY3QTIgMiAwIDAgMSA0LjExIDJoM2EyIDIgMCAwIDEgMiAxLjcyIDEyLjg0IDEyLjg0IDAgMCAwIC43IDIuODEgMiAyIDAgMCAxLS40NSAyLjExTDguMDkgOS45MWExNiAxNiAwIDAgMCA2IDZsMS4yNy0xLjI3YTIgMiAwIDAgMSAyLjExLS40NSAxMi44NCAxMi44NCAwIDAgMCAyLjgxLjdBMiAyIDAgMCAxIDIyIDE2LjkyeiI+PC9wYXRoPjwvc3ZnPg==");
+                                    background-size: 70%;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            &>.image-upload-cont {
-                width: 33%;
-                flex-grow: 0;
-                flex-shrink: 0;
-                border-radius: 15px;
-            }
-            &>.scan-qr {
-                width: 33%;
-                flex-grow: 0;
-                flex-shrink: 0;
-                border-radius: 15px;
+                & > .image-upload-cont {
+                    width: 33%;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    border-radius: 15px;
+                    padding: 15px;
+                }
+                & > .scan-qr {
+                    width: 33%;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    border-radius: 15px;
+                }
             }
         }
     }
+}
+
+.mda-take-photo-cont {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+
+    & > .preview {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & > .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        & > .default-message {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            & > .icon-cont {
+                width: 40px;
+                height: 40px;
+                background-color: transparent;
+                margin-bottom: 20px;
+
+                & > .icon {
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMi4xMDgiIGhlaWdodD0iMjIuMTA4IiB2aWV3Qm94PSIwIDAgMjIuMTA4IDIyLjEwOCI+PGRlZnM+PHN0eWxlPi5he2ZpbGw6bm9uZTtzdHJva2U6IzAwMDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLXdpZHRoOjJweDt9PC9zdHlsZT48L2RlZnM+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI2LjQ1MyAxLjMwNSkiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI3LjYxMikiPjxwYXRoIGNsYXNzPSJhIiBkPSJNMjQuMjc3LDIyLjV2NC4zOTVhMi4yLDIuMiwwLDAsMS0yLjIsMi4ySDYuN2EyLjIsMi4yLDAsMCwxLTIuMi0yLjJWMjIuNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQuNSAtOS4zMTUpIi8+PHBhdGggY2xhc3M9ImEiIGQ9Ik0yMS40ODcsOS45OTQsMTUuOTk0LDQuNSwxMC41LDkuOTk0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNi4xMDUgLTQuNSkiLz48cGF0aCBjbGFzcz0iYSIgZD0iTTE4LDQuNVYxNy42ODUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04LjExMiAtNC41KSIvPjwvZz48L2c+PC9zdmc+");
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: 60%;
+                }
+            }
+        }
+    }
+}
+
+.mda-camera-cont {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    padding: 40px;
+    
+
 }
