@@ -1,0 +1,132 @@
+@import "./images";
+
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap");
+$font-1: "Comfortaa";
+
+@import url("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css");
+
+@mixin GreyFilter {
+    filter: invert(99%) sepia(0%) saturate(3187%) hue-rotate(258deg) brightness(83%) contrast(81%);
+}
+
+@mixin WhiteFilterForSVG {
+    filter: saturate(100%) brightness(0%) invert(100%);
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: $font-1;
+    background-color: white;
+    color: #424242;
+
+    * {
+        // position: relative;
+        box-sizing: border-box;
+
+        /* width */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Track */
+        // &::-webkit-scrollbar-track {
+        //     background: #ffffff;
+        // }
+
+        /* Handle */
+        // &::-webkit-scrollbar-thumb {
+        //     background: #424242;
+        // }
+    }
+}
+
+.btn {
+    width: auto;
+    height: auto;
+    border-radius: 60px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.45);
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+    font-size: 11px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: white;
+        color: #424242;
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.uxp-portal-backdrop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+.mda-driver-dashboard-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+
+    & > .mda-drive-dashboard {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: white;
+        position: relative;
+        padding: 80px 0 20px 0;
+    }
+}
+
+// slide up from bottom
+.slide-frr-enter {
+    transform-origin: bottom;
+    transform: translateX(110%);
+}
+
+.slide-frr-enter-active {
+    transform: translateX(0);
+    transition: all 300ms ease-in;
+}
+
+.slide-frr-exit {
+    transform: translateX(0);
+    transform-origin: bottom;
+}
+
+.slide-frr-exit-active {
+    transform: translateX(110%);
+    transition: all 300ms ease-in;
+}
+
+.mda-popup-screen-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    z-index: 1000;
+
+   
+}
