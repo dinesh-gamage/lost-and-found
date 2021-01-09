@@ -16,7 +16,7 @@ const PopupScreen: React.FunctionComponent<IPopupScreenProps> = (props) => {
     return (<CSSTransition
         in={props.show}
         timeout={300}
-        classNames="slide-upb"
+        classNames="slide-frr"
         unmountOnExit={true}
     >
         <PortalContainer>

@@ -1,16 +1,17 @@
 import * as React from 'react'
+import FoundItemReport from './FoundItemReport'
 
 interface IDashboardProps {
 }
 
-type IDashboardScreen = "" | "dashboard"
+type IDashboardScreen = "" | "report"
 
 const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     // props 
 
     // states
-    let [screen, setScreen] = React.useState<IDashboardScreen>("")
+    let [screen, setScreen] = React.useState<IDashboardScreen>("report")
     let [drivingMode, setDrivingMode] = React.useState<boolean>(false)
 
     function renderDashboardContent() {
@@ -54,10 +55,10 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                                     <div className="time">at 12: 45 PM</div>
                                 </div>
                                 <div className="to">
-                                <div className="icon-cont">
+                                    <div className="icon-cont">
                                         <div className="icon"></div>
                                     </div>
-                                    
+
                                     <div className="label">to</div>
                                     <div className="name">Bada'ah</div>
                                     <div className="time">at 12: 45 PM</div>
@@ -84,7 +85,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                         <div className="right">
                             <div className="small">assalamu alaikum</div>
                             <div className="large">Report items</div>
-                            <button className="btn report">report items found</button>
+                            <button className="btn report" onClick={() => setScreen("report")}>report items found</button>
                         </div>
                     </div>
                 </div>
@@ -168,6 +169,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
         {drivingMode && renderDrivingMode()}
         {screen == "" && renderDashboardContent()}
 
+        <FoundItemReport show={screen == "report"} onClose={() => setScreen("")} />
     </>)
 }
 
