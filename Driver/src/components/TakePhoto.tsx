@@ -3,6 +3,7 @@ import * as React from 'react'
 import CameraComponent from './CameraComponent'
 
 interface ITakePhotoProps {
+    onChange: (base64: string) => void
 }
 
 const TakePhoto: React.FunctionComponent<ITakePhotoProps> = (props) => {
@@ -18,6 +19,9 @@ const TakePhoto: React.FunctionComponent<ITakePhotoProps> = (props) => {
         console.log("state", takePhoto)
     }, [takePhoto])
 
+    React.useEffect(() => {
+        props.onChange(dataUri)
+    }, [dataUri])
 
     return (<div className="mda-take-photo-cont" >
 
@@ -37,7 +41,7 @@ const TakePhoto: React.FunctionComponent<ITakePhotoProps> = (props) => {
 
         <CameraComponent
             show={takePhoto}
-            onCapture={(d) => { setDataUri(d); setTakePhoto(false) }}
+            onCapture={(d) => { setDataUri(d); }}
             onClose={() => { setTakePhoto(false) }}
         />
 

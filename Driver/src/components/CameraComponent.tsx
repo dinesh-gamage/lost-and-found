@@ -84,6 +84,8 @@ const CameraComponent: React.FunctionComponent<ICameraProps> = (props) => {
 
     function savePhoto() {
         onCapture(dataUri)
+        stopVideo()
+        onClose()
     }
 
     function retake() {

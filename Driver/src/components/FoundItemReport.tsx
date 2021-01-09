@@ -5,6 +5,7 @@ import * as React from 'react'
 import { DashboardContext } from './DashboardContext'
 import PopupScreen from './PopUpScreen'
 import TakePhoto from './TakePhoto'
+import { useToast } from './Toast'
 
 interface IFoundItemReportProps {
     show: boolean,
@@ -16,6 +17,73 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
     const Context = React.useContext(DashboardContext)
 
     let { show, onClose } = props
+
+    let [lostItem, setLostItem] = React.useState<ILostAndFoundItem>({
+        _id: null,
+        Name: "Mr. Mansoor Bilal",
+        Phone: "+96144232121234",
+        Email: "",
+        Title: "",
+        Description: "",
+        Features: "",
+        ImageUrl: "",
+        LastLocation: "",
+        Status: "New",
+        Created: ""
+    })
+    let [saving, setSaving] = React.useState<boolean>(false)
+
+
+    let Toast = useToast()
+
+    function dataURLtoFile(base64: string, filename: string) {
+        if (base64.trim().length > 0) {
+            var arr = base64.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], filename, { type: mime });
+        }
+        return null
+    }
+
+    function saveFoundItem() {
+        if (!saving) {
+            setSaving(true)
+
+            let _url = Context.baseUrl + "Lucy/FoundItem/create"
+
+            let config: AxiosRequestConfig = {
+                headers: {
+                    "Authorization": `APIKEY ${Context.apiKey}`
+                }
+            }
+
+            let data = new FormData()
+
+            data.append("Name", lostItem.Name)
+            data.append("Email", lostItem.Email)
+            data.append("Phone", lostItem.Phone)
+            data.append("Description", lostItem.Description)
+            data.append("Status", lostItem.Status)
+            data.append("PoliceStationID", "")
+            data.append("LockerID", "")
+            data.append("File", dataURLtoFile(lostItem.ImageUrl, "a.png"))
+
+            axios.post(_url, data, config)
+                .then((res) => {
+                    onClose()
+                    Toast.success("Record created")
+                    setSaving(false)
+                })
+                .catch((e) => {
+                    console.log("Exception : ", e)
+                    setSaving(false)
+                    Toast.error("Something went wrong")
+                })
+        }
+    }
 
     return (<PopupScreen show={show}>
         <div className="mda-search-panel-cont">
@@ -94,10 +162,13 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
 
                     </div>
                     <div className="image-upload-cont">
-                        <TakePhoto />
+                        <TakePhoto onChange={(s) => { setLostItem(prev => ({ ...prev, ...{ ImageUrl: s } })) }} />
                     </div>
                     <div className="scan-qr"></div>
 
+                    <div className="btn-cont">
+                        <button className="btn" onClick={saveFoundItem}>Submit</button>
+                    </div>
                 </div>
             </div>
         </div>
