@@ -11,145 +11,140 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     // states
     let [screen, setScreen] = React.useState<IDashboardScreen>("")
+    let [drivingMode, setDrivingMode] = React.useState<boolean>(false)
 
     function renderDashboardContent() {
-        return (<div className="mda-user-dashboard">
+        return (<div className="mda-driver-dashboard">
 
             <div className="header">
+                <div className="logo-cont">
+                    <div className="logo"></div>
+                </div>
                 <div className="title">Experience <span className="dark"> Madinah</span></div>
+
+                <div className="toolbar">
+                    <div className="profile">
+                        <div className="pic"></div>
+                        <div className="name">Mansoor Bilal</div>
+                    </div>
+                </div>
             </div>
 
             <div className="content">
-
-                <div className="title">Things to do</div>
-
-                <div className="quick-actions">
-                    <div className="quick-action-thumbnail-cont">
-                        <div className="quick-action-thumbnail watch">
-                            <div className="top"></div>
-                            <div className="bottom">
-                                <div className="label">
-                                    <div className="icon-cont">
-                                        <div className="icon"></div>
-                                    </div>
-
-                                    <div className="title">
-                                        <span className="small">Islamic traditions</span> <br />
-                                        <span className="large">Learn more</span>
-                                    </div>
-                                </div>
-                                <div className="actions">
-                                    <button className="btn scan" >PLAY</button>
-                                </div>
-                            </div>
+                <div className="item route">
+                    <div className="cont">
+                        <div className="left">
+                            <div className="small">assalamu alaikum</div>
+                            <div className="large">Mansoor Bilal</div>
                         </div>
-                    </div>
-
-                    <div className="quick-action-thumbnail-cont">
-                        <div className="quick-action-thumbnail hijab">
-                            <div className="top"></div>
-                            <div className="bottom">
-                                <div className="content">
-                                    <span> Hijab Offers</span>
-                                    <div className="large">40% off</div>
-                                    <span>  Al Khalidiya Mall</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="quick-actions large">
-
-                    <div className="quick-action-thumbnail-cont">
-                        <div className="quick-action-thumbnail map">
-                            <div className="top"></div>
-                            <div className="bottom">
-
-                                <div className="icon"></div>
-                                <div className="content">
-                                    <span> Next bus leaves in</span>
-                                    <div className="large">12 minutes</div>
-                                    <span>  to bada'ah</span>
-                                </div>
-
-
-                                <div className="actions">
-                                    <button className="btn scan" >reserve a seat</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="title">quick actions</div>
-
-                <div className="quick-actions">
-                    <div className="quick-action-thumbnail-cont">
-                        <div className="quick-action-thumbnail report">
-                            <div className="top"></div>
-                            <div className="bottom">
-                                <div className="label">
-                                    <div className="icon-cont">
-                                        <div className="icon"></div>
-                                    </div>
-
-                                    <div className="title">
-                                        <span className="small">Lost Something?</span> <br />
-                                        <span className="large">Report now</span>
-                                    </div>
-                                </div>
-                                <div className="actions">
-                                    {/* <button className="btn scan" onClick={() => { setScreen("search") }}>search</button> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="quick-action-thumbnail-cont">
-                        <div className="quick-action-thumbnail cab-book">
-                            <div className="header">
+                        <div className="right">
+                            <div className="title">
                                 <div className="icon-cont">
                                     <div className="icon"></div>
                                 </div>
+                                <div className="text">your route</div>
                             </div>
-                            <div className="content">
-                                <span> Next cab to board</span>
-                                <div className="large">375 VLS</div>
-                                <span>  white toyota innova</span>
-                            </div>
-
-                            <div className="actions">
-                                <button className="btn notify-patrol">Book</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="quick-actions large">
-
-                    <div className="quick-action-thumbnail-cont">
-                        <div className="quick-action-thumbnail prayer">
-                            <div className="top"></div>
-                            <div className="bottom">
-                                <div className="time">12: 00 PM</div>
-                                <div className="desc">
-                                    <div className="large">Zuhr</div>
-                                    <div className="text">attend nearest mosque</div>
+                            <div className="route">
+                                <div className="from">
+                                    <div className="icon-cont">
+                                        <div className="icon"></div>
+                                    </div>
+                                    <div className="label">from</div>
+                                    <div className="name">Al-Masjid an-Nabawi</div>
+                                    <div className="time">at 12: 45 PM</div>
                                 </div>
-                                <div className="actions">
-                                    <button className="btn scan" >View Timings</button>
+                                <div className="to">
+                                <div className="icon-cont">
+                                        <div className="icon"></div>
+                                    </div>
+                                    
+                                    <div className="label">to</div>
+                                    <div className="name">Bada'ah</div>
+                                    <div className="time">at 12: 45 PM</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+                <div className="item alert">
+                    <div className="cont">
+                        <div className="icon-cont">
+                            <div className="icon"></div>
+                        </div>
+                        <div className="text">Suspicious activity</div>
+                    </div>
+                </div>
+                <div className="item report">
+                    <div className="cont">
+                        <div className="left">
+                            <div className="icon-cont">
+                                <div className="icon"></div>
+                            </div>
+                        </div>
+                        <div className="right">
+                            <div className="small">assalamu alaikum</div>
+                            <div className="large">Report items</div>
+                            <button className="btn report">report items found</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="item lost-found">
+                    <div className="cont">
+                    </div>
+                    {/* create a widget */}
+                </div>
+                <div className="item next-stop">
+                    <div className="cont">
+                        <div className="left">
+                            <div className="icon-cont">
+                                <div className="icon"></div>
+                            </div>
+                            <div className="small">next stop</div>
+                            <div className="large">Season star hotel</div>
+                            <div className="small">at 12:53 PM</div>
 
+                            <button className="btn">on Time</button>
+                        </div>
 
+                        <div className="right"></div>
+                    </div>
+                </div>
+                <div className="item violation">
+                    <div className="cont">
+                        <div className="icon-cont">
+                            <div className="icon"></div>
+                        </div>
+                        <div className="small">covid violation</div>
+                        <div className="seat">
+                            <div className="large">Seat 23</div>
+                            <div className="icon-cont">
+                                <div className="icon"></div>
+                            </div>
+                        </div>
+                        <div className="small">Hida mohammad</div>
+                        <div className="actions">
+                            <button className="btn notify">notify</button>
+                            <button className="btn view-all">view all</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="item coffee">
+                    <div className="cont">
+                        <div className="header">
+                            <div className="label">time</div>
+                            <div className="date">12/01/2021</div>
+                        </div>
+                        <div className="cont">
+                            <div className="small">Maghrib</div>
+                            <div className="large time">06: 45</div>
+                            <div className="medium">time for a coffee break!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="footer">
+                <a href="http://spaceworx.io" target="_blank">powered by spaceworx.io</a>
             </div>
 
         </div>)
@@ -170,9 +165,8 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     }
 
     return (<>
-        {screen == "" && renderDrivingMode()}
-        {screen == "dashboard" && renderDashboardContent()}
-
+        {drivingMode && renderDrivingMode()}
+        {screen == "" && renderDashboardContent()}
 
     </>)
 }

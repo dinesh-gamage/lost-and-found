@@ -20,7 +20,7 @@ const DriverDashboard: React.FunctionComponent<IDashboardContainerProps> = (prop
 
     return (<DashboardContext.Provider value={props.context} >
         <ToastProvider closeAfter={3000}>
-            <div className="mda-user-dashboard-container">
+            <div className="mda-driver-dashboard-container">
                 {screen == "dashboard" && <Dashboard />}
             </div>
         </ToastProvider>
