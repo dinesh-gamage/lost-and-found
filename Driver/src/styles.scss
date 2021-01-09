@@ -957,6 +957,144 @@ body,
     height: 100%;
     background-color: black;
     padding: 40px;
-    
+    position: relative;
+    z-index: 1001;
 
+    .hide {
+        display: none;
+    }
+
+    & > .camera-cont {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        & > canvas {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        & > img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        & > .floating-btn {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+            transform: translate(-40%, -40%);
+            z-index: 1;
+
+            & > .back-btn {
+                width: 100%;
+                height: 100%;
+                & > .icon-cont {
+                    width: 100%;
+                    height: 100%;
+                    background-color: transparent;
+
+                    & > .icon {
+                        width: 100%;
+                        height: 100%;
+                        background-image: url($arrowLeft);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 50%;
+                    }
+                }
+            }
+        }
+    }
+
+    & > .button-cont {
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+
+        & > .capture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            position: relative;
+            margin: 0 30px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-color: white;
+            }
+        }
+        & > .re-take,
+        & > .save,
+        & > .close,
+        & > .change {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 30px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 70%;
+            }
+        }
+
+        & > .re-take {
+            &::before {
+                background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPgogIDxwYXRoIGQ9Ik01MTEuNCAxMjRDMjkwLjUgMTI0LjMgMTEyIDMwMyAxMTIgNTIzLjljMCAxMjggNjAuMiAyNDIgMTUzLjggMzE1LjJsLTM3LjUgNDhjLTQuMSA1LjMtLjMgMTMgNi4zIDEyLjlsMTY3LS44YzUuMiAwIDktNC45IDcuNy05LjlMMzY5LjggNzI3YTggOCAwIDAgMC0xNC4xLTNMMzE1IDc3Ni4xYy0xMC4yLTgtMjAtMTYuNy0yOS4zLTI2YTMxOC42NCAzMTguNjQgMCAwIDEtNjguNi0xMDEuN0MyMDAuNCA2MDkgMTkyIDU2Ny4xIDE5MiA1MjMuOXM4LjQtODUuMSAyNS4xLTEyNC41YzE2LjEtMzguMSAzOS4yLTcyLjMgNjguNi0xMDEuNyAyOS40LTI5LjQgNjMuNi01Mi41IDEwMS43LTY4LjZDNDI2LjkgMjEyLjQgNDY4LjggMjA0IDUxMiAyMDRzODUuMSA4LjQgMTI0LjUgMjUuMWMzOC4xIDE2LjEgNzIuMyAzOS4yIDEwMS43IDY4LjYgMjkuNCAyOS40IDUyLjUgNjMuNiA2OC42IDEwMS43IDE2LjcgMzkuNCAyNS4xIDgxLjMgMjUuMSAxMjQuNXMtOC40IDg1LjEtMjUuMSAxMjQuNWEzMTguNjQgMzE4LjY0IDAgMCAxLTY4LjYgMTAxLjdjLTcuNSA3LjUtMTUuMyAxNC41LTIzLjQgMjEuMmE3LjkzIDcuOTMgMCAwIDAtMS4yIDExLjFsMzkuNCA1MC41YzIuOCAzLjUgNy45IDQuMSAxMS40IDEuM0M4NTQuNSA3NjAuOCA5MTIgNjQ5LjEgOTEyIDUyMy45YzAtMjIxLjEtMTc5LjQtNDAwLjItNDAwLjYtMzk5Ljl6Ii8+Cjwvc3ZnPgo=");
+            }
+        }
+        & > .save {
+            &::before {
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMiA1bC04IDgtNC00IDEuNS0xLjVMNCAxMGw2LjUtNi41TDEyIDV6Ii8+PC9zdmc+");
+                background-size: 50%;
+            }
+        }
+
+        & > .close {
+            &::before {
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHRpdGxlPmlvbmljb25zLXY1LWE8L3RpdGxlPjxwb2x5bGluZSBwb2ludHM9IjI0NCA0MDAgMTAwIDI1NiAyNDQgMTEyIiBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojMDAwO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NDhweCIvPjxsaW5lIHgxPSIxMjAiIHkxPSIyNTYiIHgyPSI0MTIiIHkyPSIyNTYiIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDA7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS13aWR0aDo0OHB4Ii8+PC9zdmc+");
+                background-size: 50%;
+            }
+        }
+
+        & > .change {
+            &::before {
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItcmVmcmVzaC1jdyI+PHBvbHlsaW5lIHBvaW50cz0iMjMgNCAyMyAxMCAxNyAxMCI+PC9wb2x5bGluZT48cG9seWxpbmUgcG9pbnRzPSIxIDIwIDEgMTQgNyAxNCI+PC9wb2x5bGluZT48cGF0aCBkPSJNMy41MSA5YTkgOSAwIDAgMSAxNC44NS0zLjM2TDIzIDEwTTEgMTRsNC42NCA0LjM2QTkgOSAwIDAgMCAyMC40OSAxNSI+PC9wYXRoPjwvc3ZnPg==");
+                background-size: 50%;
+            }
+        }
+    }
 }

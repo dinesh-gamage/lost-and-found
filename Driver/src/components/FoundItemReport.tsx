@@ -94,7 +94,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
 
                     </div>
                     <div className="image-upload-cont">
-                        <TakePhoto image="" />
+                        <TakePhoto />
                     </div>
                     <div className="scan-qr"></div>
 

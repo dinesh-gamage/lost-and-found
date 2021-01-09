@@ -3,20 +3,28 @@ import * as React from 'react'
 import CameraComponent from './CameraComponent'
 
 interface ITakePhotoProps {
-    image: string
 }
 
 const TakePhoto: React.FunctionComponent<ITakePhotoProps> = (props) => {
-    let { image } = props
 
     let [takePhoto, setTakePhoto] = React.useState<boolean>(false)
+    let [dataUri, setDataUri] = React.useState<string>("")
 
-    return (<div className="mda-take-photo-cont" onClick={() => setTakePhoto(true)}>
+    React.useEffect(() => {
+        console.log("props changed", props)
+    }, [props])
 
-        <div className="preview">
+    React.useEffect(() => {
+        console.log("state", takePhoto)
+    }, [takePhoto])
+
+
+    return (<div className="mda-take-photo-cont" >
+
+        <div className="preview" onClick={() => { setTakePhoto(true); console.log("clicked") }}>
             {
-                image && image.trim().length > 0 ?
-                    <img src={image} alt="" className="preview-image" />
+                dataUri && dataUri.trim().length > 0 ?
+                    <img src={dataUri} alt="" className="preview-image" />
                     :
                     <div className={classNames("default-message")}>
                         <div className="icon-cont">
@@ -29,8 +37,8 @@ const TakePhoto: React.FunctionComponent<ITakePhotoProps> = (props) => {
 
         <CameraComponent
             show={takePhoto}
-            onCapture={() => { }}
-            onClose={() => setTakePhoto(false)}
+            onCapture={(d) => { setDataUri(d); setTakePhoto(false) }}
+            onClose={() => { setTakePhoto(false) }}
         />
 
     </div>)
