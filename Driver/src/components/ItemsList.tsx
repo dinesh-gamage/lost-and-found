@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import classNames = require('classnames')
 import * as React from 'react'
 import { DashboardContext } from './DashboardContext'
+import ItemDetails from './ItemDetails'
 
 interface IItemsListProps {
 
@@ -17,6 +18,8 @@ const ItemsList: React.FunctionComponent<IItemsListProps> = (props) => {
     let [query, setQuery] = React.useState<string>("")
     let [items, setItems] = React.useState<ILostAndFoundItem[]>([])
     let [loading, setLoading] = React.useState<boolean>(false)
+    let [selected, setSelected] = React.useState<ILostAndFoundItem | null>(null)
+
 
     React.useEffect(() => {
         if (query.trim().length > 0) {
@@ -158,9 +161,13 @@ const ItemsList: React.FunctionComponent<IItemsListProps> = (props) => {
         </div>
 
         <div className="content">
+
+            {loading && <div className="loading">Loading...</div>}
+            {!loading && items.length == 0 && <div className="no-items">No items found</div>}
+
             {items.map((item: ILostAndFoundItem, key: number) => {
 
-                return (<div className="item" key={key}>
+                return (<div className="item" key={key} onClick={() => {setSelected(item)}}>
                     <div className="header">
                         <div className="time">
                             <div className="icon-cont">
@@ -193,8 +200,9 @@ const ItemsList: React.FunctionComponent<IItemsListProps> = (props) => {
 
                 </div>)
             })}
-            <div className="item"></div>
         </div>
+
+        <ItemDetails show={selected != null} item={selected} onClose={() => setSelected(null)} />
 
     </div>)
 }

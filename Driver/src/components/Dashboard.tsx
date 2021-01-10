@@ -1,5 +1,6 @@
 import * as React from 'react'
 import FoundItemReport from './FoundItemReport'
+import ItemListWidget from './ItemListWidget'
 import ItemsList from './ItemsList'
 import PopupScreen from './PopUpScreen'
 
@@ -93,8 +94,10 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                 </div>
                 <div className="item lost-found">
                     <div className="cont">
+                        {/* create a widget */}
+                        <ItemListWidget />
                     </div>
-                    {/* create a widget */}
+
                 </div>
                 <div className="item next-stop">
                     <div className="cont">
@@ -154,10 +157,6 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     }
 
     return (<>
-    <PopupScreen show={true}>
-    <ItemsList />
-
-    </PopupScreen>
         {screen == "" && renderDashboardContent()}
         <DrivingMode show={drivingMode} onClose={() => setDrivingMode(false)} />
         <FoundItemReport show={screen == "report"} onClose={() => setScreen("")} />
