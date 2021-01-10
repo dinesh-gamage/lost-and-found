@@ -25,6 +25,7 @@ interface ILostAndFoundItem {
     AdditionalDetails?: {
         BusNumber?: string,
         BagID?: string
+        ItemType?: "normal" | "valuable" | "suspicious"
     }
 }
 interface IColor {

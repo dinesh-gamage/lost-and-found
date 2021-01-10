@@ -33,7 +33,8 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
         Created: "",
         AdditionalDetails: {
             BusNumber: "4212KAA",
-            BagID: ""
+            BagID: "",
+            ItemType: "normal"
         }
     })
     let [saving, setSaving] = React.useState<boolean>(false)
@@ -96,6 +97,12 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
     function updateBagId(id: string) {
         let _item = { ...lostItem }
         _item.AdditionalDetails.BagID = id
+        setLostItem(_item)
+    }
+
+    function updateItemType(type: any) {
+        let _item = { ...lostItem }
+        _item.AdditionalDetails.ItemType = type
         setLostItem(_item)
     }
 
@@ -183,7 +190,22 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                     </div>
 
                     <div className="btn-cont">
-                        <button className="btn" onClick={saveFoundItem}>{saving ? "Submitting..." : "Submit"}</button>
+                        <div className="cont">
+                            <div className="item-type">
+                                <div className="toggle">
+                                    <div className={classNames("btn normal", { "active": lostItem.AdditionalDetails.ItemType == "normal" })}
+                                        onClick={() => { updateItemType("normal")}}
+                                    >Normal</div>
+                                    <div className={classNames("btn valuable", { "active": lostItem.AdditionalDetails.ItemType == "valuable" })}
+                                        onClick={() => { updateItemType("valuable")}}
+                                    >Valuable </div>
+                                    <div className={classNames("btn suspicious", { "active": lostItem.AdditionalDetails.ItemType == "suspicious" })}
+                                        onClick={() => { updateItemType("suspicious")}}
+                                    >Suspicious</div>
+                                </div>
+                            </div>
+                            <button className="btn" onClick={saveFoundItem}>{saving ? "Submitting..." : "Submit"}</button>
+                        </div>
                     </div>
                 </div>
             </div>
