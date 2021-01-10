@@ -21,9 +21,9 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
 
     let [lostItem, setLostItem] = React.useState<ILostAndFoundItem>({
         _id: null,
-        Name: "Mr. Mansoor Bilal",
-        Phone: "+96144232121234",
-        Email: "",
+        Name: Context.profile.user.name,
+        Phone: Context.profile.user.phone,
+        Email: Context.profile.user.email,
         Title: "",
         Description: "",
         Features: "",
@@ -32,7 +32,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
         Status: "New",
         Created: "",
         AdditionalDetails: {
-            BusNumber: "4212KAA",
+            BusNumber: Context.profile.bus.number,
             BagID: "",
             ItemType: "normal"
         }
@@ -50,10 +50,10 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
             return
         }
 
-        // if (lostItem.AdditionalDetails.BagID.trim().length == 0) {
-        //     Toast.error("Please scan the QR code on the bag")
-        //     return
-        // }
+        if (lostItem.AdditionalDetails.BagID.trim().length == 0) {
+            Toast.error("Please scan the QR code on the bag")
+            return
+        }
 
         if (!saving) {
             setSaving(true)
@@ -138,7 +138,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                             <div className="profile-image"></div>
                             <div className="det">
                                 <div className="label">current user</div>
-                                <div className="name">Mr. Monsoor Bilal</div>
+                                <div className="name">{Context.profile.user.name}</div>
                             </div>
                         </div>
 
@@ -159,7 +159,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                                 <div className="icon"></div>
                                 <div className="det">
                                     <div className="label">Your Chauffeur</div>
-                                    <div className="name">Mr. Monsoor Bilal</div>
+                                    <div className="name">{Context.profile.user.name}</div>
                                 </div>
                             </div>
 
@@ -167,7 +167,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                                 <div className="icon"></div>
                                 <div className="det">
                                     <div className="label">Bus number</div>
-                                    <div className="name">4212 KAA</div>
+                                    <div className="name">{Context.profile.bus.label}</div>
                                 </div>
                             </div>
 
@@ -175,7 +175,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                                 <div className="icon"></div>
                                 <div className="det">
                                     <div className="label">mobile number</div>
-                                    <div className="name">+961423212234</div>
+                                    <div className="name">{Context.profile.user.phone}</div>
                                 </div>
                             </div>
 

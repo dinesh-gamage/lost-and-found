@@ -2,6 +2,18 @@ interface IPartialContextProvider {
     root: string,
     baseUrl: string,
     apiKey: string
+    profile: {
+        user: {
+            name: string,
+            email: string,
+            phone: string,
+        },
+        bus: {
+            number: string,
+            label: string
+        }
+
+    }
 }
 
 interface IContextProvider extends IPartialContextProvider {
@@ -27,6 +39,7 @@ interface ILostAndFoundItem {
         BagID?: string
         ItemType?: "normal" | "valuable" | "suspicious"
     }
+    FoundLocation?: string
 }
 interface IColor {
     hex: string,

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { DashboardContext } from './DashboardContext'
 import FoundItemReport from './FoundItemReport'
 import ItemListWidget from './ItemListWidget'
 import ItemsList from './ItemsList'
@@ -11,11 +12,13 @@ type IDashboardScreen = "" | "report"
 
 const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
+    let Context = React.useContext(DashboardContext)
+
     // props 
 
     // states
     let [screen, setScreen] = React.useState<IDashboardScreen>("")
-    let [drivingMode, setDrivingMode] = React.useState<boolean>(false)
+    let [drivingMode, setDrivingMode] = React.useState<boolean>(true)
 
     function renderDashboardContent() {
         return (<div className="mda-driver-dashboard">
@@ -29,7 +32,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                 <div className="toolbar">
                     <div className="profile">
                         <div className="pic"></div>
-                        <div className="name">Mansoor Bilal</div>
+                        <div className="name">{Context.profile.user.name}</div>
                     </div>
                 </div>
             </div>
@@ -137,7 +140,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                 <div className="item coffee">
                     <div className="cont">
                         <div className="header">
-                            <div className="label">time</div>
+                            <div className="label">TIME</div>
                             <div className="date">12/01/2021</div>
                         </div>
                         <div className="cont">
