@@ -34,6 +34,11 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     })
     let [saving, setSaving] = React.useState<boolean>(false)
     let [newFeature, setNewFeature] = React.useState<string>("")
+    let [userLocationData, setUserLocationData] = React.useState<IUserLocationData>({
+        lat: "",
+        long: "",
+        name: ""
+    })
 
     let Toast = useToast();
 
@@ -68,6 +73,29 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     }
 
     function saveLostItem() {
+
+        // validate
+        if (lostItem.Name.trim().length == 0) {
+            Toast.error("Name is required")
+            return
+        }
+        if (lostItem.Email.trim().length == 0) {
+            Toast.error("Email is required")
+            return
+        }
+        if (lostItem.Phone.trim().length == 0) {
+            Toast.error("Phone is required")
+            return
+        }
+        if (lostItem.Description.trim().length == 0) {
+            Toast.error("Description is required")
+            return
+        }
+        if (lostItem.LastLocation.trim().length == 0) {
+            Toast.error("Last Location is required")
+            return
+        }
+
         if (!saving) {
             setSaving(true)
 
@@ -79,6 +107,9 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                 }
             }
 
+            let locationDetails = { ...userLocationData }
+            locationDetails.name = lostItem.LastLocation
+
             let data = {
                 Title: lostItem.Title,
                 Name: lostItem.Name,
@@ -88,13 +119,13 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                 Status: lostItem.Status,
                 ImageUrl: lostItem.ImageUrl,
                 Features: lostItem.Features.split(","),
-                LastLocation: lostItem.LastLocation
+                LastLocation: JSON.stringify(locationDetails)
             }
 
             axios.post(_url, data, config)
                 .then((res) => {
                     onClose()
-                    Toast.success("Record created")
+                    Toast.success("Item Registered")
                     setSaving(false)
                 })
                 .catch((e) => {
@@ -103,6 +134,36 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                     Toast.error("Something went wrong")
                 })
         }
+    }
+
+    function fetchUserLocation() {
+        window.navigator.geolocation.getCurrentPosition((res) => {
+            console.log("res ", res)
+            let lat = res.coords.latitude
+            let long = res.coords.longitude
+            let apiKey = "955e990ed9ae4fbd9b6af6041bf0fea8"
+
+            axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${long}&key=${apiKey}`)
+                .then((res) => {
+                    console.log("res ", res)
+                    let address = res.data.results[0].formatted
+
+                    updateObj("LastLocation", address)
+                    setUserLocationData({
+                        lat: lat.toString(),
+                        long: long.toString(),
+                        name: address
+                    })
+                })
+                .catch((e) => {
+                    console.log("exception ", e)
+                    Toast.error("Please enter last location manually")
+                })
+        },
+            (err) => {
+                console.log("err ", err)
+                Toast.error("Please enter last location manually")
+            })
     }
 
     return (<PopupScreen show={show}>
@@ -124,7 +185,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
             </div>
 
             <div className="form-content">
-                <div className="section">
+                {/* <div className="section">
                     <div className="label">Title</div>
                     <Input type="text"
                         value={lostItem.Title}
@@ -132,7 +193,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                         placeholder="Ex: a black backpack"
                         active={lostItem.Title.trim().length > 0}
                     />
-                </div>
+                </div> */}
                 <div className="section">
                     <div className="label">Description</div>
                     <Input type="text"
@@ -214,13 +275,21 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                     />
                 </div>
                 <div className="section">
-                    <div className="label">Location</div>
-                    <Input type="text"
-                        value={lostItem.LastLocation}
-                        onChange={(s) => updateObj("LastLocation", s)}
-                        placeholder="Ex: Al-Masjid n-Nabawi"
-                        active={lostItem.LastLocation.trim().length > 0}
-                    />
+                    <div className="label">Last Location</div>
+                    <div className="input-group">
+                        <Input type="text"
+                            value={lostItem.LastLocation}
+                            onChange={(s) => updateObj("LastLocation", s)}
+                            placeholder="Ex: Al-Masjid n-Nabawi"
+                            active={lostItem.LastLocation.trim().length > 0}
+                        />
+
+                        <div className={classNames("location-icon")}
+                            onClick={fetchUserLocation}
+                        >
+                            <div className="icon"></div>
+                        </div>
+                    </div>
                 </div>
                 <div className="section actions">
                     <button className={classNames("btn save-lost-item", { "saving": saving })}
