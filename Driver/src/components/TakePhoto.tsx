@@ -23,7 +23,7 @@ const TakePhoto: React.FunctionComponent<ITakePhotoProps> = (props) => {
         props.onChange(dataUri)
     }, [dataUri])
 
-    return (<div className="mda-take-photo-cont" >
+    return (<div className={classNames("mda-take-photo-cont", { "active": dataUri.trim().length > 0 })} >
 
         <div className="preview" onClick={() => { setTakePhoto(true); console.log("clicked") }}>
             {

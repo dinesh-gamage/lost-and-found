@@ -4,6 +4,7 @@ import classNames = require('classnames')
 import * as React from 'react'
 import { DashboardContext } from './DashboardContext'
 import PopupScreen from './PopUpScreen'
+import QRCodeReader from './QRCodeReader'
 import TakePhoto from './TakePhoto'
 import { useToast } from './Toast'
 
@@ -29,7 +30,11 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
         ImageUrl: "",
         LastLocation: "",
         Status: "New",
-        Created: ""
+        Created: "",
+        AdditionalDetails: {
+            BusNumber: "4212KAA",
+            BagID: ""
+        }
     })
     let [saving, setSaving] = React.useState<boolean>(false)
 
@@ -49,6 +54,18 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
     }
 
     function saveFoundItem() {
+
+        // check if image & bagId is filled 
+        if (lostItem.ImageUrl.trim().length == 0) {
+            Toast.error("Please take a phot of the item")
+            return
+        }
+
+        if (lostItem.AdditionalDetails.BagID.trim().length == 0) {
+            Toast.error("Please scan the QR code on the bag")
+            return
+        }
+
         if (!saving) {
             setSaving(true)
 
@@ -70,6 +87,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
             data.append("PoliceStationID", "")
             data.append("LockerID", "")
             data.append("File", dataURLtoFile(lostItem.ImageUrl, "a.png"))
+            data.append("AdditionalDetails", JSON.stringify(lostItem.AdditionalDetails))
 
             axios.post(_url, data, config)
                 .then((res) => {
@@ -83,6 +101,12 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                     Toast.error("Something went wrong")
                 })
         }
+    }
+
+    function updateBagId(id: string) {
+        let _item = { ...lostItem }
+        _item.AdditionalDetails.BagID = id
+        setLostItem(_item)
     }
 
     return (<PopupScreen show={show}>
@@ -164,10 +188,12 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                     <div className="image-upload-cont">
                         <TakePhoto onChange={(s) => { setLostItem(prev => ({ ...prev, ...{ ImageUrl: s } })) }} />
                     </div>
-                    <div className="scan-qr"></div>
+                    <div className="scan-qr">
+                        <QRCodeReader onChange={updateBagId} />
+                    </div>
 
                     <div className="btn-cont">
-                        <button className="btn" onClick={saveFoundItem}>Submit</button>
+                        <button className="btn" onClick={saveFoundItem}>{saving ? "Submitting..." : "Submit"}</button>
                     </div>
                 </div>
             </div>

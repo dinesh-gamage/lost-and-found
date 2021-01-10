@@ -20,15 +20,18 @@ interface ILostAndFoundItem {
     LastLocation: string
     Status: string
     Created: string
-    PoliceStationID?:string
-    LockerID?:string
-    Data?: string
+    PoliceStationID?: string
+    LockerID?: string
+    AdditionalDetails?: {
+        BusNumber?: string,
+        BagID?: string
+    }
 }
 interface IColor {
     hex: string,
     color: string
 }
-interface UploadResponse{
+interface UploadResponse {
     ImageUrl: string
     Features: {
         colors: IColor[],

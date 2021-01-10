@@ -14,7 +14,7 @@ const CameraComponent: React.FunctionComponent<ICameraProps> = (props) => {
     let { show, onCapture, onClose } = props
 
     let [dataUri, setDataUri] = React.useState<string>(null)
-    let [mode, setMode] = React.useState<camMode>("user")
+    let [mode, setMode] = React.useState<camMode>("env")
 
     let videoElement = React.useRef(null)
     let canvasElement = React.useRef(null)
