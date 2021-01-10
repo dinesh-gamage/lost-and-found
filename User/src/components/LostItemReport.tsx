@@ -136,34 +136,70 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
         }
     }
 
+    function randomGeo(center: { latitude: number, longitude: number }, radius: number) {
+        var y0 = center.latitude;
+        var x0 = center.longitude;
+        var rd = radius / 111300; //about 111300 meters in one degree
+
+        var u = Math.random();
+        var v = Math.random();
+
+        var w = rd * Math.sqrt(u);
+        var t = 2 * Math.PI * v;
+        var x = w * Math.cos(t);
+        var y = w * Math.sin(t);
+
+        //Adjust the x-coordinate for the shrinking of the east-west distances
+        var xp = x / Math.cos(y0);
+
+        var newlat = y + y0;
+        var newlon = x + x0;
+        var newlon2 = xp + x0;
+
+        return {
+            'latitude': newlat.toFixed(5),
+            'longitude': newlon.toFixed(5)
+        };
+    }
+
     function fetchUserLocation() {
-        window.navigator.geolocation.getCurrentPosition((res) => {
-            console.log("res ", res)
-            let lat = res.coords.latitude
-            let long = res.coords.longitude
-            let apiKey = "955e990ed9ae4fbd9b6af6041bf0fea8"
 
-            axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${long}&key=${apiKey}`)
-                .then((res) => {
-                    console.log("res ", res)
-                    let address = res.data.results[0].formatted
+        // for demo get random location
+        let randomLoc = randomGeo({ latitude: 24.489442968268726, longitude: 39.57909483821001 }, 1000)
 
-                    updateObj("LastLocation", address)
-                    setUserLocationData({
-                        lat: lat.toString(),
-                        long: long.toString(),
-                        name: address
-                    })
+        let lat = randomLoc.latitude
+        let long = randomLoc.longitude
+        let apiKey = "955e990ed9ae4fbd9b6af6041bf0fea8"
+
+        axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${long}&key=${apiKey}`)
+            .then((res) => {
+                console.log("res ", res)
+                let address = res.data.results[0].formatted
+
+                updateObj("LastLocation", address)
+                setUserLocationData({
+                    lat: lat.toString(),
+                    long: long.toString(),
+                    name: address
                 })
-                .catch((e) => {
-                    console.log("exception ", e)
-                    Toast.error("Please enter last location manually")
-                })
-        },
-            (err) => {
-                console.log("err ", err)
+            })
+            .catch((e) => {
+                console.log("exception ", e)
                 Toast.error("Please enter last location manually")
             })
+
+        // window.navigator.geolocation.getCurrentPosition((res) => {
+        //     console.log("res ", res)
+        //     let lat = res.coords.latitude
+        //     let long = res.coords.longitude
+        //     let apiKey = "955e990ed9ae4fbd9b6af6041bf0fea8"
+
+
+        // },
+        //     (err) => {
+        //         console.log("err ", err)
+        //         Toast.error("Please enter last location manually")
+        //     })
     }
 
     return (<PopupScreen show={show}>
