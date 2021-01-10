@@ -832,13 +832,13 @@ body,
 
                         &.filled {
                             & > .icon {
-                                filter: saturate(100%) brightness(0%) invert(41%) sepia(31%) saturate(1026%) hue-rotate(206deg) brightness(110%)
-                                    contrast(103%);
+                                filter: saturate(100%) brightness(0%) invert(41%) sepia(31%) saturate(1026%)
+                                    hue-rotate(206deg) brightness(110%) contrast(103%);
                             }
                         }
                     }
 
-                    &>.location-icon {
+                    & > .location-icon {
                         width: 40px;
                         height: 40px;
                         background-color: transparent;
@@ -851,8 +851,8 @@ body,
                             background-repeat: no-repeat;
                             background-size: 100%;
                             // @include GreyFilter();
-                            filter: saturate(100%) brightness(0%) invert(41%) sepia(31%) saturate(1026%) hue-rotate(206deg) brightness(110%)
-                                    contrast(103%);
+                            filter: saturate(100%) brightness(0%) invert(41%) sepia(31%) saturate(1026%)
+                                hue-rotate(206deg) brightness(110%) contrast(103%);
                         }
                     }
                 }
@@ -979,10 +979,81 @@ body,
                     font-size: 20px;
                     color: white;
                     margin-bottom: 30px;
+                    text-align: center;
                 }
                 & > .text {
                     width: 100%;
                     color: white;
+                    text-align: center;
+                }
+
+                & > .btn-cont {
+                    width: 100%;
+                    height: auto;
+                    margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    & > .btn {
+                        padding: 15px 30px;
+                        font-size: 14px;
+                        background-color: white;
+                        color: #424242;
+                    }
+                }
+
+                & > .search-box-cont {
+                    width: 90%;
+                    height: auto;
+                    padding: 0;
+                    border-radius: 10px;
+                    position: relative;
+                    background-color: transparent;
+
+                    & > .title {
+                        padding: 15px 0;
+                        width: 100%;
+                        text-align: center;
+                        text-transform: capitalize;
+                    }
+
+                    & > input {
+                        width: 100%;
+                        height: auto;
+                        padding: 20px;
+                        padding-right: 50px;
+                        border-radius: 10px;
+                        background-color: #f7f7f7;
+                        border: 0.5px solid transparent;
+                        outline: none;
+                        font-size: 14px;
+                        text-align: center;
+
+                        &:hover,
+                        &:active,
+                        &:focus,
+                        &.active {
+                            background-color: white;
+                            border: 0.5px solid #7a6ff0;
+                        }
+                    }
+
+                    & > .btn-cont {
+                        width: 100%;
+                        height: auto;
+                        margin-top: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        & > .btn {
+                            padding: 15px 30px;
+                            font-size: 14px;
+                            background-color: white;
+                            color: #424242;
+                        }
+                    }
                 }
             }
         }

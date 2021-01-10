@@ -1,5 +1,6 @@
 import classNames = require('classnames')
 import * as React from 'react'
+import ClaimItem from './ClaimItem'
 import MapComponent from './map/MapComponent'
 import PopupScreen from './PopUpScreen'
 
@@ -105,30 +106,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
             </div>
         </div>
 
-        <PopupScreen show={showHelp}>
-            <div className="mda-search-panel-cont claim">
-                <div className="header">
-                    <div className="back-btn" onClick={() => setShowHelp(false)} >
-                        <div className="icon-cont">
-                            <div className="icon"></div>
-                        </div>
-                    </div>
-
-                    <div className="title">Claim Item</div>
-
-                    <div className="close-btn" onClick={() => setShowHelp(false)} >
-                        <div className="icon-cont">
-                            <div className="icon"></div>
-                        </div>
-                    </div>
-                </div>
-                <div className="claim-item">
-                    <div className="title">Please Visit</div>
-                    <div className="text"> Al Khalidiya police station with your ID proof and our officers will help you further </div>
-                </div>
-            </div>
-        </PopupScreen>
-
+        <ClaimItem show={showHelp} onClose={() => setShowHelp(false)} itemId={item?._id} />
     </PopupScreen>)
 }
 
