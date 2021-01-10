@@ -56,9 +56,10 @@ const QRCodeScanner: React.FunctionComponent<IQRScannerProps> = (props) => {
     let [mode, setMode] = React.useState<camMode>("env")
 
     function handleScan(data: any) {
+
         if (data) {
-            console.log("res : ", data)
             onChange(data)
+            onClose()
         }
     }
     function handleError(err: any) {
