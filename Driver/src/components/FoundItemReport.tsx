@@ -41,18 +41,6 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
 
     let Toast = useToast()
 
-    function dataURLtoFile(base64: string, filename: string) {
-        if (base64.trim().length > 0) {
-            var arr = base64.split(','), mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-            while (n--) {
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-            return new File([u8arr], filename, { type: mime });
-        }
-        return null
-    }
-
     function saveFoundItem() {
 
         // check if image & bagId is filled 
@@ -61,10 +49,10 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
             return
         }
 
-        if (lostItem.AdditionalDetails.BagID.trim().length == 0) {
-            Toast.error("Please scan the QR code on the bag")
-            return
-        }
+        // if (lostItem.AdditionalDetails.BagID.trim().length == 0) {
+        //     Toast.error("Please scan the QR code on the bag")
+        //     return
+        // }
 
         if (!saving) {
             setSaving(true)
@@ -77,22 +65,24 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                 }
             }
 
-            let data = new FormData()
-
-            data.append("Name", lostItem.Name)
-            data.append("Email", lostItem.Email)
-            data.append("Phone", lostItem.Phone)
-            data.append("Description", lostItem.Description)
-            data.append("Status", lostItem.Status)
-            data.append("PoliceStationID", "")
-            data.append("LockerID", "")
-            data.append("File", dataURLtoFile(lostItem.ImageUrl, "a.png"))
-            data.append("AdditionalDetails", JSON.stringify(lostItem.AdditionalDetails))
+            let data = {
+                'Name': lostItem.Name,
+                'Email': lostItem.Email,
+                'Location': lostItem.LastLocation,
+                'Description': lostItem.Description,
+                'PoliceStationID': "",
+                'LockerID': "",
+                'Status': lostItem.Status,
+                'Phone': lostItem.Phone,
+                'AdditionalDetails': JSON.stringify(lostItem.AdditionalDetails),
+                'ImageUrl': lostItem.ImageUrl,
+                'Features': lostItem.Features,
+            }
 
             axios.post(_url, data, config)
                 .then((res) => {
                     onClose()
-                    Toast.success("Record created")
+                    Toast.success("Item Registered")
                     setSaving(false)
                 })
                 .catch((e) => {
@@ -186,7 +176,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
 
                     </div>
                     <div className="image-upload-cont">
-                        <TakePhoto onChange={(s) => { setLostItem(prev => ({ ...prev, ...{ ImageUrl: s } })) }} />
+                        <TakePhoto onChange={(Image, Features) => { setLostItem(Object.assign({}, lostItem, { ImageUrl: Image, Features: Features })) }} />
                     </div>
                     <div className="scan-qr">
                         <QRCodeReader onChange={updateBagId} />

@@ -640,11 +640,11 @@ body,
         height: auto;
         color: white;
 
-        &>.small {
+        & > .small {
             padding: 10px 0;
         }
 
-        &>.btn {
+        & > .btn {
             padding: 20px 40px;
             font-size: 16px;
             background-color: #ffbe57;
@@ -959,7 +959,8 @@ body,
     border: none;
     outline: none;
     border-radius: 15px;
-    padding: 20px;
+    // padding: 20px;
+    overflow: hidden;
     cursor: pointer;
 
     &.active {
@@ -973,11 +974,66 @@ body,
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
 
         & > .preview-image {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        & > .features-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+         
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            color: white;
+
+            & > .processing {
+                width: 100%;
+                height: auto;
+                color: white;
+                padding: 30px 10px;
+                text-align: center;
+            }
+
+            & > .title {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 16px;
+            }
+
+            & > .tags {
+                width: 100%;
+                height: 75%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                padding: 10px 0;
+                overflow-x: hidden;
+                overflow-y: auto;
+                & > .tag {
+                    width: auto;
+                    height: auto;
+                    padding: 10px 15px;
+                    padding-right: 40px;
+                    background-color: #7a6ff0;
+                    border-radius: 50px;
+                    margin: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    color: white;
+                }
+            }
         }
 
         & > .default-message {
