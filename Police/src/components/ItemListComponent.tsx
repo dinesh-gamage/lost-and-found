@@ -72,31 +72,33 @@ const ItemListComponent: React.FunctionComponent<IItemListComponentProps> = (pro
                 </div>
             </div>
 
-            <div className="toolbar">
-                <div className="toggle-btn">
-                    <button className={classNames("btn", { "active": type == "lost" })}
-                        onClick={() => onChangeType("lost")}
-                    >Lost</button>
+            <div className="cont">
+                <div className="toolbar">
+                    <div className="toggle-btn">
+                        <button className={classNames("btn", { "active": type == "lost" })}
+                            onClick={() => onChangeType("lost")}
+                        >Lost</button>
 
-                    <button className={classNames("btn", { "active": type == "found" })}
-                        onClick={() => onChangeType("found")}
-                    >Found</button>
-                </div>
-            </div>
-
-            <div className="item-list">
-                <ItemList items={items} loading={loading} />
-            </div>
-            <div className="footer">
-                <div className="scan-btn" onClick={() => onSelect("scan")}>
-                    <div className="icon-cont">
-                        <div className="icon"> </div>
+                        <button className={classNames("btn", { "active": type == "found" })}
+                            onClick={() => onChangeType("found")}
+                        >Found</button>
                     </div>
                 </div>
 
-                <div className="search-btn" onClick={() => { onSelect("search") }}>
-                    <div className="icon-cont">
-                        <div className="icon"></div>
+                <div className="item-list">
+                    <ItemList items={items} loading={loading} />
+                </div>
+                <div className="footer">
+                    <div className="scan-btn" onClick={() => onSelect("scan")}>
+                        <div className="icon-cont">
+                            <div className="icon"> </div>
+                        </div>
+                    </div>
+
+                    <div className="search-btn" onClick={() => { onSelect("search") }}>
+                        <div className="icon-cont">
+                            <div className="icon"></div>
+                        </div>
                     </div>
                 </div>
             </div>

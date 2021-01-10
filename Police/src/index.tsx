@@ -3,6 +3,7 @@ import * as ReactDom from 'react-dom'
 import Dashboard from './components/Dashboard'
 import { DashboardContext } from './components/DashboardContext'
 import LoginPage from './components/LoginPage'
+import { ToastProvider } from './components/Toast'
 
 import './styles.scss'
 
@@ -18,10 +19,12 @@ const PoliceDashboard: React.FunctionComponent<IPoliceDashboardProps> = (props) 
     let [screen, setScreen] = React.useState<IScreen>("login")
 
     return (<DashboardContext.Provider value={props.context} >
-        <div className="mda-police-dashboard-container">
-            {screen == "login" && <LoginPage onLogin={() => setScreen("dashboard")} />}
-            {screen == "dashboard" && <Dashboard />}
-        </div>
+        <ToastProvider>
+            <div className="mda-police-dashboard-container">
+                {screen == "login" && <LoginPage onLogin={() => setScreen("dashboard")} />}
+                {screen == "dashboard" && <Dashboard />}
+            </div>
+        </ToastProvider>
     </DashboardContext.Provider>)
 }
 

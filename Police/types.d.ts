@@ -19,7 +19,14 @@ interface ILostAndFoundItem {
     LastLocation: string
     Status: string
     Created: string
-    PoliceStationID?:string
-    LockerID?:string
+    PoliceStationID?: string
+    LockerID?: string
     Data?: string
+    AdditionalDetails?: string
+    FoundLocation?: string
+    Location?: string
+    claimed?: string[]
+    HandedOverEmail?: string
+    HandedOverTime?: string
+
 }

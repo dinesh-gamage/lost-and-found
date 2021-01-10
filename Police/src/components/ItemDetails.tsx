@@ -1,6 +1,8 @@
 import classNames = require('classnames')
 import * as React from 'react'
+import Handover from './HandOver'
 import MapComponent from './map/MapComponent'
+import PopupScreen from './PopupScreen'
 
 interface IItemDetailsProps {
     item: ILostAndFoundItem,
@@ -13,6 +15,11 @@ const noImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJb
 const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
     let { item, show, onClose } = props
 
+    let [handOver, setHandOver] = React.useState("")
+
+    React.useEffect(() => {
+        console.log("item ", item)
+    }, [item])
 
     function getImageUrl(image: string): string {
         if (image && image.trim().length > 0) {
@@ -32,10 +39,20 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
         return noImage;
     }
 
-    return (<div className={classNames("mda-popup-screen", { "show": show })}>
+    let hasHandedOver = item?.HandedOverEmail?.trim().length > 0
+
+    return (<PopupScreen show={show}>
         <div className="mda-item-details-cont">
             <div className="header">
-                <div className="close-btn" onClick={onClose}>
+                <div className="back-btn" onClick={onClose} >
+                    <div className="icon-cont">
+                        <div className="icon"></div>
+                    </div>
+                </div>
+
+                <div className="title">Lost and Found</div>
+
+                <div className="close-btn" onClick={onClose} >
                     <div className="icon-cont">
                         <div className="icon"></div>
                     </div>
@@ -84,15 +101,32 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         />
                     </div>
                     <div className="ino-panel">
-                        
+
+                    </div>
+
+                    <div className="claims">
+                        {
+                            item?.claimed?.map((email: string, key: number) => {
+                                return (<div className="claim-item" key={key}>
+                                    <span>{email}</span>
+
+                                    {!hasHandedOver && <button className="btn" onClick={() => setHandOver(email)}  >Handover</button>}
+
+                                </div>)
+                            })
+                        }
                     </div>
                 </div>
 
-
+                <Handover show={handOver.trim().length > 0}
+                    onClose={() => {setHandOver("")}}
+                    itemId={item?._id}
+                    email={handOver}
+                />
 
             </div>
         </div>
-    </div>)
+    </PopupScreen>)
 }
 
 export default ItemDetails
