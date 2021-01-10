@@ -1,5 +1,6 @@
 import * as React from 'react'
 import FoundItemReport from './FoundItemReport'
+import PopupScreen from './PopUpScreen'
 
 interface IDashboardProps {
 }
@@ -12,7 +13,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     // states
     let [screen, setScreen] = React.useState<IDashboardScreen>("")
-    let [drivingMode, setDrivingMode] = React.useState<boolean>(false)
+    let [drivingMode, setDrivingMode] = React.useState<boolean>(true)
 
     function renderDashboardContent() {
         return (<div className="mda-driver-dashboard">
@@ -151,26 +152,27 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
         </div>)
     }
 
-    function renderDrivingMode() {
-        return (<div className="mda-driving-mode-cont">
+    return (<>
+        {screen == "" && renderDashboardContent()}
+        <DrivingMode show={drivingMode} onClose={() => setDrivingMode(false)} />
+        <FoundItemReport show={screen == "report"} onClose={() => setScreen("")} />
+    </>)
+}
+
+const DrivingMode: React.FunctionComponent<{ show: boolean, onClose: () => void }> = (props) => {
+    return (<PopupScreen show={props.show}>
+        <div className="mda-driving-mode-cont">
             <div className="cont">
                 <div className="small">vehicle movement detected</div>
                 <div className="large">
                     please stop driving <br />
-                    while using the tablet
+                     while using the tablet
                 </div>
 
-                <button className="btn">Resume</button>
+                <button className="btn" onClick={props.onClose}>Resume</button>
             </div>
-        </div>)
-    }
-
-    return (<>
-        {drivingMode && renderDrivingMode()}
-        {screen == "" && renderDashboardContent()}
-
-        <FoundItemReport show={screen == "report"} onClose={() => setScreen("")} />
-    </>)
+        </div>
+    </PopupScreen>)
 }
 
 export default Dashboard

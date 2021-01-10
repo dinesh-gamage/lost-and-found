@@ -626,6 +626,34 @@ body,
     transition: all 300ms ease-in;
 }
 
+.mda-driving-mode-cont {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > .cont {
+        width: auto;
+        height: auto;
+        color: white;
+
+        &>.small {
+            padding: 10px 0;
+        }
+
+        &>.btn {
+            padding: 20px 40px;
+            font-size: 16px;
+            background-color: #ffbe57;
+            color: #424242;
+            margin-top: 20px;
+        }
+    }
+}
+
 .mda-popup-screen-container {
     position: fixed;
     top: 0;
@@ -909,9 +937,9 @@ body,
                     align-items: center;
                     justify-content: flex-end;
 
-                    &>.btn {
+                    & > .btn {
                         padding: 15px 30px;
-                        background-color: #C1C1C1;
+                        background-color: #c1c1c1;
                         text-transform: uppercase;
                         font-size: 14px;
                     }
@@ -937,7 +965,6 @@ body,
     &.active {
         background-color: white;
         box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.12);
-
     }
 
     & > .preview {
@@ -978,7 +1005,7 @@ body,
             }
         }
 
-        &.qr-scanner{
+        &.qr-scanner {
             & > .default-message {
                 & > .icon-cont {
                     & > .icon {
@@ -988,17 +1015,17 @@ body,
                 }
             }
 
-            &>.success {
+            & > .success {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                
+
                 & > .icon-cont {
                     width: 100px;
                     height: 100px;
                     background-color: transparent;
                     margin-bottom: 20px;
-    
+
                     & > .icon {
                         width: 100%;
                         height: 100%;
@@ -1010,13 +1037,12 @@ body,
                     }
                 }
 
-                &>.btn {
-                    background-color: #FFBE57;
+                & > .btn {
+                    background-color: #ffbe57;
                     text-transform: uppercase;
                     padding: 15px 30px;
                 }
             }
-    
         }
     }
 }
