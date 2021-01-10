@@ -18,7 +18,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     // states
     let [screen, setScreen] = React.useState<IDashboardScreen>("")
-    let [drivingMode, setDrivingMode] = React.useState<boolean>(false)
+    let [drivingMode, setDrivingMode] = React.useState<boolean>(true)
 
     function renderDashboardContent() {
         return (<div className="mda-driver-dashboard">
