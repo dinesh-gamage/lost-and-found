@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import classNames = require('classnames')
 import * as React from 'react'
 import { DashboardContext } from './DashboardContext'
+import MapComponent from './map/MapComponent'
 import PopupScreen from './PopUpScreen'
 import QRCodeReader from './QRCodeReader'
 import TakePhoto from './TakePhoto'
@@ -38,9 +39,82 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
         }
     })
     let [saving, setSaving] = React.useState<boolean>(false)
-
+    let [userLocationData, setUserLocationData] = React.useState<IUserLocationData>({
+        lat: "24.489442968268726",
+        long: "39.57909483821001",
+        name: ""
+    })
 
     let Toast = useToast()
+
+    React.useEffect(() => {
+        fetchUserLocation()
+    }, [])
+
+    function randomGeo(center: { latitude: number, longitude: number }, radius: number) {
+        var y0 = center.latitude;
+        var x0 = center.longitude;
+        var rd = radius / 111300; //about 111300 meters in one degree
+
+        var u = Math.random();
+        var v = Math.random();
+
+        var w = rd * Math.sqrt(u);
+        var t = 2 * Math.PI * v;
+        var x = w * Math.cos(t);
+        var y = w * Math.sin(t);
+
+        //Adjust the x-coordinate for the shrinking of the east-west distances
+        var xp = x / Math.cos(y0);
+
+        var newlat = y + y0;
+        var newlon = x + x0;
+        var newlon2 = xp + x0;
+
+        return {
+            'latitude': newlat.toFixed(5),
+            'longitude': newlon.toFixed(5)
+        };
+    }
+
+    function fetchUserLocation() {
+
+        // for demo get random location
+        let randomLoc = randomGeo({ latitude: 24.489442968268726, longitude: 39.57909483821001 }, 1000)
+
+        let lat = randomLoc.latitude
+        let long = randomLoc.longitude
+        let apiKey = "955e990ed9ae4fbd9b6af6041bf0fea8"
+
+        axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${long}&key=${apiKey}`)
+            .then((res) => {
+                console.log("res ", res)
+                let address = res.data.results[0].formatted
+
+                setUserLocationData({
+                    lat: lat.toString(),
+                    long: long.toString(),
+                    name: address
+                })
+            })
+            .catch((e) => {
+                console.log("exception ", e)
+                // Toast.error("Please enter last location manually")
+            })
+
+        // window.navigator.geolocation.getCurrentPosition((res) => {
+        //     console.log("res ", res)
+        //     let lat = res.coords.latitude
+        //     let long = res.coords.longitude
+        //     let apiKey = "955e990ed9ae4fbd9b6af6041bf0fea8"
+
+
+        // },
+        //     (err) => {
+        //         console.log("err ", err)
+        //         Toast.error("Please enter last location manually")
+        //     })
+    }
 
     function saveFoundItem() {
 
@@ -78,6 +152,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                 'AdditionalDetails': JSON.stringify(lostItem.AdditionalDetails),
                 'ImageUrl': lostItem.ImageUrl,
                 'Features': lostItem.Features,
+                "FoundLocation": JSON.stringify(userLocationData)
             }
 
             axios.post(_url, data, config)
@@ -142,11 +217,22 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                             </div>
                         </div>
 
-
-
                         <div className="details">
                             <div className="map">
                                 <div className="btn floating-btn">last location</div>
+                                <MapComponent
+                                    mapUrl="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    markers={[]}
+                                    onMarkerClick={() => { }}
+                                    center={{
+                                        position: {
+                                            latitude: parseFloat(userLocationData.lat),
+                                            longitude: parseFloat(userLocationData.long)
+                                        },
+                                        renderMarker: true
+                                    }}
+                                    zoom={12}
+                                />
                             </div>
                             <div className="bus">
                                 <div className="logo"></div>
@@ -194,13 +280,13 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                             <div className="item-type">
                                 <div className="toggle">
                                     <div className={classNames("btn normal", { "active": lostItem.AdditionalDetails.ItemType == "normal" })}
-                                        onClick={() => { updateItemType("normal")}}
+                                        onClick={() => { updateItemType("normal") }}
                                     >Normal</div>
                                     <div className={classNames("btn valuable", { "active": lostItem.AdditionalDetails.ItemType == "valuable" })}
-                                        onClick={() => { updateItemType("valuable")}}
+                                        onClick={() => { updateItemType("valuable") }}
                                     >Valuable </div>
                                     <div className={classNames("btn suspicious", { "active": lostItem.AdditionalDetails.ItemType == "suspicious" })}
-                                        onClick={() => { updateItemType("suspicious")}}
+                                        onClick={() => { updateItemType("suspicious") }}
                                     >Suspicious</div>
                                 </div>
                             </div>

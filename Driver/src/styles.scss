@@ -838,6 +838,7 @@ body,
                             background-size: 110%;
                             border-radius: 10px 10px 0 0;
                             position: relative;
+                            overflow: hidden;
 
                             & > .floating-btn {
                                 width: auto;
@@ -846,6 +847,7 @@ body,
                                 top: 10px;
                                 left: 10px;
                                 background-color: black;
+                                z-index: 1001;
                             }
                         }
 
