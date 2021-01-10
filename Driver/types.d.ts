@@ -39,3 +39,8 @@ interface UploadResponse {
         labels: string[]
     }
 }
+interface IUserLocationData {
+    lat: string,
+    long: string,
+    name: string
+}

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import FoundItemReport from './FoundItemReport'
+import ItemsList from './ItemsList'
 import PopupScreen from './PopUpScreen'
 
 interface IDashboardProps {
@@ -12,7 +13,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     // props 
 
     // states
-    let [screen, setScreen] = React.useState<IDashboardScreen>("report")
+    let [screen, setScreen] = React.useState<IDashboardScreen>("")
     let [drivingMode, setDrivingMode] = React.useState<boolean>(false)
 
     function renderDashboardContent() {
@@ -153,6 +154,10 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     }
 
     return (<>
+    <PopupScreen show={true}>
+    <ItemsList />
+
+    </PopupScreen>
         {screen == "" && renderDashboardContent()}
         <DrivingMode show={drivingMode} onClose={() => setDrivingMode(false)} />
         <FoundItemReport show={screen == "report"} onClose={() => setScreen("")} />
