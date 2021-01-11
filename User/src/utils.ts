@@ -8,7 +8,6 @@ export function getImageUrl(image: string): string {
         // split the string
         let bucket = image.substr(0, image.indexOf('/'))
         let key = image.substr(image.indexOf('/') + 1)
-        console.log("bucket : ", bucket, " key: ", key)
 
         if (bucket && key) {
             return "http://" + bucket + ".s3.amazonaws.com" + "/" + key

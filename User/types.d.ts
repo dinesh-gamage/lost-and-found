@@ -24,6 +24,7 @@ interface ILostAndFoundItem {
     LockerID?:string
     Data?: string
     FoundLocation?: string
+    Location?: string
     AdditionalDetails?: {
         BusNumber?: string,
         BagID?: string

@@ -1,9 +1,12 @@
+import axios, { AxiosRequestConfig } from 'axios'
 import classNames = require('classnames')
 import * as React from 'react'
 import { getDetailsFromLocalStorage, getImageUrl, getLocationDetails, getLocationName } from '../utils'
 import ClaimItem from './ClaimItem'
+import { DashboardContext } from './DashboardContext'
 import MapComponent from './map/MapComponent'
 import PopupScreen from './PopUpScreen'
+import { useToast } from './Toast'
 
 interface IItemDetailsProps {
     item: ILostAndFoundItem,
@@ -13,20 +16,100 @@ interface IItemDetailsProps {
 }
 
 const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
+    const Context = React.useContext(DashboardContext)
+
     let { item, show, onClose, type } = props
 
     let [showHelp, setShowHelp] = React.useState<boolean>(false)
+    let [Item, setItem] = React.useState<ILostAndFoundItem | null>(null)
+    let [mapLoading, setMapLoading] = React.useState(false)
 
+    React.useEffect(() => {
+        if (type == "lost") {
+            setItem(item)
+            return
+        }
+
+        getItemDetails(item)
+
+    }, [props])
+
+    let Toast = useToast()
 
     // get location details
-    let locDetails = getLocationDetails(item, type)
+    let locDetails = getLocationDetails(Item, type)
+
+    function getItemDetails(item: ILostAndFoundItem) {
+        if (item && item.PoliceStationID && item.PoliceStationID.trim().length > 0) {
+            setItem(item)
+            return
+        }
+        if (item && item._id) {
+
+            let _url = Context.baseUrl + "Lucy/FoundItem/" + item._id
+
+            let config: AxiosRequestConfig = {
+                headers: {
+                    "Authorization": `APIKEY ${Context.apiKey}`
+                }
+            }
+
+            setMapLoading(true)
+            axios.get(_url, config)
+                .then((res: any) => {
+                    let data: ILostAndFoundItem = res.data
+                    let locDetails: IUserLocationData = {
+                        lat: "24.489442968268726",
+                        long: "39.57909483821001",
+                        name: ""
+                    }
+
+                    let l = data.Location
+
+                    if (l.trim().length > 0) {
+                        let d = l.split(",")
+                        locDetails.lat = d[0].replace(/"/g, '')
+                        locDetails.long = d[1].replace(/"/g, '')
+                    }
+
+                    let apiKey = "955e990ed9ae4fbd9b6af6041bf0fea8"
+
+
+
+                    axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${locDetails.lat}+${locDetails.long}&key=${apiKey}`)
+                        .then((res) => {
+                            console.log("res ", res)
+                            let address = res.data.results[0].formatted
+
+                            locDetails.name = address
+
+                            data.FoundLocation = JSON.stringify(locDetails)
+                            setItem(data)
+                            setMapLoading(false)
+                        })
+                        .catch((e) => {
+                            console.log("exception ", e)
+                            // Toast.error("Please enter last location manually")
+                            data.FoundLocation = JSON.stringify(locDetails)
+                            setItem(data)
+                            setMapLoading(false)
+                        })
+
+                })
+                .catch((e) => {
+                    console.log("Exception : ", e)
+                    Toast.error("something went wrong")
+                    setMapLoading(false)
+                })
+        }
+    }
 
     function hasHandedOver() {
-        return item && item?.HandedOverEmail?.trim().length > 0
+        return Item && Item?.HandedOverEmail?.trim().length > 0
     }
 
     function hasClaimed() {
-        return getDetailsFromLocalStorage("email").trim().length > 0 && item?.claimed?.find((i: string) => i == getDetailsFromLocalStorage("email"))
+        return getDetailsFromLocalStorage("email").trim().length > 0 && Item?.claimed?.find((i: string) => i == getDetailsFromLocalStorage("email"))
     }
 
     return (<PopupScreen show={show} >
@@ -49,11 +132,11 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
 
             <div className="content">
                 <div className="image-cont">
-                    <img src={getImageUrl(item?.ImageUrl)} alt="" />
+                    <img src={getImageUrl(Item?.ImageUrl)} alt="" />
                 </div>
 
                 <div className="desc">
-                    {item?.Description}
+                    {Item?.Description}
                 </div>
 
                 <div className="time-loc">
@@ -61,13 +144,13 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         <div className="icon-cont">
                             <div className="icon"></div>
                         </div>
-                        <div className="text">{item?.Created}</div>
+                        <div className="text">{Item?.Created}</div>
                     </div>
                     <div className="location">
                         <div className="icon-cont">
                             <div className="icon"></div>
                         </div>
-                        <div className="text">{getLocationName(item, type)}</div>
+                        <div className="text">{getLocationName(Item, type)}</div>
                     </div>
 
                 </div>
@@ -76,7 +159,9 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                     {
                         locDetails && locDetails.lat.trim().length > 0 && locDetails.long.trim().length > 0 &&
                         <div className="map-preview">
-                            <div className="btn floating-btn">{type == "lost" ? "Last" : "Found"}  Location</div>
+                            <div className="btn floating-btn"> {type == "lost" ? "Last" : "Current"}  Location</div>
+
+                            {mapLoading && <div className="loading">Loading...</div>}
 
                             <MapComponent
                                 mapUrl="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -90,7 +175,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                                     },
                                     renderMarker: true
                                 }}
-                                zoom={12}
+                                zoom={8}
                             />
 
                         </div>
@@ -100,7 +185,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                             <div className="icon"></div>
                             <div className="det">
                                 <div className="label">Reported By</div>
-                                <div className="name">{item?.Name}</div>
+                                <div className="name">{Item?.Name}</div>
                             </div>
                         </div>
 
@@ -116,7 +201,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                             <div className="icon"></div>
                             <div className="det">
                                 <div className="label">mobile number</div>
-                                <div className="name">{item?.Phone}</div>
+                                <div className="name">{Item?.Phone}</div>
                             </div>
                         </div>
 
@@ -126,20 +211,20 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
 
 
                 <div className="qr-code-cont">
-                    <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${item?._id}`} alt="" />
+                    <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${Item?._id}`} alt="" />
                 </div>
 
                 <div className="claim-details">
-                    {item?.claimed?.length > 0 &&
+                    {Item?.claimed?.length > 0 &&
                         <div className="claim">
                             {
                                 hasClaimed()
                                     ? <> {
-                                        item.claimed.length > 1 ?
-                                            <>You and <span className="count">{item.claimed.length - 1}</span> other persons(s) has claimed</>
+                                        Item.claimed.length > 1 ?
+                                            <>You and <span className="count">{Item.claimed.length - 1}</span> other persons(s) has claimed</>
                                             : <>You have claimed this</>
                                     } </>
-                                    : <><span className="count">{item.claimed.length}</span> person(s) has claimed</>
+                                    : <><span className="count">{Item.claimed.length}</span> person(s) has claimed</>
 
                             }
                         </div>
@@ -151,7 +236,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         </div>
                     }
                 </div>
-                {item && !hasHandedOver() && !hasClaimed() &&
+                {Item && !hasHandedOver() && !hasClaimed() &&
                     <div className="claim-btn">
                         <button className="btn" onClick={() => setShowHelp(true)} >Claim</button>
                     </div>
@@ -160,7 +245,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
             </div>
         </div>
 
-        <ClaimItem show={showHelp} onClose={() => setShowHelp(false)} itemId={item?._id} />
+        <ClaimItem show={showHelp} onClose={() => setShowHelp(false)} itemId={Item?._id} />
     </PopupScreen>)
 }
 

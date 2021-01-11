@@ -183,7 +183,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     function fetchUserLocation() {
 
         // for demo get random location
-        let randomLoc = randomGeo({ latitude: 24.489442968268726, longitude: 39.57909483821001 }, 1000)
+        let randomLoc = randomGeo({ latitude: 24.489442968268726, longitude: 39.57909483821001 }, 10000)
 
         let lat = randomLoc.latitude
         let long = randomLoc.longitude
