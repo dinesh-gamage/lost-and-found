@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Map, TileLayer, ImageOverlay,Marker, Rectangle, Polygon, Circle ,Tooltip} from 'react-leaflet';
-import { LatLngTuple, LatLngExpression, LeafletMouseEvent,CRS } from 'leaflet';
+import { Map, TileLayer, ImageOverlay, Marker, Rectangle, Polygon, Circle, Tooltip, Popup } from 'react-leaflet';
+import { LatLngTuple, LatLngExpression, LeafletMouseEvent, CRS } from 'leaflet';
 
 import './map.scss';
 
@@ -41,11 +41,11 @@ interface IRegion {
     color?: string,
     fillColor?: string,
     data?: any,
-    imageCoordinates?:boolean,
+    imageCoordinates?: boolean,
     /**
      * A tooltip to be shown when you click on the region
      */
-    tooltipContent?:(data:any)=>JSX.Element;
+    tooltipContent?: (data: any) => JSX.Element;
 }
 
 /**
@@ -135,27 +135,27 @@ interface IMapComponentProps {
     onClick?: (event: LeafletMouseEvent) => void
 }
 
-const getStaticImageBounds = (w:number,h:number) => {
-    return [[0,0],[h,w]] as [[number,number],[number,number]];
-    let lat = 0;
-    let lng= 0;
-    if (h > w) {
-        lat = 85;
-        lng = 180*w/h;
-    } else {
-        lng= 180;
-        lat= 85*h/w
-    }
-    return [[-lat,-lng],[lat,lng]]  as [[number,number],[number,number]];
-}
-
-const convertFromImagePosition = (x:number,y:number,w:number,h:number,bounds:[[number,number],[number,number]]):[number,number]  => {
-    return [h-y,x];
+const getStaticImageBounds = (w: number, h: number) => {
+    return [[0, 0], [h, w]] as [[number, number], [number, number]];
     let lat = 0;
     let lng = 0;
-    lng = bounds[0][1] + (bounds[1][1] - bounds[0][1])*x/w;
-    lat = bounds[1][0] - (bounds[1][0] - bounds[0][0])*y/h;
-    return [lat,lng];
+    if (h > w) {
+        lat = 85;
+        lng = 180 * w / h;
+    } else {
+        lng = 180;
+        lat = 85 * h / w
+    }
+    return [[-lat, -lng], [lat, lng]] as [[number, number], [number, number]];
+}
+
+const convertFromImagePosition = (x: number, y: number, w: number, h: number, bounds: [[number, number], [number, number]]): [number, number] => {
+    return [h - y, x];
+    let lat = 0;
+    let lng = 0;
+    lng = bounds[0][1] + (bounds[1][1] - bounds[0][1]) * x / w;
+    lat = bounds[1][0] - (bounds[1][0] - bounds[0][0]) * y / h;
+    return [lat, lng];
 }
 
 /**
@@ -192,31 +192,31 @@ const MapComponent: React.FunctionComponent<IMapComponentProps> = (props) => {
     const handleRegionClick = (event: React.MouseEvent, data: any) => {
         console.log("event : ", event)
         console.log("data : ", data)
-        if(onRegionClick) onRegionClick(event, data);
+        if (onRegionClick) onRegionClick(event, data);
     }
 
     const handleMapClick = (e: LeafletMouseEvent) => {
-        if(onClick) onClick(e);
+        if (onClick) onClick(e);
     }
 
-   
 
-    return (<Map 
-        crs={props.staticImage?CRS.Simple:CRS.EPSG3857}
-    
-    id="uxp-map-component-container" 
-    attributionControl={false}
-    center={_center} zoom={_zoom} onclick={handleMapClick} >
+
+    return (<Map
+        crs={props.staticImage ? CRS.Simple : CRS.EPSG3857}
+
+        id="uxp-map-component-container"
+        attributionControl={false}
+        center={_center} zoom={_zoom} onclick={handleMapClick} >
         {/* base layer */}
-        
+
         {
-            
-            <TileLayer url={mapUrl}  noWrap={true} />
+
+            <TileLayer url={mapUrl} noWrap={true} />
         }
         {
-            props.staticImage?
-            <ImageOverlay url={props.staticImage.url} bounds={getStaticImageBounds(props.staticImage.width,props.staticImage.height)} />
-            :null
+            props.staticImage ?
+                <ImageOverlay url={props.staticImage.url} bounds={getStaticImageBounds(props.staticImage.width, props.staticImage.height)} />
+                : null
         }
 
         {/* render markers */}
@@ -227,7 +227,6 @@ const MapComponent: React.FunctionComponent<IMapComponentProps> = (props) => {
                     onClick={(event: React.MouseEvent<Marker>) => handleMarkerClick(event, marker.data)}
                     key={key}
                 >
-
                 </Marker>
             })
         }
@@ -235,7 +234,12 @@ const MapComponent: React.FunctionComponent<IMapComponentProps> = (props) => {
         {/* render center point */}
         {
             _renderCenter &&
-            <Marker position={_center}></Marker>
+            <Marker position={_center} >
+                {center?.position?.data && center?.position?.data.trim().length > 0 &&
+                    <Tooltip permanent direction="top" offset={[-15, -20]}>{center?.position?.data}</Tooltip>
+                }
+
+            </Marker>
         }
 
         {/* render regions */}
@@ -276,8 +280,8 @@ const MapComponent: React.FunctionComponent<IMapComponentProps> = (props) => {
 
                 let _b = region.bounds as IPolygonBound;
                 if (region.imageCoordinates) {
-                    let cb = getStaticImageBounds(props.staticImage.width,props.staticImage.height);
-                    _b = (_b as [number,number][]).map(x => convertFromImagePosition(x[0],x[1],props.staticImage.width,props.staticImage.height,cb));
+                    let cb = getStaticImageBounds(props.staticImage.width, props.staticImage.height);
+                    _b = (_b as [number, number][]).map(x => convertFromImagePosition(x[0], x[1], props.staticImage.width, props.staticImage.height, cb));
                 }
                 return <Polygon positions={_b} {...regionProps} key={key}
                     onClick={(e: React.MouseEvent) => handleRegionClick(e, region.data)}
@@ -289,5 +293,18 @@ const MapComponent: React.FunctionComponent<IMapComponentProps> = (props) => {
 
     </Map>)
 }
+
+
+// // Create your own class, extending from the Marker class.
+// class ExtendedMarker extends Marker {
+//     // "Hijack" the component lifecycle.
+//     componentDidMount() {
+//         // Call the Marker class componentDidMount (to make sure everything behaves as normal)
+//         super.componentDidMount();
+
+//         // Access the marker element and open the popup.
+//         this.leafletElement.openPopup();
+//     }
+// }
 
 export default MapComponent;

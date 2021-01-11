@@ -23,6 +23,15 @@ interface ILostAndFoundItem {
     PoliceStationID?:string
     LockerID?:string
     Data?: string
+    FoundLocation?: string
+    AdditionalDetails?: {
+        BusNumber?: string,
+        BagID?: string
+        ItemType?: "normal" | "valuable" | "suspicious"
+    }
+    claimed?: string[]
+    HandedOverEmail?: string
+    HandedOverTime?: string
 }
 interface IColor {
     hex: string,
