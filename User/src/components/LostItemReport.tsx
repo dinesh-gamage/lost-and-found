@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import classNames = require('classnames')
 import * as React from 'react'
 import { config } from 'react-transition-group'
+import { getDetailsFromLocalStorage } from '../utils'
 import { DashboardContext } from './DashboardContext'
 import ImageUploader from './image-uploader/ImageUploader'
 import PopupScreen from './PopUpScreen'
@@ -49,17 +50,6 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
         }, 500);
 
     }, [])
-
-    function getDetailsFromLocalStorage(key: string) {
-        try {
-            let d = JSON.parse(localStorage.getItem("mda-guest-user"))
-            if(d[key]) return d[key]
-            return ""
-        }
-        catch (e) {
-            return ""
-        }
-    }
 
     function updateObj(key: string, value: string) {
         setLostItem(prev => ({ ...prev, ...{ [key]: value } }))

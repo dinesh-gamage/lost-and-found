@@ -18,29 +18,45 @@ export function getImageUrl(image: string): string {
     return noImage;
 }
 
-export function getFoundLocationName(item: ILostAndFoundItem) {
-    if (item && item.FoundLocation && item.FoundLocation.trim().length > 0) {
-        // get location
-        // check if a json 
+export function getLocationName(item: ILostAndFoundItem, type: any) {
+    if (!item) return "not found"
+
+    let locationDetails = null
+    if (type == "lost" && item.LastLocation && item.LastLocation.trim().length > 0) {
+        locationDetails = item.LastLocation
+    }
+    else {
+        if (item.FoundLocation && item.FoundLocation.trim().length > 0) locationDetails = item.FoundLocation
+    }
+
+    if (locationDetails) {
         try {
-            let d: IUserLocationData = JSON.parse(item.FoundLocation)
+            let d: IUserLocationData = JSON.parse(locationDetails)
             if (d.name) return d.name
             return "not found"
         }
         catch (e) {
             // if not a json 
-            return item.FoundLocation
+            return locationDetails
         }
     }
     return "not found"
 }
 
-export function getFoundLocationDetails(item: ILostAndFoundItem) {
-    if (item && item.FoundLocation && item.FoundLocation.trim().length > 0) {
-        // get location
-        // check if a json 
+export function getLocationDetails(item: ILostAndFoundItem, type: any) {
+    if (!item) return null
+
+    let locationDetails = null
+    if (type == "lost" && item.LastLocation && item.LastLocation.trim().length > 0) {
+        locationDetails = item.LastLocation
+    }
+    else {
+        if (item.FoundLocation && item.FoundLocation.trim().length > 0) locationDetails = item.FoundLocation
+    }
+
+    if (locationDetails) {
         try {
-            let d: IUserLocationData = JSON.parse(item.FoundLocation)
+            let d: IUserLocationData = JSON.parse(locationDetails)
             return d
         }
         catch (e) {
@@ -49,4 +65,16 @@ export function getFoundLocationDetails(item: ILostAndFoundItem) {
         }
     }
     return null
+}
+
+
+export function getDetailsFromLocalStorage(key: string) {
+    try {
+        let d = JSON.parse(localStorage.getItem("mda-guest-user"))
+        if (d[key]) return d[key]
+        return ""
+    }
+    catch (e) {
+        return ""
+    }
 }

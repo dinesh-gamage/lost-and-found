@@ -1,6 +1,6 @@
 import classNames = require('classnames')
 import * as React from 'react'
-import { getFoundLocationDetails, getFoundLocationName, getImageUrl } from '../utils'
+import { getDetailsFromLocalStorage, getImageUrl, getLocationDetails, getLocationName } from '../utils'
 import ClaimItem from './ClaimItem'
 import MapComponent from './map/MapComponent'
 import PopupScreen from './PopUpScreen'
@@ -8,17 +8,26 @@ import PopupScreen from './PopUpScreen'
 interface IItemDetailsProps {
     item: ILostAndFoundItem,
     show: boolean,
-    onClose: () => void
+    onClose: () => void,
+    type: "lost" | "found" | "claimed"
 }
 
 const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
-    let { item, show, onClose } = props
+    let { item, show, onClose, type } = props
 
     let [showHelp, setShowHelp] = React.useState<boolean>(false)
 
 
     // get location details
-    let locDetails = getFoundLocationDetails(item)
+    let locDetails = getLocationDetails(item, type)
+
+    function hasHandedOver() {
+        return item && item?.HandedOverEmail?.trim().length > 0
+    }
+
+    function hasClaimed() {
+        return getDetailsFromLocalStorage("email").trim().length > 0 && item?.claimed?.find((i: string) => i == getDetailsFromLocalStorage("email"))
+    }
 
     return (<PopupScreen show={show} >
         <div className="mda-item-details-cont">
@@ -29,7 +38,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                     </div>
                 </div>
 
-                <div className="title">{item?.Title || "Found Item"}</div>
+                <div className="title">{type} Item</div>
 
                 <div className="close-btn" onClick={onClose} >
                     <div className="icon-cont">
@@ -58,7 +67,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         <div className="icon-cont">
                             <div className="icon"></div>
                         </div>
-                        <div className="text">{getFoundLocationName(item)}</div>
+                        <div className="text">{getLocationName(item, type)}</div>
                     </div>
 
                 </div>
@@ -67,7 +76,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                     {
                         locDetails && locDetails.lat.trim().length > 0 && locDetails.long.trim().length > 0 &&
                         <div className="map-preview">
-                            <div className="btn floating-btn">Found Location</div>
+                            <div className="btn floating-btn">{type == "lost" ? "Last" : "Found"}  Location</div>
 
                             <MapComponent
                                 mapUrl="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -116,20 +125,33 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                 </div>
 
 
+                <div className="qr-code-cont">
+                    <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${item?._id}`} alt="" />
+                </div>
+
                 <div className="claim-details">
                     {item?.claimed?.length > 0 &&
                         <div className="claim">
-                            <span className="count">{item.claimed.length}</span> people has claimed
+                            {
+                                hasClaimed()
+                                    ? <> {
+                                        item.claimed.length > 1 ?
+                                            <>You and <span className="count">{item.claimed.length - 1}</span> other persons(s) has claimed</>
+                                            : <>You have claimed this</>
+                                    } </>
+                                    : <><span className="count">{item.claimed.length}</span> person(s) has claimed</>
+
+                            }
                         </div>
                     }
 
-                    {item?.HandedOverEmail?.trim().length > 0 &&
+                    {hasHandedOver() &&
                         <div className="handed-over">
                             <div className="btn">Handed Over</div>
                         </div>
                     }
                 </div>
-                {item  && (!item.HandedOverEmail || item.HandedOverEmail.trim().length == 0) &&
+                {item && !hasHandedOver() && !hasClaimed() &&
                     <div className="claim-btn">
                         <button className="btn" onClick={() => setShowHelp(true)} >Claim</button>
                     </div>

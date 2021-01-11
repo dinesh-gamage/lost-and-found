@@ -1,4 +1,6 @@
 import * as React from 'react'
+import LostClaimedItemsWidget from './LostClaimedItemsWidget'
+import ItemListWidget from './LostClaimedItemsWidget'
 import LostItemSearch from './LostItemSearch'
 
 interface IDashboardProps {
@@ -50,7 +52,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                         <div className="quick-action-thumbnail hijab">
                             <div className="top"></div>
                             <div className="bottom">
-                            <div className="content">
+                                <div className="content">
                                     <span> Hijab Offers</span>
                                     <div className="large">40% off</div>
                                     <span>  Al Khalidiya Mall</span>
@@ -106,6 +108,12 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
                                     <button className="btn scan" onClick={() => { setScreen("search") }}>search</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="quick-action-thumbnail-cont">
+                        <div className="quick-action-thumbnail list">
+                            <LostClaimedItemsWidget />
                         </div>
                     </div>
 

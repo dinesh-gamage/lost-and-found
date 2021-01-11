@@ -1,6 +1,6 @@
 import classNames = require('classnames')
 import * as React from 'react'
-import { getFoundLocationName, getImageUrl } from '../utils'
+import { getImageUrl, getLocationName } from '../utils'
 import ItemDetails from './ItemDetails'
 
 interface IItemList {
@@ -16,7 +16,7 @@ const ItemList: React.FunctionComponent<IItemList> = (props) => {
     //states 
     let [selected, setSelected] = React.useState<ILostAndFoundItem | null>(null)
 
-    
+
 
     return (<div className="mda-lost-found-items-list">
 
@@ -48,7 +48,7 @@ const ItemList: React.FunctionComponent<IItemList> = (props) => {
                             <div className="icon-cont">
                                 <div className="icon"></div>
                             </div>
-                            <div className="text">{getFoundLocationName(item)}</div>
+                            <div className="text">{getLocationName(item, "found")}</div>
                         </div>
                         <div className="tags">
                             {item.HandedOverEmail && item.HandedOverEmail.trim().length > 0 ?
@@ -72,7 +72,7 @@ const ItemList: React.FunctionComponent<IItemList> = (props) => {
             })
         }
 
-        <ItemDetails show={selected != null} item={selected} onClose={() => setSelected(null)} />
+        <ItemDetails show={selected != null} item={selected} onClose={() => setSelected(null)} type={"found"} />
 
     </div>)
 }
