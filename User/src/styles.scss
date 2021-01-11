@@ -1364,6 +1364,13 @@ body,
                                 background-position: top;
                             }
                         }
+                        &.user {
+                            & > .icon {
+                                background-image: url($userProfile);
+                                background-size: cover;
+                                background-position: top;
+                            }
+                        }
                         &.bus {
                             & > .icon {
                                 background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHRpdGxlPmlvbmljb25zLXY1LWg8L3RpdGxlPjxwYXRoIGQ9Ik00MDAsNjRIMTEyYTE2LDE2LDAsMCwwLDAsMzJINDAwYTE2LDE2LDAsMCwwLDAtMzJaIiBzdHlsZT0iZmlsbDpub25lIi8+PHBhdGggZD0iTTQyNCwzMkg4OEEyNCwyNCwwLDAsMCw2NCw1NlY0MTZhMzIsMzIsMCwwLDAsMTYsMjcuNzFWNDgwaDcyVjQ0OEgzNjB2MzJoNzJWNDQzLjcxQTMyLDMyLDAsMCwwLDQ0OCw0MTZWNTZBMjQsMjQsMCwwLDAsNDI0LDMyWk0xNzUuODIsMzcxLjQ3YTMyLDMyLDAsMSwxLTM1LjMtMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMTc1LjgyLDM3MS40N1pNMjQwLDI4OEg5NlYxMjhIMjQwWk0yNTYsOTZIOTYuNDZMOTYsNjRINDE2bC0uNDYsMzJIMjU2Wm0xNiwzMkg0MTZWMjg4SDI3MlptNjQuMTgsMjM2LjUzYTMyLDMyLDAsMSwxLDM1LjMsMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMzM2LjE4LDM2NC41M1oiLz48L3N2Zz4=");

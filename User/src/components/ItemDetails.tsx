@@ -40,7 +40,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
     let locDetails = getLocationDetails(Item, type)
 
     function getItemDetails(_item: ILostAndFoundItem) {
-        if (_item && (_item.PoliceStationID && _item.PoliceStationID.trim().length > 0 || (_item.HandedOverEmail && _item.HandedOverEmail.trim().length > 0) )) {
+        if (_item && (_item.PoliceStationID && _item.PoliceStationID.trim().length > 0 || (_item.HandedOverEmail && _item.HandedOverEmail.trim().length > 0))) {
             setItem(_item)
             return
         }
@@ -181,29 +181,43 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         </div>
                     }
                     <div className="info-panel">
-                        <div className="section driver">
-                            <div className="icon"></div>
-                            <div className="det">
-                                <div className="label">Reported By</div>
-                                <div className="name">{Item?.Name}</div>
-                            </div>
-                        </div>
+                        {
+                            type == "lost" ?
+                                <div className="section user">
+                                    <div className="icon"></div>
+                                    <div className="det">
+                                        <div className="label">Reported By</div>
+                                        <div className="name">{Item?.Name}</div>
+                                    </div>
+                                </div>
+                                :
+                                <>
+                                    <div className="section driver">
+                                        <div className="icon"></div>
+                                        <div className="det">
+                                            <div className="label">Reported By</div>
+                                            <div className="name">{Item?.Name}</div>
+                                        </div>
+                                    </div>
 
-                        <div className="section bus">
-                            <div className="icon"></div>
-                            <div className="det">
-                                <div className="label">Bus number</div>
-                                <div className="name">4212 KAA</div>
-                            </div>
-                        </div>
+                                    <div className="section bus">
+                                        <div className="icon"></div>
+                                        <div className="det">
+                                            <div className="label">Bus number</div>
+                                            <div className="name">4212 KAA</div>
+                                        </div>
+                                    </div>
 
-                        <div className="section phone">
-                            <div className="icon"></div>
-                            <div className="det">
-                                <div className="label">mobile number</div>
-                                <div className="name">{Item?.Phone}</div>
-                            </div>
-                        </div>
+                                    <div className="section phone">
+                                        <div className="icon"></div>
+                                        <div className="det">
+                                            <div className="label">mobile number</div>
+                                            <div className="name">{Item?.Phone}</div>
+                                        </div>
+                                    </div>
+                                </>
+                        }
+
 
 
                     </div>
