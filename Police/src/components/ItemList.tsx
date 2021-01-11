@@ -35,6 +35,23 @@ const ItemList: React.FunctionComponent<IItemList> = (props) => {
         return noImage;
     }
 
+    function getLocationName(item: ILostAndFoundItem) {
+        if (item.LastLocation && item.LastLocation.trim().length > 0) {
+            // get location
+            // check if a json 
+            try {
+                let d: IUserLocationData = JSON.parse(item.LastLocation)
+                if (d.name) return d.name
+                return "not found"
+            }
+            catch (e) {
+                // if not a json 
+                return item.LastLocation
+            }
+        }
+        return "not found"
+    }
+
     return (<div className="mda-lost-found-items-list">
 
         {loading && <div className="loading">Loading...</div>}
@@ -65,7 +82,7 @@ const ItemList: React.FunctionComponent<IItemList> = (props) => {
                             <div className="icon-cont">
                                 <div className="icon"></div>
                             </div>
-                            <div className="text">{item.LastLocation}</div>
+                            <div className="text">{getLocationName(item)}</div>
                         </div>
 
                         <div className="btn">Tagged</div>

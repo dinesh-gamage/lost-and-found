@@ -41,6 +41,22 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
 
     let hasHandedOver = item?.HandedOverEmail?.trim().length > 0
 
+    function getLocationName(item: ILostAndFoundItem) {
+        if (item && item.LastLocation && item.LastLocation.trim().length > 0) {
+            // get location
+            // check if a json 
+            try {
+                let d: any = JSON.parse(item.LastLocation)
+                if (d.name) return d.name
+                return "not found"
+            }
+            catch (e) {
+                // if not a json 
+                return item.LastLocation
+            }
+        }
+        return "not found"
+    }
     return (<PopupScreen show={show}>
         <div className="mda-item-details-cont">
             <div className="header">
@@ -79,7 +95,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         <div className="icon-cont">
                             <div className="icon"></div>
                         </div>
-                        <div className="text">{item?.LastLocation}</div>
+                        <div className="text">{getLocationName(item)}</div>
                     </div>
 
                 </div>
