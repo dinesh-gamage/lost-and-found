@@ -1,10 +1,11 @@
 import * as React from 'react'
 import LostClaimedItemListComponent from './LostClaimedItemListComponent'
 import LostClaimedList from './LostClaimedList'
+import QRCodePreview from './QRCodePreview'
 
 const LostClaimedItemsWidget: React.FunctionComponent<{}> = (props) => {
 
-    let [open, setOpen] = React.useState<boolean>(true)
+    let [open, setOpen] = React.useState<boolean>(false)
 
     return (<div className="mda-items-list-widget">
         <div className="header">
@@ -24,6 +25,7 @@ const LostClaimedItemsWidget: React.FunctionComponent<{}> = (props) => {
         <LostClaimedList />
 
         <LostClaimedItemListComponent show={open} onClose={() => setOpen(false)} />
+    
     </div>)
 }
 

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import classNames = require('classnames')
 import * as React from 'react'
-import { getDetailsFromLocalStorage } from '../utils'
+import { getDetailsFromLocalStorage, getImageUrl, getLocationName } from '../utils'
 import { DashboardContext } from './DashboardContext'
 import ItemDetails from './ItemDetails'
 
@@ -102,41 +102,7 @@ const LostClaimedList: React.FunctionComponent<IItemsListProps> = (props) => {
         }
     }
 
-    function getImageUrl(image: string): string {
-        if (image && image.trim().length > 0) {
-            if (image.startsWith("data:image")) return image
-            if (image.startsWith("http://") || image.startsWith("https://")) return image
 
-            // split the string
-            let bucket = image.substr(0, image.indexOf('/'))
-            let key = image.substr(image.indexOf('/') + 1)
-            console.log("bucket : ", bucket, " key: ", key)
-
-            if (bucket && key) {
-                return "http://" + bucket + ".s3.amazonaws.com" + "/" + key
-                //  return `https://s3.amazonaws.com/${bucket}/${key}`
-            }
-            return noImage
-        }
-        return noImage;
-    }
-
-    function getLocationName(item: ILostAndFoundItem) {
-        if (item.LastLocation && item.LastLocation.trim().length > 0) {
-            // get location
-            // check if a json 
-            try {
-                let d: IUserLocationData = JSON.parse(item.LastLocation)
-                if (d.name) return d.name
-                return "not found"
-            }
-            catch (e) {
-                // if not a json 
-                return item.LastLocation
-            }
-        }
-        return "not found"
-    }
 
     return (<div className="mda-lost-found-items-list-all">
         <div className="toolbar">
@@ -189,7 +155,7 @@ const LostClaimedList: React.FunctionComponent<IItemsListProps> = (props) => {
                             <div className="icon-cont">
                                 <div className="icon"></div>
                             </div>
-                            <div className="text">{getLocationName(item)}</div>
+                            <div className="text">{getLocationName(item, type)}</div>
                         </div>
                     </div>
 

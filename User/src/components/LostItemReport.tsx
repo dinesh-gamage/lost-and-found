@@ -7,6 +7,7 @@ import { getDetailsFromLocalStorage } from '../utils'
 import { DashboardContext } from './DashboardContext'
 import ImageUploader from './image-uploader/ImageUploader'
 import PopupScreen from './PopUpScreen'
+import QRCodePreview from './QRCodePreview'
 import { useToast } from './Toast'
 
 interface ILostItemReportProps {
@@ -40,6 +41,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
         long: "",
         name: ""
     })
+    let [newItem, setNewItem] = React.useState<string>(null)
 
     let Toast = useToast();
 
@@ -133,14 +135,14 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
 
             axios.post(_url, data, config)
                 .then((res) => {
-
+                    console.log("res : ", res)
                     localStorage.setItem("mda-guest-user", JSON.stringify({
                         email: lostItem.Email,
                         name: lostItem.Name,
                         phone: lostItem.Phone
                     }))
 
-                    onClose()
+                    setNewItem(res.data.id)
                     Toast.success("Item Registered")
                     setSaving(false)
                 })
@@ -216,6 +218,11 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
         //         console.log("err ", err)
         //         Toast.error("Please enter last location manually")
         //     })
+    }
+
+    function closeCreate() {
+        setNewItem(null)
+        onClose()
     }
 
     return (<PopupScreen show={show}>
@@ -353,6 +360,9 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                 </div>
             </div>
         </div>
+
+
+        <QRCodePreview show={newItem != null} onClose={closeCreate} itemId={newItem} />
     </PopupScreen>)
 }
 
