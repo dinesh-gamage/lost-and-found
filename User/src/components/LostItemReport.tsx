@@ -124,6 +124,13 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
 
             axios.post(_url, data, config)
                 .then((res) => {
+
+                    localStorage.setItem("mda-guest-user", JSON.stringify({
+                        email: lostItem.Email,
+                        name: lostItem.Name,
+                        Phone: lostItem.Phone
+                    }))
+
                     onClose()
                     Toast.success("Item Registered")
                     setSaving(false)
