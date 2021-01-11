@@ -21,9 +21,9 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
 
     let [lostItem, setLostItem] = React.useState<ILostAndFoundItem>({
         _id: null,
-        Name: "",
-        Phone: "",
-        Email: "",
+        Name: getDetailsFromLocalStorage("name"),
+        Phone: getDetailsFromLocalStorage("phone"),
+        Email: getDetailsFromLocalStorage("email"),
         Title: "",
         Description: "",
         Features: "",
@@ -41,6 +41,25 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     })
 
     let Toast = useToast();
+
+    React.useEffect(() => {
+        // get from local storage
+        setTimeout(() => {
+
+        }, 500);
+
+    }, [])
+
+    function getDetailsFromLocalStorage(key: string) {
+        try {
+            let d = JSON.parse(localStorage.getItem("mda-guest-user"))
+            if(d[key]) return d[key]
+            return ""
+        }
+        catch (e) {
+            return ""
+        }
+    }
 
     function updateObj(key: string, value: string) {
         setLostItem(prev => ({ ...prev, ...{ [key]: value } }))
@@ -128,7 +147,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                     localStorage.setItem("mda-guest-user", JSON.stringify({
                         email: lostItem.Email,
                         name: lostItem.Name,
-                        Phone: lostItem.Phone
+                        phone: lostItem.Phone
                     }))
 
                     onClose()
