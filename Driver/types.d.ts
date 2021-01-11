@@ -34,12 +34,17 @@ interface ILostAndFoundItem {
     Created: string
     PoliceStationID?: string
     LockerID?: string
+    Data?: string
+    FoundLocation?: string
+    Location?: string
     AdditionalDetails?: {
         BusNumber?: string,
         BagID?: string
         ItemType?: "normal" | "valuable" | "suspicious"
     }
-    FoundLocation?: string
+    claimed?: string[]
+    HandedOverEmail?: string
+    HandedOverTime?: string
 }
 interface IColor {
     hex: string,

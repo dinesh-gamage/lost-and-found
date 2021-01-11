@@ -1099,6 +1099,7 @@ body,
                     height: 100%;
                     object-fit: contain;
                     object-position: center;
+                    border-radius: 15px;
                 }
             }
 
@@ -1114,16 +1115,18 @@ body,
                 height: auto;
                 padding: 20px 10px;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: space-between;
                 flex-wrap: wrap;
 
                 & > .time {
-                    width: auto;
+                    width: 100%;
                     height: auto;
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
+                    padding: 5px 0;
 
                     & > .icon-cont {
                         width: 15px;
@@ -1142,16 +1145,17 @@ body,
                     }
 
                     & > .text {
-                        margin-left: 10px;
+                        margin-left: 15px;
                         font-size: 11px;
                     }
                 }
                 & > .location {
-                    width: auto;
+                    width: 100%;
                     height: auto;
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
+                    padding: 5px 0;
 
                     & > .icon-cont {
                         width: 15px;
@@ -1170,7 +1174,7 @@ body,
                     }
 
                     & > .text {
-                        margin-left: 20px;
+                        margin-left: 15px;
                         font-size: 11px;
                     }
                 }
@@ -1179,13 +1183,168 @@ body,
             & > .details {
                 width: 100%;
                 height: auto;
-                padding: 10px;
+                background-color: #f7f7f7;
+                border-radius: 10px;
+                overflow: hidden;
 
                 & > .map-preview {
                     width: 100%;
                     height: 250px;
-                    border-radius: 10px;
+                    border-radius: 15px;
                     overflow: hidden;
+                    position: relative;
+
+                    & > .floating-btn {
+                        width: auto;
+                        display: inline;
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        background-color: black;
+                        z-index: 1001;
+                    }
+
+                    & > .loading {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-color: rgba(0, 0, 0, 0.6);
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 1001;
+                    }
+                }
+
+                & > .info-panel {
+                    width: 100%;
+                    height: auto;
+                    padding: 15px;
+
+                    & > .section {
+                        width: 100%;
+                        height: auto;
+                        padding: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+
+                        & > .icon {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            background-color: #f9f9f9;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                        }
+
+                        & > .det {
+                            margin-left: 15px;
+                            & > .label {
+                                padding: 5px 0;
+                                font-size: 12px;
+                                text-transform: capitalize;
+                            }
+                            & > .name {
+                                padding: 5px 0;
+                                font-size: 14px;
+                                text-transform: capitalize;
+                            }
+                        }
+
+                        &.driver {
+                            & > .icon {
+                                background-image: url($driverProfile);
+                                background-size: cover;
+                                background-position: top;
+                            }
+                        }
+
+                        &.user {
+                            & > .icon {
+                                background-image: url($userProfile);
+                                background-size: cover;
+                                background-position: top;
+                            }
+                        }
+                        &.bus {
+                            & > .icon {
+                                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHRpdGxlPmlvbmljb25zLXY1LWg8L3RpdGxlPjxwYXRoIGQ9Ik00MDAsNjRIMTEyYTE2LDE2LDAsMCwwLDAsMzJINDAwYTE2LDE2LDAsMCwwLDAtMzJaIiBzdHlsZT0iZmlsbDpub25lIi8+PHBhdGggZD0iTTQyNCwzMkg4OEEyNCwyNCwwLDAsMCw2NCw1NlY0MTZhMzIsMzIsMCwwLDAsMTYsMjcuNzFWNDgwaDcyVjQ0OEgzNjB2MzJoNzJWNDQzLjcxQTMyLDMyLDAsMCwwLDQ0OCw0MTZWNTZBMjQsMjQsMCwwLDAsNDI0LDMyWk0xNzUuODIsMzcxLjQ3YTMyLDMyLDAsMSwxLTM1LjMtMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMTc1LjgyLDM3MS40N1pNMjQwLDI4OEg5NlYxMjhIMjQwWk0yNTYsOTZIOTYuNDZMOTYsNjRINDE2bC0uNDYsMzJIMjU2Wm0xNiwzMkg0MTZWMjg4SDI3MlptNjQuMTgsMjM2LjUzYTMyLDMyLDAsMSwxLDM1LjMsMzUuMjlBMzIuMDksMzIuMDksMCwwLDEsMzM2LjE4LDM2NC41M1oiLz48L3N2Zz4=");
+                                background-size: 70%;
+                            }
+                        }
+                        &.phone {
+                            & > .icon {
+                                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItcGhvbmUiPjxwYXRoIGQ9Ik0yMiAxNi45MnYzYTIgMiAwIDAgMS0yLjE4IDIgMTkuNzkgMTkuNzkgMCAwIDEtOC42My0zLjA3IDE5LjUgMTkuNSAwIDAgMS02LTYgMTkuNzkgMTkuNzkgMCAwIDEtMy4wNy04LjY3QTIgMiAwIDAgMSA0LjExIDJoM2EyIDIgMCAwIDEgMiAxLjcyIDEyLjg0IDEyLjg0IDAgMCAwIC43IDIuODEgMiAyIDAgMCAxLS40NSAyLjExTDguMDkgOS45MWExNiAxNiAwIDAgMCA2IDZsMS4yNy0xLjI3YTIgMiAwIDAgMSAyLjExLS40NSAxMi44NCAxMi44NCAwIDAgMCAyLjgxLjdBMiAyIDAgMCAxIDIyIDE2LjkyeiI+PC9wYXRoPjwvc3ZnPg==");
+                                background-size: 70%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            & > .qr-code-cont {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 40px 0;
+
+                & > img {
+                    padding: 20px;
+                    object-fit: contain;
+                    width: 270px;
+                    height: 270px;
+                    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.14), 0 6px 10px 0 rgba(0, 0, 0, 0.098),
+                        0 1px 18px 0 rgba(0, 0, 0, 0.084);
+                    image-rendering: pixelated;
+                }
+            }
+
+            & > .claim-details {
+                width: 100%;
+                height: auto;
+                padding: 20px;
+
+                & > .claim {
+                    width: 100%;
+                    height: auto;
+                    padding: 10px 0;
+                    font-size: 12px;
+                    color: #424242;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    & > .count {
+                        width: 35px;
+                        height: 35px;
+                        background-color: #7a6ff0;
+                        color: white;
+                        margin: 0 10px;
+                        border-radius: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                & > .handed-over {
+                    width: 100%;
+                    height: auto;
+                    padding: 10px 0;
+                    font-size: 12px;
+
+                    & > .btn {
+                        background-color: #7a6ff0;
+                        color: white;
+                        display: inline-block;
+                        width: auto;
+                    }
                 }
             }
 
