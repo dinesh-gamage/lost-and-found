@@ -39,14 +39,14 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
     // get location details
     let locDetails = getLocationDetails(Item, type)
 
-    function getItemDetails(item: ILostAndFoundItem) {
-        if (item && item.PoliceStationID && item.PoliceStationID.trim().length > 0) {
-            setItem(item)
+    function getItemDetails(_item: ILostAndFoundItem) {
+        if (_item && (_item.PoliceStationID && _item.PoliceStationID.trim().length > 0 || (_item.HandedOverEmail && _item.HandedOverEmail.trim().length > 0) )) {
+            setItem(_item)
             return
         }
-        if (item && item._id) {
+        if (_item && _item._id) {
 
-            let _url = Context.baseUrl + "Lucy/FoundItem/" + item._id
+            let _url = Context.baseUrl + "Lucy/FoundItem/" + _item._id
 
             let config: AxiosRequestConfig = {
                 headers: {
