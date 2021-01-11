@@ -129,9 +129,11 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         </div>
                     }
                 </div>
-                <div className="claim-btn">
-                    <button className="btn" onClick={() => setShowHelp(true)} >Claim</button>
-                </div>
+                {item  && (!item.HandedOverEmail || item.HandedOverEmail.trim().length == 0) &&
+                    <div className="claim-btn">
+                        <button className="btn" onClick={() => setShowHelp(true)} >Claim</button>
+                    </div>
+                }
 
             </div>
         </div>
