@@ -27,7 +27,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
         Email: Context.profile.user.email,
         Title: "",
         Description: "",
-        Features: "",
+        Features: [],
         ImageUrl: "",
         LastLocation: "",
         Status: "New",

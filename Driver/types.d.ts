@@ -27,7 +27,7 @@ interface ILostAndFoundItem {
     Email: string
     Title: string
     Description: string
-    Features: string
+    Features: string[]
     ImageUrl: string
     LastLocation: string
     Status: string

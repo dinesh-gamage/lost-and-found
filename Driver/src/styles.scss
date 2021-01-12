@@ -1089,25 +1089,81 @@ body,
             overflow-y: auto;
             overflow-x: hidden;
 
-            & > .image-cont {
+            & > .top {
                 width: 100%;
                 height: auto;
-                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    object-position: center;
-                    border-radius: 15px;
+                & > .image-cont {
+                    width: 50%;
+                    height: auto;
+                    padding: 10px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        object-position: center;
+                        border-radius: 15px;
+                    }
+                }
+
+                & > .det-cont {
+                    width: 50%;
+                    height: auto;
+                    padding: 10px;
+
+                    & > .qr-code-cont {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        & > img {
+                            padding: 20px;
+                            object-fit: contain;
+                            width: 270px;
+                            height: 270px;
+                            box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.14), 0 6px 10px 0 rgba(0, 0, 0, 0.098),
+                                0 1px 18px 0 rgba(0, 0, 0, 0.084);
+                            image-rendering: pixelated;
+                        }
+                    }
                 }
             }
 
             & > .desc {
                 width: 100%;
                 height: auto;
-                padding: 20px 10px;
-                font-size: 16px;
+                padding: 10px;
+                & > .description {
+                    padding: 10px 0;
+                    font-size: 16px;
+                }
+
+                & > .tags {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    padding: 10px 0;
+
+                    & > .tag {
+                        width: auto;
+                        height: auto;
+                        padding: 10px 15px;
+                        background-color: #f7f7f7;
+                        border-radius: 50px;
+                        margin: 4px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        font-size: 10px;
+                    }
+                }
             }
 
             & > .time-loc {
@@ -1176,6 +1232,49 @@ body,
                     & > .text {
                         margin-left: 15px;
                         font-size: 11px;
+                    }
+                }
+            }
+
+            & > .claim-details {
+                width: 100%;
+                height: auto;
+                padding: 20px;
+
+                & > .claim {
+                    width: 100%;
+                    height: auto;
+                    padding: 10px 0;
+                    font-size: 12px;
+                    color: #424242;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    & > .count {
+                        width: 35px;
+                        height: 35px;
+                        background-color: #7a6ff0;
+                        color: white;
+                        margin: 0 10px;
+                        border-radius: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                & > .handed-over {
+                    width: 100%;
+                    height: auto;
+                    padding: 10px 0;
+                    font-size: 12px;
+
+                    & > .btn {
+                        background-color: #7a6ff0;
+                        color: white;
+                        display: inline-block;
+                        width: auto;
                     }
                 }
             }
@@ -1284,84 +1383,6 @@ body,
                             }
                         }
                     }
-                }
-            }
-
-            & > .qr-code-cont {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 40px 0;
-
-                & > img {
-                    padding: 20px;
-                    object-fit: contain;
-                    width: 270px;
-                    height: 270px;
-                    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.14), 0 6px 10px 0 rgba(0, 0, 0, 0.098),
-                        0 1px 18px 0 rgba(0, 0, 0, 0.084);
-                    image-rendering: pixelated;
-                }
-            }
-
-            & > .claim-details {
-                width: 100%;
-                height: auto;
-                padding: 20px;
-
-                & > .claim {
-                    width: 100%;
-                    height: auto;
-                    padding: 10px 0;
-                    font-size: 12px;
-                    color: #424242;
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-
-                    & > .count {
-                        width: 35px;
-                        height: 35px;
-                        background-color: #7a6ff0;
-                        color: white;
-                        margin: 0 10px;
-                        border-radius: 50px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
-
-                & > .handed-over {
-                    width: 100%;
-                    height: auto;
-                    padding: 10px 0;
-                    font-size: 12px;
-
-                    & > .btn {
-                        background-color: #7a6ff0;
-                        color: white;
-                        display: inline-block;
-                        width: auto;
-                    }
-                }
-            }
-
-            & > .claim-btn {
-                width: 100%;
-                height: auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 30px 0;
-
-                & > button {
-                    padding: 15px 40px;
-                    background-color: #7a6ff0;
-                    color: white;
-                    text-transform: uppercase;
-                    font-size: 18px;
                 }
             }
         }
@@ -1889,6 +1910,30 @@ body,
                 & > .desc {
                     margin-left: 20px;
                     width: auto;
+
+                    & > .tags {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
+                        padding: 10px 0;
+                        height: 100px;
+                        overflow-y: auto;
+
+                        & > .tag {
+                            width: auto;
+                            height: auto;
+                            padding: 8px;
+                            background-color: #dfdcdc;
+                            border-radius: 50px;
+                            margin: 2px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            position: relative;
+                            font-size: 10px;
+                        }
+                    }
                 }
 
                 & > .other {

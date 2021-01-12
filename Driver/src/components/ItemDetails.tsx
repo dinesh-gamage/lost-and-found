@@ -126,12 +126,17 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
             </div>
 
             <div className="content">
-                <div className="image-cont">
-                    <img src={getImageUrl(Item?.ImageUrl)} alt="" />
-                </div>
+                <div className="top">
+                    <div className="image-cont">
+                        <img src={getImageUrl(Item?.ImageUrl)} alt="" />
+                    </div>
 
-                <div className="desc">
-                    {Item?.Description}
+                    <div className="det-cont">
+
+                        <div className="qr-code-cont">
+                            <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${Item?._id}`} alt="" />
+                        </div>
+                    </div>
                 </div>
 
                 <div className="time-loc">
@@ -147,7 +152,32 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         </div>
                         <div className="text">{getLocationName(Item, type)}</div>
                     </div>
+                </div>
 
+
+                <div className="desc">
+                    <div className="description">{Item?.Description}</div>
+
+                    <div className="tags">
+                        {Item && Item?.Features.map((t: string, key: number) => {
+                            return (<div className="tag" key={key} >{t}</div>)
+                        })}
+                    </div>
+
+                </div>
+
+                <div className="claim-details">
+                    {Item?.claimed?.length > 0 &&
+                        <div className="claim">
+                            <><span className="count">{Item.claimed.length}</span> person(s) has claimed</>
+                        </div>
+                    }
+
+                    {hasHandedOver() &&
+                        <div className="handed-over">
+                            <div className="btn">Handed Over</div>
+                        </div>
+                    }
                 </div>
 
                 <div className="details">
@@ -217,26 +247,6 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
 
                     </div>
                 </div>
-
-
-                <div className="qr-code-cont">
-                    <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${Item?._id}`} alt="" />
-                </div>
-
-                <div className="claim-details">
-                    {Item?.claimed?.length > 0 &&
-                        <div className="claim">
-                            <><span className="count">{Item.claimed.length}</span> person(s) has claimed</>
-                        </div>
-                    }
-
-                    {hasHandedOver() &&
-                        <div className="handed-over">
-                            <div className="btn">Handed Over</div>
-                        </div>
-                    }
-                </div>
-               
 
             </div>
         </div>

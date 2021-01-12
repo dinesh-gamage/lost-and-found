@@ -131,7 +131,7 @@ const ItemsList: React.FunctionComponent<IItemsListProps> = (props) => {
 
             {items.map((item: ILostAndFoundItem, key: number) => {
 
-                return (<div className="item" key={key} onClick={() => {setSelected(item)}}>
+                return (<div className="item" key={key} onClick={() => { setSelected(item) }}>
                     <div className="header">
                         <div className="time">
                             <div className="icon-cont">
@@ -154,7 +154,13 @@ const ItemsList: React.FunctionComponent<IItemsListProps> = (props) => {
                         </div>
 
                         <div className="desc">
-                            {item.Description}
+                            {type == "lost" ? item.Description :
+                                <div className="tags">
+                                    {item && item?.Features.map((t: string, key: number) => {
+                                        return (<div className="tag" key={key} >{t}</div>)
+                                    })}
+                                </div>
+                            }
                         </div>
 
                         <div className="other">
