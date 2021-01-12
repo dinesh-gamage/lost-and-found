@@ -73,14 +73,14 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                 return
             }
             features.push(f)
-            updateObj("Features", features.join(","))
+            updateObj("Features", features)
             setNewFeature("")
         }
     }
 
     function removeFeature(f: string) {
         let features =lostItem.Features.filter((i: string) => i != f.trim())
-        updateObj("Features", features.join(","))
+        updateObj("Features", features)
     }
 
     function saveLostItem() {
