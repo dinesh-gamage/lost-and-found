@@ -37,7 +37,7 @@ const QRCodeScanner: React.FunctionComponent<IQRScannerProps> = (props) => {
             <div className="camera-cont qr-scanner">
 
                 <QrReader
-                    delay={300}
+                    delay={0}
                     onError={handleError}
                     onScan={handleScan}
                     style={{ width: '100%' }}

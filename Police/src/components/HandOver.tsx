@@ -40,6 +40,18 @@ const Handover: React.FunctionComponent<IHandOverProps> = (props) => {
 
     let Toast = useToast();
 
+    React.useEffect(() => {
+        setStep("confirm")
+        setProcessing(false)
+        setOpenScanner(false)
+        setHandoverItem({
+            email: "",
+            id: "",
+            lostItem: "",
+            photo: ""
+        })
+    }, [props])
+
     function handover() {
         if (!processing) {
             setProcessing(true)

@@ -48,6 +48,22 @@ const QRCodeScanPanel: React.FunctionComponent<IORCodeScanProps> = (props) => {
     let Toast = useToast();
 
     React.useEffect(() => {
+        setStep("scan")
+        setProcessing(false)
+        setOpenScanner(false)
+        setScanItem({
+            itemId: "",
+            bagId: "",
+            policeStation: "SAPF-023",
+            locker: "",
+            data: {
+                itemType: "normal",
+                note: ""
+            }
+        })
+    }, [props])
+
+    React.useEffect(() => {
         if (step == "locker") {
             getItemDetails(scanItem.bagId)
         }

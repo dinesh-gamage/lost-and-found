@@ -28,6 +28,7 @@ const ItemListComponent: React.FunctionComponent<IItemListComponentProps> = (pro
         if (type) getItems()
     }, [type])
 
+
     function getItems() {
         setLoading(true)
         setItems([])

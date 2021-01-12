@@ -17,6 +17,10 @@ const ItemList: React.FunctionComponent<IItemList> = (props) => {
     //states 
     let [selected, setSelected] = React.useState<ILostAndFoundItem | null>(null)
 
+    React.useEffect(() => {
+        setSelected(null)
+    }, [props])
+
     return (<div className="mda-lost-found-items-list">
 
         {loading && <div className="loading">Loading...</div>}
