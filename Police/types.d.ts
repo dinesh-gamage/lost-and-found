@@ -33,6 +33,7 @@ interface ILostAndFoundItem {
     claimed?: string[]
     HandedOverEmail?: string
     HandedOverTime?: string
+    HandedOverToImageUrl?:string
 }
 
 

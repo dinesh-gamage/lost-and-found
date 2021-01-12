@@ -107,8 +107,9 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
         return Item && Item?.HandedOverEmail?.trim().length > 0
     }
 
-    function hasClaimed() {
-        return getDetailsFromLocalStorage("email").trim().length > 0 && Item?.claimed?.find((i: string) => i == getDetailsFromLocalStorage("email"))
+    function handedOverTo(email: string) {
+        if (!hasHandedOver()) return false
+        return Item.HandedOverEmail.trim() == email.trim()
     }
 
     return (<PopupScreen show={show} >
@@ -237,28 +238,56 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                 <div className="claim-details">
                     {Item?.claimed?.length > 0 &&
                         <div className="claim">
-                            {
-                                hasClaimed()
-                                    ? <> {
-                                        Item.claimed.length > 1 ?
-                                            <>You and <span className="count">{Item.claimed.length - 1}</span> other persons(s) has claimed</>
-                                            : <>You have claimed this</>
-                                    } </>
-                                    : <><span className="count">{Item.claimed.length}</span> person(s) has claimed</>
-
-                            }
+                            <><span className="count">{Item.claimed.length}</span> person(s) has claimed</>
                         </div>
                     }
+
+                    <div className="claimed-users">
+                        {Item?.claimed?.map((user: string, key: number) => {
+                            return (<div className={classNames("user", { "active": handedOverTo(user) })}>
+                                <div className="icon-cont">
+                                    <div className="icon"></div>
+                                </div>
+
+                                <div className="email">{user} </div>
+                            </div>)
+                        })}
+                    </div>
 
                     {hasHandedOver() &&
                         <div className="handed-over">
                             <div className="btn">Handed Over</div>
                         </div>
                     }
+
+                    {
+                        hasHandedOver() &&
+
+                        <div className="handed-over-details">
+                            <div className="email">
+                                <div className="icon-cont">
+                                    <div className="icon"></div>
+                                </div>
+                                <div className="text">{Item.HandedOverEmail}</div>
+                            </div>
+                            <div className="time">
+                                <div className="icon-cont">
+                                    <div className="icon"></div>
+                                </div>
+                                <div className="text">{Item?.HandedOverTime}</div>
+                            </div>
+
+
+                            <div className="photo">
+                                <img src={getImageUrl(Item.HandedOverToImageUrl)} alt="" />
+                            </div>
+
+                        </div>
+                    }
                 </div>
-                {Item && !hasHandedOver() && !hasClaimed() &&
+                {Item && !hasHandedOver() &&
                     <div className="claim-btn">
-                        <button className="btn" onClick={() => setShowHelp(true)} >Claim</button>
+                        <button className="btn" onClick={() => setShowHelp(true)} >Handover</button>
                     </div>
                 }
 
