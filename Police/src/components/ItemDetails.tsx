@@ -191,13 +191,29 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                     <div className="info-panel">
                         {
                             type == "lost" ?
-                                <div className="section user">
-                                    <div className="icon"></div>
-                                    <div className="det">
-                                        <div className="label">Reported By</div>
-                                        <div className="name">{Item?.Name}</div>
+                                <>
+                                    <div className="section user">
+                                        <div className="icon"></div>
+                                        <div className="det">
+                                            <div className="label">Reported By</div>
+                                            <div className="name">{Item?.Name}</div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div className="section email">
+                                        <div className="icon"></div>
+                                        <div className="det">
+                                            <div className="label">email address</div>
+                                            <div className="name">{Item?.Email}</div>
+                                        </div>
+                                    </div>
+                                    <div className="section phone">
+                                        <div className="icon"></div>
+                                        <div className="det">
+                                            <div className="label">mobile number</div>
+                                            <div className="name">{Item?.Phone}</div>
+                                        </div>
+                                    </div>
+                                </>
                                 :
                                 <>
                                     <div className="section driver">
@@ -298,7 +314,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
         <Handover
             show={showHelp}
             onClose={() => setShowHelp(false)}
-            claimed={item?.claimed? item.claimed : []}
+            claimed={item?.claimed ? item.claimed : []}
             itemId={item?._id}
         />
 
