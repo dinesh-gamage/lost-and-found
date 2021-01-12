@@ -257,7 +257,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                         </div>
                     }
                 </div>
-                {Item && !hasHandedOver() && !hasClaimed() &&
+                {type != "lost" && Item && !hasHandedOver() && !hasClaimed() &&
                     <div className="claim-btn">
                         <button className="btn" onClick={() => setShowHelp(true)} >Claim</button>
                     </div>
