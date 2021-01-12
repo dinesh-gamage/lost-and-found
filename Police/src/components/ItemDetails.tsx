@@ -244,7 +244,7 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
 
                     <div className="claimed-users">
                         {Item?.claimed?.map((user: string, key: number) => {
-                            return (<div className={classNames("user", { "active": handedOverTo(user) })}>
+                            return (<div className={classNames("user", { "active": handedOverTo(user) })} key={key}>
                                 <div className="icon-cont">
                                     <div className="icon"></div>
                                 </div>
