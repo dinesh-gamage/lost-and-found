@@ -8,6 +8,10 @@ interface IContextProvider extends IPartialContextProvider {
 
 }
 
+interface IHandedOverCard {
+    CardType: string,
+    CardNumber: string
+}
 interface ILostAndFoundItem {
     _id: string
     Name: string
@@ -34,6 +38,7 @@ interface ILostAndFoundItem {
     HandedOverEmail?: string
     HandedOverTime?: string
     HandedOverToImageUrl?:string
+    HandedOverCardDetails: IHandedOverCard[]
 }
 
 

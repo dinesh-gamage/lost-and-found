@@ -16,6 +16,7 @@ interface IHandOverProps {
 
 interface IHandOver {
     email: string,
+    id: string
     lostItem: string,
     photo: string
 }
@@ -31,6 +32,7 @@ const Handover: React.FunctionComponent<IHandOverProps> = (props) => {
     let [openScanner, setOpenScanner] = React.useState(false)
     let [handoverItem, setHandoverItem] = React.useState<IHandOver>({
         email: "",
+        id: "",
         lostItem: "",
         photo: ""
     })
@@ -53,7 +55,13 @@ const Handover: React.FunctionComponent<IHandOverProps> = (props) => {
             let data = {
                 LostItemID: handoverItem.lostItem,
                 HandedOverEmail: handoverItem.email,
-                HandedOverToImageUrl: handoverItem.photo
+                HandedOverToImageUrl: handoverItem.photo,
+                HandedOverCardDetails: [
+                    {
+                        CardType: "NIC Card",
+                        CardNumber: handoverItem.id
+                    }
+                ]
             }
 
             axios.post(_url, data, config)
@@ -75,11 +83,27 @@ const Handover: React.FunctionComponent<IHandOverProps> = (props) => {
         setHandoverItem(prev => ({ ...prev, ...{ email: val } }))
     }
 
+    function updateID(val: string) {
+        setHandoverItem(prev => ({ ...prev, ...{ id: val } }))
+    }
+
     function updateQrCode(id: string) {
         setHandoverItem(prev => ({ ...prev, ...{ lostItem: id } }))
     }
     function updatePhoto(image: string) {
         setHandoverItem(prev => ({ ...prev, ...{ photo: image } }))
+    }
+
+    function onContinue() {
+        if (handoverItem.email.trim().length == 0) {
+            Toast.error("Please enter or select an email")
+            return
+        }
+        if (handoverItem.id.trim().length == 0) {
+            Toast.error("Please enter NIC number")
+            return
+        }
+        setStep("scan")
     }
 
     return (<PopupScreen show={show} >
@@ -129,16 +153,20 @@ const Handover: React.FunctionComponent<IHandOverProps> = (props) => {
                                 </div>)
                             })}
                         </div>
+                        <br /><br />
+                        <div className="search-box-cont">
+
+                            <div className="title">Enter NIC number</div>
+
+                            <input type="text" placeholder="Start typing..."
+                                value={handoverItem.id}
+                                onChange={(e) => { updateID(e.target.value) }}
+
+                            />
+                        </div>
 
                         <div className="btn-cont">
-                            <button className="btn" onClick={() => {
-                                if (handoverItem.email.trim().length > 0) {
-                                    setStep("scan")
-                                }
-                                else {
-                                    Toast.error("Please enter or select an email to continue")
-                                }
-                            }} >Continue</button>
+                            <button className="btn" onClick={onContinue} >Continue</button>
                         </div>
                     </>
                 }

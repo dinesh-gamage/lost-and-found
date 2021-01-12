@@ -287,6 +287,17 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                                 </div>
                                 <div className="text">{Item.HandedOverEmail}</div>
                             </div>
+
+                            {Item?.HandedOverCardDetails?.map((c: IHandedOverCard, key: number) => {
+                                return (<div className="id-card" key={key}>
+                                    <div className="icon-cont">
+                                        <div className="icon"></div>
+                                    </div>
+                                    <div className="text">{c.CardNumber}</div>
+                                </div>)
+                            })}
+
+
                             <div className="time">
                                 <div className="icon-cont">
                                     <div className="icon"></div>
