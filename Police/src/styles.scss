@@ -1456,9 +1456,59 @@ body,
                         font-size: 14px;
                         background-color: white;
                         color: #424242;
+                        margin: 10px;
+                        &.active {
+                            background-color: #ffbe57;
+                            color: white;
+                        }
+                    }
+                }
 
-                        &:last-child {
-                            margin-top: 15px;
+                & > .item-type {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: auto;
+                    padding: 20px 0;
+
+                    & > .toggle {
+                        width: auto;
+                        height: auto;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        & > .btn {
+                            background-color: transparent;
+                            padding: 5px 10px;
+                            color: white;
+
+                            &.active {
+                                background-color: #ffbe57;
+                                color: white;
+                                padding: 10px 20px;
+                                box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.12);
+                            }
+
+                            // &.normal {
+                            //     &.active {
+                            //         background-color: #c1c1c1;
+                            //         color: white;
+                            //     }
+                            // }
+                            // &.valuable {
+                            //     &.active {
+                            //         background-color: #7a6ff0;
+                            //         color: white;
+                            //     }
+                            // }
+                            // &.suspicious {
+                            //     &.active {
+                            //         background-color: #ffbe57;
+                            //         color: white;
+                            //     }
+                            // }
                         }
                     }
                 }
@@ -2291,7 +2341,7 @@ body,
             background-color: white;
             border-radius: 50%;
             position: relative;
-            margin: 0 30px;
+            margin: 0 10px;
 
             &::before {
                 content: "";

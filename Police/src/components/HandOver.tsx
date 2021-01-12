@@ -149,7 +149,7 @@ const Handover: React.FunctionComponent<IHandOverProps> = (props) => {
 
 
                         <div className="btn-cont">
-                            <button className="btn" onClick={() => setOpenScanner(true)}  >
+                            <button className={classNames("btn", { "active": handoverItem.lostItem.trim().length > 0 })} onClick={() => setOpenScanner(true)}  >
                                 {handoverItem.lostItem.trim().length > 0 ? "Scan Again" : "Scan QR Code"}
                             </button> <br />
                             <button className="btn" onClick={() => setStep("photo")} >
@@ -200,7 +200,9 @@ const Handover: React.FunctionComponent<IHandOverProps> = (props) => {
                     <>
                         <div className="text">All Done. </div>
                         <div className="btn-cont">
-                            <button className="btn" onClick={handover} >Handover</button>
+                            <button className="btn" onClick={handover} >
+                                {processing ? "Submitting..." : "Submit"}
+                            </button>
                         </div>
                     </>}
 

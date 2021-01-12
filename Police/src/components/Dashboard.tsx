@@ -14,7 +14,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
     // props 
 
     // states
-    let [screen, setScreen] = React.useState<IDashboardScreen>("list")
+    let [screen, setScreen] = React.useState<IDashboardScreen>("")
     let [itemType, setItemType] = React.useState<"lost" | "found">("lost")
 
     function renderDashboardContent() {
