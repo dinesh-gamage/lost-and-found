@@ -46,12 +46,29 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     let Toast = useToast();
 
     React.useEffect(() => {
-        // get from local storage
-        setTimeout(() => {
+        setLostItem({
+            _id: null,
+            Name: getDetailsFromLocalStorage("name"),
+            Phone: getDetailsFromLocalStorage("phone"),
+            Email: getDetailsFromLocalStorage("email"),
+            Title: "",
+            Description: "",
+            Features: [],
+            ImageUrl: "",
+            LastLocation: "",
+            Status: "New",
+            Created: ""
+        })
+        setSaving(false)
+        setNewItem("")
+        setUserLocationData({
+            lat: "",
+            long: "",
+            name: ""
+        })
+        setNewItem(null)
 
-        }, 500);
-
-    }, [])
+    }, [props])
 
     function updateObj(key: string, value: any) {
         setLostItem(prev => ({ ...prev, ...{ [key]: value } }))
@@ -79,7 +96,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     }
 
     function removeFeature(f: string) {
-        let features =lostItem.Features.filter((i: string) => i != f.trim())
+        let features = lostItem.Features.filter((i: string) => i != f.trim())
         updateObj("Features", features)
     }
 

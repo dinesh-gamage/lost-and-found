@@ -266,7 +266,10 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
             </div>
         </div>
 
-        <ClaimItem show={showHelp} onClose={() => setShowHelp(false)} itemId={Item?._id} />
+        <ClaimItem show={showHelp}
+            onClose={() => { setShowHelp(false); getItemDetails(item) }}
+            itemId={Item?._id}
+        />
     </PopupScreen>)
 }
 

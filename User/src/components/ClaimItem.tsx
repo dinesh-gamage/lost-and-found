@@ -23,6 +23,11 @@ const ClaimItem: React.FunctionComponent<IClaimItemProps> = (props) => {
 
     let Toast = useToast();
 
+    React.useEffect(() => {
+        setClaimed(false)
+        setClaiming(false)
+        setEmail(getDetailsFromLocalStorage("email"))
+    }, [props])
 
     function onClaim() {
         // validate
@@ -83,8 +88,8 @@ const ClaimItem: React.FunctionComponent<IClaimItemProps> = (props) => {
                         <div className="title">Please Visit</div>
                         <div className="text"> Al Khalidiya police station with your ID proof and our officers will help you further </div>
                         <div className="btn-cont">
-                                <button className="btn" onClick={onClose} >Done</button>
-                            </div>
+                            <button className="btn" onClick={onClose} >Done</button>
+                        </div>
                     </>
                     :
                     <>
