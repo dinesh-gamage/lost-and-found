@@ -1207,8 +1207,34 @@ body,
             & > .desc {
                 width: 100%;
                 height: auto;
-                padding: 20px 10px;
-                font-size: 16px;
+                padding: 10px;
+
+                & > .description {
+                    padding: 10px 0;
+                    font-size: 16px;
+                }
+
+                & > .tags {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    padding: 10px 0;
+
+                    & > .tag {
+                        width: auto;
+                        height: auto;
+                        padding: 10px 15px;
+                        background-color: #f7f7f7;
+                        border-radius: 50px;
+                        margin: 4px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        font-size: 10px;
+                    }
+                }
             }
 
             & > .time-loc {
@@ -1551,6 +1577,30 @@ body,
             & > .desc {
                 margin-left: 20px;
                 width: auto;
+
+                & > .tags {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    padding: 10px 0;
+                    height: 100px;
+                    overflow-y: auto;
+
+                    & > .tag {
+                        width: auto;
+                        height: auto;
+                        padding: 8px;
+                        background-color: #dfdcdc;
+                        border-radius: 50px;
+                        margin: 2px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        font-size: 10px;
+                    }
+                }
             }
         }
 
@@ -1598,9 +1648,11 @@ body,
                 align-items: center;
                 justify-content: center;
                 & > .btn {
-                    font-size: 11px;
+                    font-size: 8px;
                     text-transform: uppercase;
                     margin: 2px;
+                    white-space: nowrap;
+                    padding: 10px;
                 }
             }
         }
@@ -1833,6 +1885,30 @@ body,
                 & > .desc {
                     margin-left: 20px;
                     width: auto;
+
+                    & > .tags {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
+                        padding: 10px 0;
+                        height: 100px;
+                        overflow-y: auto;
+
+                        & > .tag {
+                            width: auto;
+                            height: auto;
+                            padding: 8px;
+                            background-color: #dfdcdc;
+                            border-radius: 50px;
+                            margin: 2px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            position: relative;
+                            font-size: 10px;
+                        }
+                    }
                 }
 
                 & > .other {

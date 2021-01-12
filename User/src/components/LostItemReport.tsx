@@ -28,7 +28,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
         Email: getDetailsFromLocalStorage("email"),
         Title: "",
         Description: "",
-        Features: "",
+        Features: [],
         ImageUrl: "",
         LastLocation: "",
         Status: "New",
@@ -53,20 +53,20 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
 
     }, [])
 
-    function updateObj(key: string, value: string) {
+    function updateObj(key: string, value: any) {
         setLostItem(prev => ({ ...prev, ...{ [key]: value } }))
     }
 
     function updateImageDetails(data: UploadResponse) {
         updateObj("ImageUrl", data.ImageUrl)
-        let features = data.Features.labels.join(",")
+        let features = data.Features.labels
         console.log("features", features)
         updateObj("Features", features)
     }
 
     function addFeature(f: string) {
         if (f.trim().length > 0) {
-            let features = lostItem.Features.split(",")
+            let features = lostItem.Features
             if (features.find((i: string) => i == f.trim())) {
                 // already added
                 setNewFeature("")
@@ -79,7 +79,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
     }
 
     function removeFeature(f: string) {
-        let features = [...lostItem.Features.split(",")].filter((i: string) => i != f.trim())
+        let features =lostItem.Features.filter((i: string) => i != f.trim())
         updateObj("Features", features.join(","))
     }
 
@@ -129,7 +129,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
                 Description: lostItem.Description,
                 Status: lostItem.Status,
                 ImageUrl: lostItem.ImageUrl,
-                Features: lostItem.Features.split(","),
+                Features: lostItem.Features,
                 LastLocation: JSON.stringify(locationDetails)
             }
 
@@ -289,7 +289,7 @@ const LostItemReport: React.FunctionComponent<ILostItemReportProps> = (props) =>
 
                     <div className="tags">
                         {
-                            [...lostItem.Features.split(",")].map((t: string, key: number) => {
+                            lostItem.Features.map((t: string, key: number) => {
                                 if (t.trim().length > 0) {
                                     return (<div className="tag" key={key}>
                                         <span>{t}</span>

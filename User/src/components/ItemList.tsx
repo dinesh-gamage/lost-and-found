@@ -38,8 +38,12 @@ const ItemList: React.FunctionComponent<IItemList> = (props) => {
                         <div className="image-cont">
                             <img src={getImageUrl(item.ImageUrl)} alt="" />
                         </div>
-                        <div className="desc" >
-                            {item.Description}
+                        <div className="desc">
+                            <div className="tags">
+                                {item && item?.Features.map((t: string, key: number) => {
+                                    return (<div className="tag" key={key} >{t}</div>)
+                                })}
+                            </div>
                         </div>
                     </div>
 

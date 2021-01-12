@@ -165,7 +165,13 @@ const LostClaimedList: React.FunctionComponent<IItemsListProps> = (props) => {
                         </div>
 
                         <div className="desc">
-                            {item.Description}
+                            {type == "lost" ? item.Description :
+                                <div className="tags">
+                                    {item && item?.Features.map((t: string, key: number) => {
+                                        return (<div className="tag" key={key} >{t}</div>)
+                                    })}
+                                </div>
+                            }
                         </div>
 
                         <div className="other">

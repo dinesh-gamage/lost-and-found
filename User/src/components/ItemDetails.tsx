@@ -136,7 +136,14 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
                 </div>
 
                 <div className="desc">
-                    {Item?.Description}
+                    <div className="description">{Item?.Description}</div>
+
+                    <div className="tags">
+                        {Item && Item?.Features.map((t: string, key: number) => {
+                            return (<div className="tag" key={key} >{t}</div>)
+                        })}
+                    </div>
+
                 </div>
 
                 <div className="time-loc">
