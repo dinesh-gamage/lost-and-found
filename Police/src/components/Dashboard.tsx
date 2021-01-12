@@ -15,7 +15,7 @@ const Dashboard: React.FunctionComponent<IDashboardProps> = (props) => {
 
     // states
     let [screen, setScreen] = React.useState<IDashboardScreen>("")
-    let [itemType, setItemType] = React.useState<"lost" | "found">("lost")
+    let [itemType, setItemType] = React.useState<"lost" | "found" | "claimed" | "handed">("lost")
 
     function renderDashboardContent() {
         return (<div className="mda-police-dashboard">

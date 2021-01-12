@@ -7,8 +7,8 @@ import ItemList from './ItemList'
 interface IItemListComponentProps {
     show: boolean,
     onClose: () => void
-    type: "lost" | "found"
-    onChangeType: (type: "lost" | "found") => void
+    type: "lost" | "found" | "claimed" | "handed"
+    onChangeType: (type: "lost" | "found" | "claimed" | "handed") => void
     onSelect: (s: string) => void
 }
 
@@ -32,8 +32,8 @@ const ItemListComponent: React.FunctionComponent<IItemListComponentProps> = (pro
         setLoading(true)
         setItems([])
 
-        let _url = Context.baseUrl + "/Lucy/LostItem/all";
-        if (type == "found") _url = Context.baseUrl + "/Lucy/FoundItem/all";
+        let _url = Context.baseUrl + "/Lucy/FoundItem/all";
+        if (type == "lost") _url = Context.baseUrl + "/Lucy/LostItem/all";
 
         let config: AxiosRequestConfig = {
             headers: {
@@ -43,7 +43,24 @@ const ItemListComponent: React.FunctionComponent<IItemListComponentProps> = (pro
         axios.get(_url, config)
             .then((res: any) => {
                 console.log("response : ", res)
-                setItems(res.data)
+
+                let data = res.data
+                if (type == "handed") {
+                    let handed = data.filter((d: ILostAndFoundItem) => d.HandedOverEmail?.trim().length > 0)
+                    setItems(handed)
+                }
+                else if (type == "claimed") {
+                    let claimed = data.filter((d: ILostAndFoundItem) => d.claimed?.length > 0 && (!d.HandedOverEmail || d.HandedOverEmail.trim().length == 0))
+                    setItems(claimed)
+                }
+                else if (type == "found") {
+                    let found = data.filter((d: ILostAndFoundItem) => (!d.HandedOverEmail || d.HandedOverEmail.trim().length == 0))
+                    setItems(found)
+                }
+                else {
+                    setItems(data)
+                }
+
                 setLoading(false)
             })
             .catch((e) => {
@@ -82,6 +99,12 @@ const ItemListComponent: React.FunctionComponent<IItemListComponentProps> = (pro
                         <button className={classNames("btn", { "active": type == "found" })}
                             onClick={() => onChangeType("found")}
                         >Found</button>
+                        {/* <button className={classNames("btn", { "active": type == "claimed" })}
+                            onClick={() => onChangeType("claimed")}
+                        >Claimed</button> */}
+                        <button className={classNames("btn", { "active": type == "handed" })}
+                            onClick={() => onChangeType("handed")}
+                        >Handed Over</button>
                     </div>
                 </div>
 

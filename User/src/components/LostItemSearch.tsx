@@ -46,7 +46,9 @@ const LostItemSearch: React.FunctionComponent<ILostItemSearchProps> = (props) =>
         axios.post(_url, data, config)
             .then((res: any) => {
                 console.log("response search ", res)
-                setItems(res.data)
+                let data = res.data
+                let found = data.filter((d: ILostAndFoundItem) => (!d.HandedOverEmail || d.HandedOverEmail.trim().length == 0))
+                setItems(found)
                 setLoading(false)
 
             })

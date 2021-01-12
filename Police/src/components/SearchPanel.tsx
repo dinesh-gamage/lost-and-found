@@ -5,7 +5,7 @@ import { DashboardContext } from './DashboardContext'
 import ItemList from './ItemList'
 
 interface ISearchProps {
-    type: "lost" | "found"
+    type: "lost" | "found" | "claimed" | "handed"
     show: boolean,
     onClose: () => void
 }
@@ -25,13 +25,20 @@ const SearchPanel: React.FunctionComponent<ISearchProps> = (props) => {
 
     let queryInput = React.useRef(null)
 
+    React.useEffect(() => {
+        setQuery("")
+        setItems([])
+        setLoading(false)
+        setShowList(false)
+    }, [props])
+
     function onSearch() {
         setLoading(true)
         setShowList(true)
         setItems([])
 
-        let _url = Context.baseUrl + "Lucy/LostItem/find"
-        if (type == "found") _url = Context.baseUrl + "Lucy/FoundItem/find"
+        let _url = Context.baseUrl + "Lucy/FoundItem/find"
+        if (type == "lost") _url = Context.baseUrl + "Lucy/LostItem/find"
 
         let config: AxiosRequestConfig = {
             headers: {
@@ -46,7 +53,22 @@ const SearchPanel: React.FunctionComponent<ISearchProps> = (props) => {
         axios.post(_url, data, config)
             .then((res: any) => {
                 console.log("response search ", res)
-                setItems(res.data)
+                let data = res.data
+                if (type == "handed") {
+                    let handed = data.filter((d: ILostAndFoundItem) => d.HandedOverEmail?.trim().length > 0)
+                    setItems(handed)
+                }
+                else if (type == "claimed") {
+                    let claimed = data.filter((d: ILostAndFoundItem) => d.claimed?.length > 0 && (!d.HandedOverEmail || d.HandedOverEmail.trim().length == 0))
+                    setItems(claimed)
+                }
+                else if (type == "found") {
+                    let found = data.filter((d: ILostAndFoundItem) => (!d.HandedOverEmail || d.HandedOverEmail.trim().length == 0))
+                    setItems(found)
+                }
+                else {
+                    setItems(data)
+                }
                 setLoading(false)
 
             })
