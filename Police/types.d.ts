@@ -13,20 +13,31 @@ interface ILostAndFoundItem {
     Name: string
     Phone: string
     Email: string
+    Title: string
     Description: string
-    Features: string
+    Features: string[]
     ImageUrl: string
     LastLocation: string
     Status: string
     Created: string
-    PoliceStationID?: string
-    LockerID?: string
+    PoliceStationID?:string
+    LockerID?:string
     Data?: string
-    AdditionalDetails?: string
     FoundLocation?: string
     Location?: string
+    AdditionalDetails?: {
+        BusNumber?: string,
+        BagID?: string
+        ItemType?: "normal" | "valuable" | "suspicious"
+    }
     claimed?: string[]
     HandedOverEmail?: string
     HandedOverTime?: string
+}
 
+
+interface IUserLocationData {
+    lat: string,
+    long: string,
+    name: string
 }

@@ -86,7 +86,7 @@ const ItemListComponent: React.FunctionComponent<IItemListComponentProps> = (pro
                 </div>
 
                 <div className="item-list">
-                    <ItemList items={items} loading={loading} />
+                    <ItemList items={items} loading={loading} type={type} />
                 </div>
                 <div className="footer">
                     <div className="scan-btn" onClick={() => onSelect("scan")}>

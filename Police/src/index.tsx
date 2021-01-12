@@ -16,7 +16,7 @@ type IScreen = "login" | "dashboard"
 const PoliceDashboard: React.FunctionComponent<IPoliceDashboardProps> = (props) => {
 
     // states
-    let [screen, setScreen] = React.useState<IScreen>("login")
+    let [screen, setScreen] = React.useState<IScreen>("dashboard")
 
     return (<DashboardContext.Provider value={props.context} >
         <ToastProvider>

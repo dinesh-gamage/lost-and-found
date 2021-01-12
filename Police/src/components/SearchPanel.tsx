@@ -82,7 +82,7 @@ const SearchPanel: React.FunctionComponent<ISearchProps> = (props) => {
                 </div>
 
                 <div className={classNames("item-list", { "show": showList })}>
-                    <ItemList items={items} loading={loading} />
+                    <ItemList items={items} loading={loading} type={type} />
                 </div>
 
             </div>
