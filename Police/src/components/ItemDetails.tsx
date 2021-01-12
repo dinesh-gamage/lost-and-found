@@ -3,8 +3,9 @@ import classNames = require('classnames')
 import * as React from 'react'
 import { getDetailsFromLocalStorage, getImageUrl, getLocationDetails, getLocationName } from '../utils'
 import { DashboardContext } from './DashboardContext'
+import Handover from './HandOver'
 import MapComponent from './map/MapComponent'
-import PopupScreen from './PopUpScreen'
+import PopupScreen from './PopupScreen'
 import { useToast } from './Toast'
 
 interface IItemDetailsProps {
@@ -293,6 +294,13 @@ const ItemDetails: React.FunctionComponent<IItemDetailsProps> = (props) => {
 
             </div>
         </div>
+
+        <Handover
+            show={showHelp}
+            onClose={() => setShowHelp(false)}
+            claimed={item?.claimed? item.claimed : []}
+            itemId={item?._id}
+        />
 
     </PopupScreen>)
 }

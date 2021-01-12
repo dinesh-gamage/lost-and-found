@@ -42,3 +42,16 @@ interface IUserLocationData {
     long: string,
     name: string
 }
+
+interface IColor {
+    hex: string,
+    color: string
+}
+
+interface UploadResponse{
+    ImageUrl: string
+    Features: {
+        colors: IColor[],
+        labels: string[]
+    }
+}
