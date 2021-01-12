@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import * as React from 'react'
+import { getDetailsFromLocalStorage } from '../utils'
 import { DashboardContext } from './DashboardContext'
 import PopupScreen from './PopUpScreen'
 import { useToast } from './Toast'
@@ -18,7 +19,7 @@ const ClaimItem: React.FunctionComponent<IClaimItemProps> = (props) => {
 
     let [claimed, setClaimed] = React.useState(false)
     let [claiming, setClaiming] = React.useState(false)
-    let [email, setEmail] = React.useState("")
+    let [email, setEmail] = React.useState(getDetailsFromLocalStorage("email"))
 
     let Toast = useToast();
 
