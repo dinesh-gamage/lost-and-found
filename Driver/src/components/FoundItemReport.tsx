@@ -149,7 +149,7 @@ const FoundItemReport: React.FunctionComponent<IFoundItemReportProps> = (props) 
                 'LockerID': "",
                 'Status': lostItem.Status,
                 'Phone': lostItem.Phone,
-                'AdditionalDetails': JSON.stringify(lostItem.AdditionalDetails),
+                'AdditionalDetails': lostItem.AdditionalDetails,
                 'ImageUrl': lostItem.ImageUrl,
                 'Features': lostItem.Features,
                 "FoundLocation": JSON.stringify(userLocationData)
