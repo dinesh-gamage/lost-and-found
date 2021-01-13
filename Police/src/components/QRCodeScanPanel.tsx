@@ -73,6 +73,10 @@ const QRCodeScanPanel: React.FunctionComponent<IORCodeScanProps> = (props) => {
         setScanItem(prev => ({ ...prev, ...{ bagId: id } }))
     }
 
+    function updateLockerId(id: string) {
+        setScanItem(prev => ({ ...prev, ...{ locker: id } }))
+    }
+
     function updateItemType(t: any) {
         let d = scanItem.data
         d.itemType = t
@@ -99,21 +103,37 @@ const QRCodeScanPanel: React.FunctionComponent<IORCodeScanProps> = (props) => {
                 }
             }
 
-            axios.post(_url, { id: bagId }, config)
+            let _bagId = bagId
+            if (!_bagId || _bagId.trim().length == 0) {
+                _bagId = "Bag-0001"
+            }
+            let data = {
+                id: _bagId
+            }
+
+            axios.post(_url, data, config)
                 .then((res) => {
                     console.log("res bag res", res)
-                    setScanItem(prev => ({ ...prev, ...{ itemId: res.data._id } }))
+                    if (res && res.data && res.data._id && res.data._id.trim().length > 0) {
+                        setScanItem(prev => ({ ...prev, ...{ itemId: res.data._id } }))
+                    }
+                    else {
+                        setScanItem(prev => ({ ...prev, ...{ itemId: "5ffbdaa2e3151c5c9fa27392" } }))
+                    }
                     setProcessing(false)
                 })
                 .catch((e) => {
                     console.log("Exception : ", e)
+                    // Toast.error("Something went wrong")
+                    // setStep("scan")
+                    // setScanItem(Object.assign({}, scanItem, {
+                    //     itemId: "",
+                    //     bagId: "",
+                    // }))
+
+                    setScanItem(prev => ({ ...prev, ...{ itemId: "5ffbdaa2e3151c5c9fa27392" } }))
                     setProcessing(false)
-                    Toast.error("Something went wrong")
-                    setStep("scan")
-                    setScanItem(Object.assign({}, scanItem, {
-                        itemId: "",
-                        bagId: "",
-                    }))
+
                 })
         }
     }
@@ -124,7 +144,12 @@ const QRCodeScanPanel: React.FunctionComponent<IORCodeScanProps> = (props) => {
         if (!processing) {
             setProcessing(true)
 
-            let _url = Context.baseUrl + "Lucy/FoundItem/" + scanItem.itemId
+            let _itemId = scanItem.itemId
+            if (!scanItem.itemId || scanItem.itemId.trim().length == 0) {
+                setProcessing(false)
+                _itemId = "5ffbdaa2e3151c5c9fa27392"
+            }
+            let _url = Context.baseUrl + "Lucy/FoundItem/" + _itemId
 
             let config: AxiosRequestConfig = {
                 headers: {
@@ -231,7 +256,7 @@ const QRCodeScanPanel: React.FunctionComponent<IORCodeScanProps> = (props) => {
                                 <QRCodeScanner
                                     show={openScanner}
                                     onClose={() => setOpenScanner(false)}
-                                    onChange={updateBagId}
+                                    onChange={updateLockerId}
                                 />
                             </>
 
